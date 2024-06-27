@@ -5,8 +5,6 @@ The Core module of the Tigress Framework
 You can create a new Tigress project by using composer.
 ````
 composer create-project tigress/tigress <project_name>
-cd <project_name>
-composer install
 ````
 
 ## Documentation

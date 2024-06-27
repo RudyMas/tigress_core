@@ -10,7 +10,7 @@ use stdClass;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.0.2
+ * @version 0.0.3
  * @package Tigress
  */
 class Core
@@ -21,7 +21,7 @@ class Core
 
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.0.2');
+        define('TIGRESS_CORE_VERSION', '0.0.3');
 
         if (
             file_exists('config/config.json') === false

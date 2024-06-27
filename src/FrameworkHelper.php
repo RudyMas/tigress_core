@@ -24,21 +24,22 @@ class FrameworkHelper
         if (is_dir('config') === false) {
             $firstInstall = true;
             @mkdir('config');
-            @copy('/files/config/config.sample.json', 'config/config.sample.json');
+            @copy('vendor/tigress/core/files/config/config.sample.json', 'config/config.sample.json');
+            @copy('vendor/tigress/core/files/.htaccess', 'tests/.htaccess');
         }
 
         if (is_dir('private') === false) {
             @mkdir('private');
-            @copy('/files/.htaccess', 'private/.htaccess');
+            @copy('vendor/tigress/core/files/.htaccess', 'private/.htaccess');
         }
 
         if (is_dir('public') === false) {
             @mkdir('public/css', 0777, true);
             @mkdir('public/images', 0777, true);
             @mkdir('public/javascript', 0777, true);
-            @copy('/files/.gitkeep', 'public/css/.gitkeep');
-            @copy('/files/.gitkeep', 'public/images/.gitkeep');
-            @copy('/files/.gitkeep', 'public/javascript/.gitkeep');
+            @copy('vendor/tigress/core/files/.gitkeep', 'public/css/.gitkeep');
+            @copy('vendor/tigress/core/files/.gitkeep', 'public/images/.gitkeep');
+            @copy('vendor/tigress/core/files/.gitkeep', 'public/javascript/.gitkeep');
         }
 
         if (is_dir('src') === false) {
@@ -47,27 +48,28 @@ class FrameworkHelper
             @mkdir('src/repositories', 0777, true);
             @mkdir('src/services', 0777, true);
             @mkdir('src/views', 0777, true);
-            @copy('/files/.gitkeep', 'src/controllers/.gitkeep');
-            @copy('/files/.gitkeep', 'src/models/.gitkeep');
-            @copy('/files/.gitkeep', 'src/repositories/.gitkeep');
-            @copy('/files/.gitkeep', 'src/services/.gitkeep');
-            @copy('/files/.gitkeep', 'src/views/.gitkeep');
-            @copy('/files/.htaccess', 'src/.htaccess');
+            @copy('vendor/tigress/core/files/.gitkeep', 'src/controllers/.gitkeep');
+            @copy('vendor/tigress/core/files/.gitkeep', 'src/models/.gitkeep');
+            @copy('vendor/tigress/core/files/.gitkeep', 'src/repositories/.gitkeep');
+            @copy('vendor/tigress/core/files/.gitkeep', 'src/services/.gitkeep');
+            @copy('vendor/tigress/core/files/.gitkeep', 'src/views/.gitkeep');
+            @copy('vendor/tigress/core/files/.htaccess', 'src/.htaccess');
         }
 
         if (is_dir('system') === false) {
             @mkdir('system');
-            @copy('/files/system/config.json', 'system/config.json');
+            @copy('vendor/tigress/core/files/system/config.json', 'system/config.json');
+            @copy('vendor/tigress/core/files/.htaccess', 'tests/.htaccess');
         }
 
         if (file_exists('system/config.json') === false) {
-            @copy('/files/system/config.json', 'system/config.json');
+            @copy('vendor/tigress/core/files/system/config.json', 'system/config.json');
             file_put_contents('system/version.txt', TIGRESS_CORE_VERSION);
         }
 
         if (is_dir('tests') === false) {
             @mkdir('tests');
-            @copy('/files/.htaccess', 'tests/.htaccess');
+            @copy('vendor/tigress/core/files/.htaccess', 'tests/.htaccess');
         }
 
         if (file_exists('config/config.json') === false) {
@@ -87,8 +89,8 @@ class FrameworkHelper
      */
     public static function update(): void
     {
-        @copy('/files/config/config.sample.json', 'config/config.sample.json');
-        @copy('/files/system/config.json', 'system/config.json');
+        @copy('vendor/tigress/core/files/config/config.sample.json', 'config/config.sample.json');
+        @copy('vendor/tigress/core/files/system/config.json', 'system/config.json');
         file_put_contents('system/version.txt', TIGRESS_CORE_VERSION);
     }
 }
