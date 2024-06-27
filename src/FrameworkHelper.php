@@ -25,7 +25,7 @@ class FrameworkHelper
             $firstInstall = true;
             @mkdir('config');
             @copy('vendor/tigress/core/files/config/config.sample.json', 'config/config.sample.json');
-            @copy('vendor/tigress/core/files/.htaccess', 'tests/.htaccess');
+            @copy('vendor/tigress/core/files/.htaccess', 'config/.htaccess');
         }
 
         if (is_dir('private') === false) {
@@ -58,13 +58,12 @@ class FrameworkHelper
 
         if (is_dir('system') === false) {
             @mkdir('system');
-            @copy('vendor/tigress/core/files/system/config.json', 'system/config.json');
-            @copy('vendor/tigress/core/files/.htaccess', 'tests/.htaccess');
+            @copy('vendor/tigress/core/files/.htaccess', 'system/.htaccess');
         }
 
         if (file_exists('system/config.json') === false) {
             @copy('vendor/tigress/core/files/system/config.json', 'system/config.json');
-            file_put_contents('system/version.txt', TIGRESS_CORE_VERSION);
+            file_put_contents('system/version', TIGRESS_CORE_VERSION);
         }
 
         if (is_dir('tests') === false) {
