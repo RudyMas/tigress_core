@@ -1,0 +1,26 @@
+{
+  "name": "tigress/core",
+  "description": "Tigress core library",
+  "type": "library",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Rudy Mas",
+      "email": "rudy.mas@rudymas.be",
+      "homepage": "https://rudymas.be",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.3",
+    "dompdf/dompdf": ">=v3.0.0",
+    "twig/twig": ">=v3.10.3",
+    "twig/intl-extra": ">=v3.10.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tigress\\": "src/"
+    }
+  }
+}
