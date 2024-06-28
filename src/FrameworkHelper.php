@@ -25,6 +25,7 @@ class FrameworkHelper
             $firstInstall = true;
             @mkdir('config');
             @copy('vendor/tigress/core/files/config/config.sample.json', 'config/config.sample.json');
+            @copy('vendor/tigress/core/files/config/routes.sample.json', 'config/routes.sample.json');
             @copy('vendor/tigress/core/files/.htaccess', 'config/.htaccess');
         }
 
@@ -73,9 +74,9 @@ class FrameworkHelper
 
         if (file_exists('config/config.json') === false) {
             if ($firstInstall) {
-                print('Installation is complete. You can now create the config/config.json file. Use config/config.sample.json as a starting point.');
+                print('Installation is complete. You can now create the config/config.json & config/routes.json file. Use the sample.json-files as a starting point.');
             } else {
-                print('The file config/config.json does not exist. Please create this file and try again.');
+                print('The file config/config.json or config/routes.json does not exist. Please create these files and try again.');
             }
             exit;
         }

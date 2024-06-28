@@ -1,0 +1,23 @@
+{
+  "routes": [
+    {
+      "request": "GET",
+      "path": "/",
+      "controller": "HomeController",
+      "method": "index"
+    },
+    {
+      "request": "GET",
+      "path": "/version",
+      "controller": "version\\VersionController",
+      "method": "showVersion"
+    },
+    {
+      "request": "GET",
+      "path": "/api/version",
+      "controller": "core\\apiController",
+      "method": "showVersion"
+    }
+  ],
+  "defaultRoute": "/version"
+}

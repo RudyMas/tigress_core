@@ -1,8 +1,5 @@
 ### Files to ignore in the project ###
 
-# Ignore the config.json file
-config/config.json
-
 # Don't upload the lock files
 package-lock.json
 composer.lock
