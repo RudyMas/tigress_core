@@ -8,16 +8,28 @@
         <meta name="revisit-after" content="2 days">
         <meta name="author" content="{% block meta_author %}Rudy Mas{% endblock %}">
         <meta name="contact" content="{% block meta_contact %}rudy.mas@rudymas.be{% endblock %}">
-        <meta name="keywords" content="{% meta_keywords %}tigress, framework, mvc, php{% endblock %}">
-        <meta name="description" content="{% meta_description %}Tigress - PHP MVC Framework{% endblock %}">
+        <meta name="keywords" content="{% block meta_keywords %}tigress, framework, mvc, php{% endblock %}">
+        <meta name="description" content="{% block meta_description %}Tigress - PHP MVC Framework{% endblock %}">
         <meta name="robots" content="index,follow">
         <meta name="rating" content="General">
         <meta name="Cache-Control" content="no-cache, no-store, must-revalidate">
         <title>{% block title %}Tigress PHP Framework{% endblock %}</title>
     {% endblock %}
     {% block css %}
+        <!-- Loading Font Awesome -->
+        <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+        <!-- Loading Bootstrap -->
+        <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+        <!-- Loading Bootstrap Select -->
+        <link rel="stylesheet" href="/node_modules/use-bootstrap-select/dist/use-bootstrap-select.css">
     {% endblock %}
     {% block js %}
+        <!-- Loading jQuery -->
+        <script src="/node_modules/jquery/dist/jquery.js"></script>
+        <!-- Loading Bootstrap -->
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+        <!-- Loading Bootstrap Select -->
+        <script src="/node_modules/use-bootstrap-select/dist/use-bootstrap-select.js"></script>
     {% endblock %}
 </head>
 <body>
