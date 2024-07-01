@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}en{% endblock %}">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="revisit-after" content="2 days">
+        <meta name="author" content="{% block meta_author %}Rudy Mas{% endblock %}">
+        <meta name="contact" content="{% block meta_contact %}rudy.mas@rudymas.be{% endblock %}">
+        <meta name="keywords" content="{% meta_keywords %}tigress, framework, mvc, php{% endblock %}">
+        <meta name="description" content="{% meta_description %}Tigress - PHP MVC Framework{% endblock %}">
+        <meta name="robots" content="index,follow">
+        <meta name="rating" content="General">
+        <meta name="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <title>{% block title %}Tigress PHP Framework{% endblock %}</title>
+    {% endblock %}
+    {% block css %}
+    {% endblock %}
+    {% block js %}
+    {% endblock %}
+</head>
+<body>
+{% block content %}{% endblock %}
+</body>
+</html>

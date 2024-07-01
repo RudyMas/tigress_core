@@ -9,15 +9,27 @@
     {
       "request": "GET",
       "path": "/version",
-      "controller": "version\\VersionController",
-      "method": "showVersion"
+      "controller": "VersionController",
+      "method": "index"
     },
     {
       "request": "GET",
-      "path": "/api/version",
-      "controller": "core\\apiController",
-      "method": "showVersion"
+      "path": "/api/database/get",
+      "controller": "Core\\ApiController",
+      "method": "getData"
+    },
+    {
+      "request": "GET",
+      "path": "/api/database/post",
+      "controller": "Core\\ApiController",
+      "method": "postData"
+    },
+    {
+      "request": "GET",
+      "path": "/api/database/put",
+      "controller": "Core\\ApiController",
+      "method": "putData"
     }
   ],
-  "defaultRoute": "/version"
+  "defaultRoute": "/"
 }
