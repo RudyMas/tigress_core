@@ -33,6 +33,7 @@ class Core
 
         $this->settingUpRootMapping();
 
+        // Check if the config files exist
         if (
             file_exists('config/config.json') === false
             || file_exists('config/routes.json') === false
@@ -41,14 +42,17 @@ class Core
             FrameworkHelper::create();
         }
 
+        // Load the config files
         $this->Config = json_decode(file_get_contents('config/config.json'));
         $this->Routes = json_decode(file_get_contents('config/routes.json'));
         $this->System = json_decode(file_get_contents('system/config.json'));
 
+        // Check if the database is enabled & connect to it
         if ($this->Config->packages->tigress_database === true) {
             if(!$this->connectDatabase()) throw new Exception('No database connection possible', 500);
         }
 
+        // Create a new Twig instance
         $this->Twig = new TwigHelper($this->System->Core->Twig->views, $this->System->Core->Twig->debug);
         $this->Twig->addPath('vendor/tigress/core/src/views');
 
