@@ -12,7 +12,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.1.0
+ * @version 0.1.1
  * @package Tigress
  */
 class Core
@@ -29,7 +29,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.1.0');
+        define('TIGRESS_CORE_VERSION', '0.1.1');
 
         $this->settingUpRootMapping();
 
@@ -73,7 +73,7 @@ class Core
                         $this->Config->databases->$type->password,
                         $this->Config->databases->$type->database,
                         $this->Config->databases->$type->charset,
-                        $this->Config->databases->$type->dbtype,
+                        $this->Config->databases->$type->dbType,
                     );
                     return true;
                 }
@@ -85,7 +85,7 @@ class Core
                     $this->Config->databases->development->password,
                     $this->Config->databases->development->database,
                     $this->Config->databases->development->charset,
-                    $this->Config->databases->development->dbtype,
+                    $this->Config->databases->development->dbType,
                 );
                 return true;
             }
