@@ -1,6 +1,14 @@
 {% extends 'base.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/version/index.css">
+{% endblock %}
 {% block content %}
-<h1>Test</h1>
-<p>Core: {{ tigress_core_version }}</p>
-<p>Router: {{ tigress_router_version }}</p>
+    <div class="container-lg">
+    </div>
+    <div id="version-box">
+        <h1>Test</h1>
+        <p>Core: {{ tigress_core_version }}</p>
+        <p>Router: {{ tigress_router_version }}</p>
+        <p>Database: {{ tigress_database_version }}</p>
+    </div>
 {% endblock %}

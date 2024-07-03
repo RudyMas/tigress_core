@@ -11,6 +11,7 @@ use Dompdf\Dompdf;
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
  * @version 1.0.0
+ * @lastmodified 2024-07-01
  * @package Tigress
  */
 class PdfCreatorHelper

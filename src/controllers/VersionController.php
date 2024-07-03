@@ -14,6 +14,7 @@ use Twig\Error\SyntaxError;
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
  * @version 0.9.0
+ * @lastmodified 2024-09-03
  * @package Controller
  */
 class VersionController
@@ -33,8 +34,11 @@ class VersionController
     public function index($args = []): void
     {
         $this->Core->Twig->render('version/index.twig', [
+            'BASE_URL' => BASE_URL,
+            'SYSTEM_ROOT' => SYSTEM_ROOT,
             'tigress_core_version' => TIGRESS_CORE_VERSION,
             'tigress_router_version' => TIGRESS_ROUTER_VERSION,
+            'tigress_database_version' => TIGRESS_DATABASE_VERSION,
         ]);
     }
 }

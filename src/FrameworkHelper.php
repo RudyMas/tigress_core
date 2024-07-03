@@ -8,7 +8,8 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.0.0
+ * @version 1.0.1
+ * @lastmodified 2024-07-03
  * @package Tigress
  */
 class FrameworkHelper
@@ -21,55 +22,107 @@ class FrameworkHelper
     public static function create(): void
     {
         $firstInstall = false;
-        if (is_dir('config') === false) {
+        if (is_dir(SYSTEM_ROOT . '/config') === false) {
             $firstInstall = true;
-            @mkdir('config');
-            @copy('vendor/tigress/core/files/config/config.sample.json', 'config/config.sample.json');
-            @copy('vendor/tigress/core/files/config/routes.sample.json', 'config/routes.sample.json');
-            @copy('vendor/tigress/core/files/.htaccess', 'config/.htaccess');
+            @mkdir(SYSTEM_ROOT . '/config');
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/config/config.sample.json',
+                SYSTEM_ROOT . '/config/config.sample.json'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/config/routes.sample.json',
+                SYSTEM_ROOT . '/config/routes.sample.json'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.htaccess',
+                SYSTEM_ROOT . '/config/.htaccess'
+            );
         }
 
-        if (is_dir('private') === false) {
-            @mkdir('private');
-            @copy('vendor/tigress/core/files/.htaccess', 'private/.htaccess');
+        if (is_dir(SYSTEM_ROOT . '/private') === false) {
+            @mkdir(SYSTEM_ROOT . '/private');
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.htaccess',
+                SYSTEM_ROOT . '/private/.htaccess'
+            );
         }
 
-        if (is_dir('public') === false) {
-            @mkdir('public/css', 0777, true);
-            @mkdir('public/images', 0777, true);
-            @mkdir('public/javascript', 0777, true);
-            @copy('vendor/tigress/core/files/.gitkeep', 'public/css/.gitkeep');
-            @copy('vendor/tigress/core/files/.gitkeep', 'public/images/.gitkeep');
-            @copy('vendor/tigress/core/files/.gitkeep', 'public/javascript/.gitkeep');
+        if (is_dir(SYSTEM_ROOT . '/public') === false) {
+            @mkdir(SYSTEM_ROOT . '/public/css', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/public/images', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/public/javascript', 0777, true);
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
+                SYSTEM_ROOT . '/public/css/.gitkeep'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
+                SYSTEM_ROOT . '/public/images/.gitkeep'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
+                SYSTEM_ROOT . '/public/javascript/.gitkeep'
+            );
         }
 
-        if (is_dir('src') === false) {
-            @mkdir('src/controllers', 0777, true);
-            @mkdir('src/models', 0777, true);
-            @mkdir('src/repositories', 0777, true);
-            @mkdir('src/services', 0777, true);
-            @mkdir('src/views', 0777, true);
-            @copy('vendor/tigress/core/files/.gitkeep', 'src/controllers/.gitkeep');
-            @copy('vendor/tigress/core/files/.gitkeep', 'src/models/.gitkeep');
-            @copy('vendor/tigress/core/files/.gitkeep', 'src/repositories/.gitkeep');
-            @copy('vendor/tigress/core/files/.gitkeep', 'src/services/.gitkeep');
-            @copy('vendor/tigress/core/files/.gitkeep', 'src/views/.gitkeep');
-            @copy('vendor/tigress/core/files/.htaccess', 'src/.htaccess');
+        if (is_dir(SYSTEM_ROOT . '/src') === false) {
+            @mkdir(SYSTEM_ROOT . '/src/controllers', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/src/models', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/src/repositories', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/src/services', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/src/views', 0777, true);
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
+                SYSTEM_ROOT . '/src/controllers/.gitkeep'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
+                SYSTEM_ROOT . '/src/models/.gitkeep'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
+                SYSTEM_ROOT . '/src/repositories/.gitkeep'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
+                SYSTEM_ROOT . '/src/services/.gitkeep'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
+                SYSTEM_ROOT . '/src/views/.gitkeep'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/src/views/base.twig',
+                SYSTEM_ROOT . '/src/views/base.twig'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.htaccess',
+                SYSTEM_ROOT . '/src/.htaccess'
+            );
         }
 
-        if (is_dir('system') === false) {
-            @mkdir('system');
-            @copy('vendor/tigress/core/files/.htaccess', 'system/.htaccess');
+        if (is_dir(SYSTEM_ROOT . '/system') === false) {
+            @mkdir(SYSTEM_ROOT . '/system');
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.htaccess',
+                SYSTEM_ROOT . '/system/.htaccess'
+            );
         }
 
-        if (file_exists('system/config.json') === false) {
-            @copy('vendor/tigress/core/files/system/config.json', 'system/config.json');
-            file_put_contents('system/version', TIGRESS_CORE_VERSION);
+        if (file_exists(SYSTEM_ROOT . '/system/config.json') === false) {
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/system/config.json',
+                SYSTEM_ROOT . '/system/config.json'
+            );
+            file_put_contents(SYSTEM_ROOT . '/system/version', TIGRESS_CORE_VERSION);
         }
 
         if (is_dir('tests') === false) {
             @mkdir('tests');
-            @copy('vendor/tigress/core/files/.htaccess', 'tests/.htaccess');
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.htaccess',
+                SYSTEM_ROOT . '/tests/.htaccess'
+            );
         }
 
         if (file_exists('config/config.json') === false) {
@@ -89,8 +142,14 @@ class FrameworkHelper
      */
     public static function update(): void
     {
-        @copy('vendor/tigress/core/files/config/config.sample.json', 'config/config.sample.json');
-        @copy('vendor/tigress/core/files/system/config.json', 'system/config.json');
+        @copy(
+            SYSTEM_ROOT . '/vendor/tigress/core/files/config/config.sample.json',
+            SYSTEM_ROOT . '/config/config.sample.json'
+        );
+        @copy(
+            SYSTEM_ROOT . '/vendor/tigress/core/files/system/config.json',
+            SYSTEM_ROOT . '/system/config.json'
+        );
         file_put_contents('system/version.txt', TIGRESS_CORE_VERSION);
     }
 }

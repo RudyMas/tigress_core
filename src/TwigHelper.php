@@ -32,7 +32,8 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.0.0
+ * @version 1.0.1
+ * @lastmodified 2024-07-03
  * @package Tigress
  * @see https://twig.symfony.com/doc/3.x/api.html
  * @see https://twig.symfony.com/doc/3.x/api.html#environment-options
@@ -95,7 +96,11 @@ class TwigHelper
      */
     public function render(string $template, array $data = []): void
     {
-        echo $this->twig->render($template, $data);
+        $mergedData = array_merge($data, [
+            'BASE_URL' => BASE_URL,
+            'SYSTEM_ROOT' => SYSTEM_ROOT
+        ]);
+        echo $this->twig->render($template, $mergedData);
     }
 
     /**
