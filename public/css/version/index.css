@@ -1,12 +1,12 @@
 #version-box {
-    width: 500px;
-    height: auto;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: red;
+    background-color: darkgray;
     overflow: hidden;
-    border: 1px solid black;
+    border: 2px solid white;
+    border-radius: 15px;
     padding: 10px;
+    min-width: 100px;
 }

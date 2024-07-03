@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="{% block html_lang %}en{% endblock %}">
+<html lang="{% block html_lang %}{{ WEBSITE.html_lang }}{% endblock %}">
 <head>
     {% block head %}
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="revisit-after" content="2 days">
-        <meta name="author" content="{% block meta_author %}{{ website.author }}{% endblock %}">
-        <meta name="contact" content="{% block meta_contact %}{{ website.contact }}{% endblock %}">
-        <meta name="keywords" content="{% block meta_keywords %}{{ website.keywords }}{% endblock %}">
-        <meta name="description" content="{% block meta_description %}{{ website.description }}{% endblock %}">
+        <meta name="author" content="{% block meta_author %}{{ WEBSITE.author }}{% endblock %}">
+        <meta name="contact" content="{% block meta_contact %}{{ WEBSITE.contact }}{% endblock %}">
+        <meta name="keywords" content="{% block meta_keywords %}{{ WEBSITE.keywords }}{% endblock %}">
+        <meta name="description" content="{% block meta_description %}{{ WEBSITE.description }}{% endblock %}">
         <meta name="robots" content="index,follow">
         <meta name="rating" content="General">
         <meta name="Cache-Control" content="no-cache, no-store, must-revalidate">
-        <title>{% block title %}{{ website.title }}{% endblock %}</title>
+        <title>{% block title %}{{ WEBSITE.title }}{% endblock %}</title>
     {% endblock %}
     {% block css %}
         <!-- Loading Font Awesome -->
@@ -24,6 +24,11 @@
         <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/use-bootstrap-select/dist/use-bootstrap-select.css">
         <!-- Loading Custom CSS -->
         <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/tigress.css">
+        {% if WEBSITE.mode == 'dark' %}
+            <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/tigress_dark.css">
+        {% else %}
+            <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/tigress_light.css">
+        {% endif %}
     {% endblock %}
     {% block js %}
         <!-- Loading jQuery -->

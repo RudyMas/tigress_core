@@ -12,7 +12,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.1.2
+ * @version 0.1.3
  * @lastmodified 2024-07-03
  * @package Tigress
  */
@@ -30,9 +30,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.1.2');
-
-        $this->settingUpRootMapping();
+        define('TIGRESS_CORE_VERSION', '0.1.3');
 
         // Check if the config files exist
         if (
@@ -47,6 +45,9 @@ class Core
         $this->Config = json_decode(file_get_contents('config/config.json'));
         $this->Routes = json_decode(file_get_contents('config/routes.json'));
         $this->System = json_decode(file_get_contents('system/config.json'));
+
+        // Create BASE_URL, SYSTEM_ROOT & others
+        $this->settingUpRootMapping();
 
         // Check if the database is enabled & connect to it
         if ($this->Config->packages->tigress_database === true) {
@@ -119,5 +120,7 @@ class Core
             $extraPath .= '/' . $arrayServerName[$i];
         }
         define('SYSTEM_ROOT', $_SERVER['DOCUMENT_ROOT'] . $extraPath . BASE_URL);
+
+        define('WEBSITE', $this->Config->website ?? '');
     }
 }

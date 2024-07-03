@@ -14,19 +14,19 @@
     },
     {
       "request": "GET",
-      "path": "/api/database/get",
+      "path": "/api/database",
       "controller": "Core\\ApiController",
       "method": "getData"
     },
     {
-      "request": "GET",
-      "path": "/api/database/post",
+      "request": "POST",
+      "path": "/api/database",
       "controller": "Core\\ApiController",
       "method": "postData"
     },
     {
-      "request": "GET",
-      "path": "/api/database/put",
+      "request": "PUT",
+      "path": "/api/database",
       "controller": "Core\\ApiController",
       "method": "putData"
     }

@@ -98,7 +98,8 @@ class TwigHelper
     {
         $mergedData = array_merge($data, [
             'BASE_URL' => BASE_URL,
-            'SYSTEM_ROOT' => SYSTEM_ROOT
+            'SYSTEM_ROOT' => SYSTEM_ROOT,
+            'WEBSITE' => WEBSITE,
         ]);
         echo $this->twig->render($template, $mergedData);
     }
