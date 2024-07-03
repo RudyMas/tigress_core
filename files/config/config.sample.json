@@ -1,4 +1,14 @@
 {
+  "website": {
+    "title": "Tigress PHP Framework",
+    "description": "Tigress - PHP MVC Framework",
+    "keywords": "tigress, framework, mvc, php",
+    "author": "Rudy Mas",
+    "contact": "rudy.mas@rudymas.be"
+  },
+  "packages": {
+    "tigress_database": false
+  },
   "databases": {
     "development": {
       "host": "localhost",

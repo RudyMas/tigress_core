@@ -34,8 +34,7 @@ class VersionController
     public function index($args = []): void
     {
         $this->Core->Twig->render('version/index.twig', [
-            'BASE_URL' => BASE_URL,
-            'SYSTEM_ROOT' => SYSTEM_ROOT,
+            'website' => $this->Core->Config->website ?? '',
             'tigress_core_version' => TIGRESS_CORE_VERSION,
             'tigress_router_version' => TIGRESS_ROUTER_VERSION,
             'tigress_database_version' => TIGRESS_DATABASE_VERSION,

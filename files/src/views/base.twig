@@ -6,30 +6,32 @@
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="revisit-after" content="2 days">
-        <meta name="author" content="{% block meta_author %}Rudy Mas{% endblock %}">
-        <meta name="contact" content="{% block meta_contact %}rudy.mas@rudymas.be{% endblock %}">
-        <meta name="keywords" content="{% block meta_keywords %}tigress, framework, mvc, php{% endblock %}">
-        <meta name="description" content="{% block meta_description %}Tigress - PHP MVC Framework{% endblock %}">
+        <meta name="author" content="{% block meta_author %}{{ website.author }}{% endblock %}">
+        <meta name="contact" content="{% block meta_contact %}{{ website.contact }}{% endblock %}">
+        <meta name="keywords" content="{% block meta_keywords %}{{ website.keywords }}{% endblock %}">
+        <meta name="description" content="{% block meta_description %}{{ website.description }}{% endblock %}">
         <meta name="robots" content="index,follow">
         <meta name="rating" content="General">
         <meta name="Cache-Control" content="no-cache, no-store, must-revalidate">
-        <title>{% block title %}Tigress PHP Framework{% endblock %}</title>
+        <title>{% block title %}{{ website.title }}{% endblock %}</title>
     {% endblock %}
     {% block css %}
         <!-- Loading Font Awesome -->
-        <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/font-awesome/css/font-awesome.min.css">
         <!-- Loading Bootstrap -->
-        <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/bootstrap/dist/css/bootstrap.css">
         <!-- Loading Bootstrap Select -->
-        <link rel="stylesheet" href="/node_modules/use-bootstrap-select/dist/use-bootstrap-select.css">
+        <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/use-bootstrap-select/dist/use-bootstrap-select.css">
+        <!-- Loading Custom CSS -->
+        <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/tigress.css">
     {% endblock %}
     {% block js %}
         <!-- Loading jQuery -->
-        <script src="/node_modules/jquery/dist/jquery.js"></script>
+        <script src="{{ BASE_URL }}/node_modules/jquery/dist/jquery.js"></script>
         <!-- Loading Bootstrap -->
-        <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="{{ BASE_URL }}/node_modules/bootstrap/dist/js/bootstrap.js"></script>
         <!-- Loading Bootstrap Select -->
-        <script src="/node_modules/use-bootstrap-select/dist/use-bootstrap-select.js"></script>
+        <script src="{{ BASE_URL }}/node_modules/use-bootstrap-select/dist/use-bootstrap-select.js"></script>
     {% endblock %}
 </head>
 <body>
