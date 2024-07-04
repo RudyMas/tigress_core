@@ -10,10 +10,20 @@ namespace Tigress;
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
  * @version 1.0.1
  * @lastmodified 2024-07-03
- * @package Tigress
+ * @package Tigress\FrameworkHelper
  */
 class FrameworkHelper
 {
+    /**
+     * Get the version of the FrameworkHelper
+     *
+     * @return string
+     */
+    public static function version(): string
+    {
+        return '1.0.1';
+    }
+
     /**
      * Create the necessary directories and files for the framework.
      *

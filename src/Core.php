@@ -12,9 +12,9 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.1.5
+ * @version 0.2.0
  * @lastmodified 2024-07-04
- * @package Tigress
+ * @package Tigress\Core
  */
 class Core
 {
@@ -30,7 +30,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.1.5');
+        define('TIGRESS_CORE_VERSION', '0.2.0');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
@@ -58,10 +58,10 @@ class Core
         }
 
         // Create a new Twig instance
-        $this->Twig = new DisplayHelper($this->System->Core->Twig->views, $this->System->Core->Twig->debug);
+        $this->Twig = new DisplayHelper($this->System->Core->Twig->views, $this->System->Core->debug);
         $this->Twig->addPath('vendor/tigress/core/src/views');
 
-        $Router = new Router($this);
+        new Router($this);
     }
 
     /**

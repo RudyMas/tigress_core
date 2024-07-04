@@ -12,11 +12,21 @@ use Dompdf\Dompdf;
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
  * @version 1.0.0
  * @lastmodified 2024-07-01
- * @package Tigress
+ * @package Tigress\PdfCreatorHelper
  */
 class PdfCreatorHelper
 {
     private Dompdf $Dompdf;
+
+    /**
+     * Get the version of the PdfCreatorHelper
+     *
+     * @return string
+     */
+    public static function version(): string
+    {
+        return '1.0.0';
+    }
 
     public function __construct(array $config = [])
     {

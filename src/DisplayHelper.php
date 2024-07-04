@@ -4,6 +4,7 @@ namespace Tigress;
 
 use DOMDocument;
 use Exception;
+use JetBrains\PhpStorm\NoReturn;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -18,9 +19,9 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.1.1
- * @lastmodified 2024-07-03
- * @package Tigress
+ * @version 1.2.0
+ * @lastmodified 2024-07-04
+ * @package Tigress\DisplayHelper
  */
 class DisplayHelper
 {
@@ -28,11 +29,28 @@ class DisplayHelper
     private Environment $twig;
 
     /**
+     * Get the version of the DisplayHelper
+     *
+     * @return string
+     */
+    public static function version(): string
+    {
+        return '1.2.0';
+    }
+
+    /**
      * @param string $viewFolder
      * @param bool $debug
      */
     public function __construct(string $viewFolder = __DIR__ . '/../view/', bool $debug = false)
     {
+        // Active error reporting PHP
+        if ($debug) {
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+        }
+
         // Setting up TWIG for templating
         $this->loader = new FilesystemLoader($viewFolder);
         $this->twig = new Environment($this->loader, ['debug' => $debug]);
@@ -73,40 +91,70 @@ class DisplayHelper
      * @param array $data
      * @param string $type
      * @param int $httpResponseCode
+     * @param array $config
      * @return void
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      * @throws Exception
      */
     public function render(
         ?string $template,
         array   $data = [],
         string  $type = 'TWIG',
-        int     $httpResponseCode = 200
+        int     $httpResponseCode = 200,
+        array   $config = [],
     ): void
     {
-        $mergedData = array_merge($data, [
-            'BASE_URL' => BASE_URL,
-            'SYSTEM_ROOT' => SYSTEM_ROOT,
-            'WEBSITE' => WEBSITE,
-        ]);
-
         switch (strtoupper($type)) {
-            case 'TWIG':
-                $this->renderTwig($template, $mergedData);
-                break;
             case 'HTML':
                 $this->renderHtml($template);
+                break;
+            case 'JSON':
+                $this->renderJson($data, $httpResponseCode);
+                break;
+            case 'PDF':
+                $this->renderPDF($template, $data, $config);
+                break;
+            case 'PHP':
+                $this->renderPhp($template, $data);
+                break;
+            case 'TWIG':
+                $this->renderTwig($template, $data);
+                break;
+            case 'XML':
+                $this->renderXml($data, $httpResponseCode, $config);
+                break;
             default:
                 throw new Exception("<p><b>Exception:</b> Wrong page type ({$type}) given.</p>", 500);
         }
+        ob_flush();
+        flush();
     }
 
     /**
-     * Show a HTML file
+     * Redirect the user to another page
+     *
+     * @param string $page Page to redirect to (Can be a URL or a routing directive)
+     */
+    #[NoReturn] public function redirect(string $page): void
+    {
+        if (preg_match("/(http|ftp|https)?:?\/\//", $page)) {
+            header('Location: ' . $page);
+        } else {
+            $dirname = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
+            header('Location: ' . $dirname . $page);
+        }
+        exit;
+    }
+
+    /**
+     * Show an HTML file
      *
      * @param $template
      * @return void
      */
-    public function renderHtml($template): void
+    private function renderHtml($template): void
     {
         $display = $_SERVER['DOCUMENT_ROOT'] . BASE_URL . '/src/Views/' . $template;
         if (file_exists($display)) {
@@ -114,6 +162,38 @@ class DisplayHelper
         } else {
             header('HTTP/1.1 404 Not Found', true, 404);
         }
+    }
+
+    /**
+     * Show a JSON output
+     *
+     * @param array $data
+     * @param int $httpResponseCode
+     * @return void
+     */
+    private function renderJson(array $data, int $httpResponseCode = 200): void
+    {
+        $convert = $this->checkHttpResponseCode($httpResponseCode, $data);
+        $convert->arrayToJson();
+
+        http_response_code($httpResponseCode);
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: *');
+        print($convert->getJsonData());
+    }
+
+    /**
+     * Show a PHP file
+     *
+     * @param string $template
+     * @param array $data
+     * @return void
+     */
+    private function renderPhp(string $template, array $data = []): void
+    {
+        extract($data);
+        include_once $template;
     }
 
     /**
@@ -126,9 +206,38 @@ class DisplayHelper
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function renderTwig(string $template, array $data = []): void
+    private function renderTwig(string $template, array $data = []): void
     {
-        echo $this->twig->render($template, $data);
+        $mergedData = array_merge($data, [
+            'BASE_URL' => BASE_URL,
+            'SYSTEM_ROOT' => SYSTEM_ROOT,
+            'WEBSITE' => WEBSITE,
+        ]);
+
+        echo $this->twig->render($template, $mergedData);
+    }
+
+    /**
+     * Show an XML output
+     *
+     * @param array $data
+     * @param int $httpResponseCode
+     * @param array $config
+     * @return void
+     */
+    private function renderXml(array $data, int $httpResponseCode = 200, array $config = []): void
+    {
+        $xmlRoot = $config['xmlRoot'] ?? 'root';
+        $xmlItem = $config['xmlItem'] ?? 'item';
+
+        $convert = $this->checkHttpResponseCode($httpResponseCode, $data);
+        $convert->arrayToXml($xmlRoot, $xmlItem);
+
+        http_response_code($httpResponseCode);
+        header('Content-Type: application/xml');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: *');
+        print($convert->getXmlData());
     }
 
     /**
@@ -149,7 +258,7 @@ class DisplayHelper
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function createPDF(string $template, array $data = [], array $pdfConfig = []): void
+    private function renderPDF(string $template, array $data = [], array $pdfConfig = []): void
     {
         $pdf = new PdfCreatorHelper();
 
@@ -177,19 +286,24 @@ class DisplayHelper
     }
 
     /**
-     * Redirect the user to another page
+     * Check the HTTP response code and return the data
      *
-     * @param string $page Page to redirect to (Can be a URL or a routing directive)
+     * @param int $httpResponseCode
+     * @param array $data
+     * @return DataConverter
      */
-    public function redirect(string $page): void
+    private function checkHttpResponseCode(int $httpResponseCode, array $data): DataConverter
     {
-        if (preg_match("/(http|ftp|https)?:?\/\//", $page)) {
-            header('Location: ' . $page);
+        if ($httpResponseCode >= 200 && $httpResponseCode < 300) {
+            $outputData = $data;
         } else {
-            $dirname = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
-            header('Location: ' . $dirname . $page);
+            $outputData['error']['code'] = $httpResponseCode;
+            $outputData['error']['message'] = 'Error ' . $httpResponseCode . ' has occurred';
         }
-        exit;
+
+        $convert = new DataConverter();
+        $convert->setArrayData($outputData);
+        return $convert;
     }
 
     /**

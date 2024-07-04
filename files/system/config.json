@@ -1,8 +1,8 @@
 {
+  "debug": false,
   "Core": {
     "Twig": {
-      "views": "src/views",
-      "debug": false
+      "views": "src/views"
     }
   }
 }
