@@ -3,43 +3,26 @@
 namespace Tigress;
 
 use DOMDocument;
+use Exception;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use Twig\Extension\DebugExtension;
 use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\TwigFilter;
 
 /**
- * Class TwigClass - A simple wrapper around Twig
- * - Includes the IntlExtension
- * - Includes the DebugExtension (if debug is set to true)
- * - Includes a method to add a path to the loader
- * - Includes a method to render a template
- * - Includes a method to redirect the user to another page
- * - Includes a method to get the data to use in the menu
- * - Includes a method to transfer a standard img-tag to a base64 encoded img-tag
- * - Includes a method to create & download a PDF file from a template
- * - Includes a method to dump a variable
- *
- * Added Filters:
- * - bitwise_and: Perform a bitwise AND operation
- * - bitwise_or: Perform a bitwise OR operation
- * - bitwise_xor: Perform a bitwise XOR operation
- * - bitwise_not: Perform a bitwise NOT operation
- *
+ * Class DisplayHelper (PHP version 8.3)
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.0.1
+ * @version 1.1.1
  * @lastmodified 2024-07-03
  * @package Tigress
- * @see https://twig.symfony.com/doc/3.x/api.html
- * @see https://twig.symfony.com/doc/3.x/api.html#environment-options
- * @see https://twig.symfony.com/doc/3.x/api.html#debugging
  */
-class TwigHelper
+class DisplayHelper
 {
     private FilesystemLoader $loader;
     private Environment $twig;
@@ -50,23 +33,22 @@ class TwigHelper
      */
     public function __construct(string $viewFolder = __DIR__ . '/../view/', bool $debug = false)
     {
+        // Setting up TWIG for templating
         $this->loader = new FilesystemLoader($viewFolder);
         $this->twig = new Environment($this->loader, ['debug' => $debug]);
+        if ($debug) $this->twig->addExtension(new DebugExtension());
         $this->twig->addExtension(new IntlExtension());
 
         // Register custom filters in Twig
         $this->twig->addFilter(new TwigFilter('bitwise_and', function ($a, $b) {
             return $a & $b;
         }));
-
         $this->twig->addFilter(new TwigFilter('bitwise_or', function ($a, $b) {
             return $a | $b;
         }));
-
         $this->twig->addFilter(new TwigFilter('bitwise_xor', function ($a, $b) {
             return $a ^ $b;
         }));
-
         $this->twig->addFilter(new TwigFilter('bitwise_not', function ($a) {
             return ~$a;
         }));
@@ -87,6 +69,56 @@ class TwigHelper
     /**
      * Render a template
      *
+     * @param string|null $template
+     * @param array $data
+     * @param string $type
+     * @param int $httpResponseCode
+     * @return void
+     * @throws Exception
+     */
+    public function render(
+        ?string $template,
+        array   $data = [],
+        string  $type = 'TWIG',
+        int     $httpResponseCode = 200
+    ): void
+    {
+        $mergedData = array_merge($data, [
+            'BASE_URL' => BASE_URL,
+            'SYSTEM_ROOT' => SYSTEM_ROOT,
+            'WEBSITE' => WEBSITE,
+        ]);
+
+        switch (strtoupper($type)) {
+            case 'TWIG':
+                $this->renderTwig($template, $mergedData);
+                break;
+            case 'HTML':
+                $this->renderHtml($template);
+            default:
+                throw new Exception("<p><b>Exception:</b> Wrong page type ({$type}) given.</p>", 500);
+        }
+    }
+
+    /**
+     * Show a HTML file
+     *
+     * @param $template
+     * @return void
+     */
+    public function renderHtml($template): void
+    {
+        $display = $_SERVER['DOCUMENT_ROOT'] . BASE_URL . '/src/Views/' . $template;
+        if (file_exists($display)) {
+            readfile($display);
+        } else {
+            header('HTTP/1.1 404 Not Found', true, 404);
+        }
+    }
+
+    /**
+     * Show a TWIG template
+     *
      * @param string $template
      * @param array $data
      * @return void
@@ -94,14 +126,9 @@ class TwigHelper
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function render(string $template, array $data = []): void
+    public function renderTwig(string $template, array $data = []): void
     {
-        $mergedData = array_merge($data, [
-            'BASE_URL' => BASE_URL,
-            'SYSTEM_ROOT' => SYSTEM_ROOT,
-            'WEBSITE' => WEBSITE,
-        ]);
-        echo $this->twig->render($template, $mergedData);
+        echo $this->twig->render($template, $data);
     }
 
     /**

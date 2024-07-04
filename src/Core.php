@@ -12,13 +12,13 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.1.3
+ * @version 0.1.4
  * @lastmodified 2024-07-03
  * @package Tigress
  */
 class Core
 {
-    public TwigHelper $Twig;
+    public DisplayHelper $Twig;
     public Database $Database;
     public stdClass $Config;
     public stdClass $Routes;
@@ -30,7 +30,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.1.3');
+        define('TIGRESS_CORE_VERSION', '0.1.4');
 
         // Check if the config files exist
         if (
@@ -55,7 +55,7 @@ class Core
         }
 
         // Create a new Twig instance
-        $this->Twig = new TwigHelper($this->System->Core->Twig->views, $this->System->Core->Twig->debug);
+        $this->Twig = new DisplayHelper($this->System->Core->Twig->views, $this->System->Core->Twig->debug);
         $this->Twig->addPath('vendor/tigress/core/src/views');
 
         $Router = new Router($this);
@@ -122,5 +122,17 @@ class Core
         define('SYSTEM_ROOT', $_SERVER['DOCUMENT_ROOT'] . $extraPath . BASE_URL);
 
         define('WEBSITE', $this->Config->website ?? '');
+    }
+
+    /**
+     * @param mixed $array
+     * @param bool $stop
+     */
+    public static function dump($array, bool $stop = false): void
+    {
+        print('<pre>');
+        print_r($array);
+        print('</pre>');
+        if ($stop) exit;
     }
 }
