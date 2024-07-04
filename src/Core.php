@@ -32,6 +32,9 @@ class Core
     {
         define('TIGRESS_CORE_VERSION', '0.1.4');
 
+        // Create BASE_URL, SYSTEM_ROOT & others
+        $this->settingUpRootMapping();
+
         // Check if the config files exist
         if (
             file_exists('config/config.json') === false
@@ -45,9 +48,6 @@ class Core
         $this->Config = json_decode(file_get_contents('config/config.json'));
         $this->Routes = json_decode(file_get_contents('config/routes.json'));
         $this->System = json_decode(file_get_contents('system/config.json'));
-
-        // Create BASE_URL, SYSTEM_ROOT & others
-        $this->settingUpRootMapping();
 
         // Check if the database is enabled & connect to it
         if ($this->Config->packages->tigress_database === true) {
