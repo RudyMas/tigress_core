@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Exception;
 use Tigress\Core;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -29,14 +30,14 @@ class VersionController
     /**
      * @throws SyntaxError
      * @throws RuntimeError
-     * @throws LoaderError
+     * @throws LoaderError|Exception
      */
     public function index($args = []): void
     {
         $this->Core->Twig->render('version/index.twig', [
             'tigress_core_version' => TIGRESS_CORE_VERSION,
             'tigress_router_version' => TIGRESS_ROUTER_VERSION,
-            'tigress_database_version' => TIGRESS_DATABASE_VERSION,
+            'tigress_database_version' => TIGRESS_DATABASE_VERSION ?? 'Not installed',
         ]);
     }
 }

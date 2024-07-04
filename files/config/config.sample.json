@@ -1,7 +1,7 @@
 {
   "website": {
-    "title": "*** Tigress PHP Framework",
-    "description": "Tigress - PHP MVC Framework",
+    "title": "Tigress PHP Framework",
+    "description": "Tigress is a PHP framework for building web applications.",
     "keywords": "tigress, framework, mvc, php",
     "author": "Rudy Mas",
     "contact": "rudy.mas@rudymas.be",

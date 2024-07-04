@@ -14,6 +14,6 @@
         <h2 class="text-nowrap">Tigress PHP Framework</h2>
         <p>Core: {{ tigress_core_version }}<br>
         Router: {{ tigress_router_version }}<br>
-        Database: {{ tigress_database_version }}</p>
+        {% if tigress_database_version %}Database: {{ tigress_database_version }}{% endif %}</p>
     </div>
 {% endblock %}
