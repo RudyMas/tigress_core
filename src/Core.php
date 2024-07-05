@@ -19,7 +19,7 @@ use Twig\Error\LoaderError;
 class Core
 {
     public DisplayHelper $Twig;
-    public Database $Database;
+    public array $Database = [];
     public stdClass $Config;
     public stdClass $Routes;
     public stdClass $System;
@@ -76,27 +76,31 @@ class Core
         foreach ($this->Config->servers as $server => $type) {
             if (isset($_SERVER['HTTP_HOST'])) {
                 if (strpos($_SERVER['HTTP_HOST'], $server)) {
-                    $this->Database = new Database(
-                        $this->Config->databases->$type->host,
-                        $this->Config->databases->$type->port,
-                        $this->Config->databases->$type->username,
-                        $this->Config->databases->$type->password,
-                        $this->Config->databases->$type->database,
-                        $this->Config->databases->$type->charset,
-                        $this->Config->databases->$type->dbType,
-                    );
+                    foreach($this->Config->databases->$type as $key => $value) {
+                        $this->Database[$key] = new Database(
+                            $value->host,
+                            $value->port,
+                            $value->username,
+                            $value->password,
+                            $value->database,
+                            $value->charset,
+                            $value->dbType,
+                        );
+                    }
                     return true;
                 }
             } else {
-                $this->Database = new Database(
-                    $this->Config->databases->development->host,
-                    $this->Config->databases->development->port,
-                    $this->Config->databases->development->username,
-                    $this->Config->databases->development->password,
-                    $this->Config->databases->development->database,
-                    $this->Config->databases->development->charset,
-                    $this->Config->databases->development->dbType,
-                );
+                foreach ($this->Config->databases->development as $key => $value) {
+                    $this->Database[$key] = new Database(
+                        $value->host,
+                        $value->port,
+                        $value->username,
+                        $value->password,
+                        $value->database,
+                        $value->charset,
+                        $value->dbType,
+                    );
+                }
                 return true;
             }
         }

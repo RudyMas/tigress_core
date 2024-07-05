@@ -4,9 +4,38 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: darkgray;
-    overflow: hidden;
     border: 2px solid white;
     border-radius: 15px;
     padding: 10px;
     min-width: 100px;
+    box-shadow: 0 0 0 1px black;
+}
+
+#versionBackButton {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+}
+
+#versionBackButton button {
+    font-size: 20px;
+    line-height: 10px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 1000px;
+    box-shadow: 0 0 0 1px black;
+}
+
+#versionBackButton button:before {
+    content: "Close";
+}
+
+#versionBackButton button:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+button {
+    cursor: pointer;
 }

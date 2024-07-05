@@ -13,31 +13,64 @@
   },
   "databases": {
     "development": {
-      "host": "localhost",
-      "port": 3306,
-      "username": "username",
-      "password": "password",
-      "database": "database",
-      "charset": "utf8",
-      "dbType": "mysql"
+      "default": {
+        "host": "localhost",
+        "port": 3306,
+        "username": "username",
+        "password": "password",
+        "database": "database",
+        "charset": "utf8",
+        "dbType": "mysql"
+      },
+      "extra": {
+        "host": "localhost",
+        "port": 3306,
+        "username": "username",
+        "password": "password",
+        "database": "database",
+        "charset": "utf8",
+        "dbType": "mysql"
+      }
     },
     "test": {
-      "host": "localhost",
-      "port": 3306,
-      "username": "username",
-      "password": "password",
-      "database": "database",
-      "charset": "utf8",
-      "dbType": "mysql"
+      "default": {
+        "host": "localhost",
+        "port": 3306,
+        "username": "username",
+        "password": "password",
+        "database": "database",
+        "charset": "utf8",
+        "dbType": "mysql"
+      },
+      "extra": {
+        "host": "localhost",
+        "port": 3306,
+        "username": "username",
+        "password": "password",
+        "database": "database",
+        "charset": "utf8",
+        "dbType": "mysql"
+      }
     },
     "production": {
-      "host": "localhost",
-      "port": 3306,
-      "username": "username",
-      "password": "password",
-      "database": "database",
-      "charset": "utf8",
-      "dbType": "mysql"
+      "default": {
+        "host": "localhost",
+        "port": 3306,
+        "username": "username",
+        "password": "password",
+        "database": "database",
+        "charset": "utf8",
+        "dbType": "mysql"
+      },
+      "extra": {
+        "host": "localhost",
+        "port": 3306,
+        "username": "username",
+        "password": "password",
+        "database": "database",
+        "charset": "utf8",
+        "dbType": "mysql"
+      }
     }
   },
   "servers": {
