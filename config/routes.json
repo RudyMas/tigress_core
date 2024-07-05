@@ -8,9 +8,21 @@
     },
     {
       "request": "GET",
-      "path": "/api/version",
-      "controller": "core\\apiController",
-      "method": "showVersion"
+      "path": "/api/database",
+      "controller": "Core\\ApiController",
+      "method": "getData"
+    },
+    {
+      "request": "POST",
+      "path": "/api/database",
+      "controller": "Core\\ApiController",
+      "method": "postData"
+    },
+    {
+      "request": "PUT",
+      "path": "/api/database",
+      "controller": "Core\\ApiController",
+      "method": "putData"
     }
   ]
 }

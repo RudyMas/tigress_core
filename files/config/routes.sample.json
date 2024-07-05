@@ -5,30 +5,11 @@
       "path": "/",
       "controller": "HomeController",
       "method": "index"
-    },
+    }
+  ],
+  "extraRoutes": [
     {
-      "request": "GET",
-      "path": "/version",
-      "controller": "VersionController",
-      "method": "index"
-    },
-    {
-      "request": "GET",
-      "path": "/api/database",
-      "controller": "Core\\ApiController",
-      "method": "getData"
-    },
-    {
-      "request": "POST",
-      "path": "/api/database",
-      "controller": "Core\\ApiController",
-      "method": "postData"
-    },
-    {
-      "request": "PUT",
-      "path": "/api/database",
-      "controller": "Core\\ApiController",
-      "method": "putData"
+      "package": "tigress/core"
     }
   ],
   "defaultRoute": "/"
