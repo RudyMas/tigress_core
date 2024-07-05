@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller;
+namespace Controller\version;
 
 use Exception;
 use Tigress\Core;
@@ -22,8 +22,8 @@ use Twig\Error\SyntaxError;
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
  * @version 0.9.0
- * @lastmodified 2024-09-03
- * @package Controller\VersionController
+ * @lastmodified 2024-09-05
+ * @package Controller\version\VersionController
  */
 class VersionController
 {

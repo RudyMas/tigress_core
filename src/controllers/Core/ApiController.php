@@ -11,7 +11,7 @@ use Tigress\Core;
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
  * @version 0.9.0
- * @package Controller\Core
+ * @package Controller\Core\ApiController
  */
 class ApiController
 {

@@ -4,7 +4,7 @@
       "request": "GET",
       "path": "/version",
       "controller": "version\\VersionController",
-      "method": "showVersion"
+      "method": "index"
     },
     {
       "request": "GET",
