@@ -37,6 +37,9 @@ The included sample file contains working examples of the following routes:
 - PUT /api/database/put (Database API)
 
 ## Database API
+This is a very powerful tool that allows you to interact with the database directly without the need of using the website.
+If your not planning to use this feature, you can remove the routes from the 'router.json' file.
+
 This is done through a RESTful API.
 The header needs to contain the following:
 - Content-Type: application/json
@@ -47,7 +50,5 @@ The header needs to contain the following:
 The body needs to contain the following:
 - Table: <table>
 - Query: <query> (MySQL Query through keybindings)
-- Data: <data> (Array of data for the query)
-
-This is a very powerful tool that allows you to interact with the database directly without the need of using the website.
-If your not planning to use this feature, you can remove the routes from the 'router.json' file.
+- Keybindings: <array> (Key + Value to use in the Query)
+- Data: <array> (The data for the table, used with POST/PUT)
