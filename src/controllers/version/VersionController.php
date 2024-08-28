@@ -45,17 +45,17 @@ class VersionController
     public function index($args = []): void
     {
         // Get the version of the main Tigress Classes loaded
-        $tigress_router_version = class_exists('Tigress\Router') ? Router::version() : '-';
+        $tigress_router_version = class_exists('Tigress\Router') ? Router::version() : 'Not Active';
         $tigress_database_version = class_exists('Tigress\Database') && $this->Core->Config->packages->tigress_database ? Database::version() : 'Not Active';
 
         // Get the version of the Tigress Core Helper Classes loaded
-        $framework_helper_version = class_exists('Tigress\FrameworkHelper') ? FrameworkHelper::version() : '-';
-        $display_helper_version = class_exists('Tigress\DisplayHelper') ? DisplayHelper::version() : '-';
-        $pdf_creator_helper_version = class_exists('Tigress\PdfCreatorHelper') ? PdfCreatorHelper::version() : '-';
+        $framework_helper_version = class_exists('Tigress\FrameworkHelper') ? FrameworkHelper::version() : 'Not Active';
+        $display_helper_version = class_exists('Tigress\DisplayHelper') ? DisplayHelper::version() : 'Not Active';
+        $pdf_creator_helper_version = class_exists('Tigress\PdfCreatorHelper') ? PdfCreatorHelper::version() : 'Not Active';
 
         // Get the version of the Tigress Support Classes loaded
-        $tigress_data_converter_version = class_exists('Tigress\DataConverter') ? DataConverter::version() : '-';
-        $tigress_file_manager_version = class_exists('Tigress\FileManager') ? FileManager::version() : '-';
+        $tigress_data_converter_version = class_exists('Tigress\DataConverter') ? DataConverter::version() : 'Not Active';
+        $tigress_file_manager_version = class_exists('Tigress\FileManager') ? FileManager::version() : 'Not Active';
 
         $this->Core->Twig->render('version/index.twig', [
             'tigress_core_version' => TIGRESS_CORE_VERSION,
