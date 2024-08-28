@@ -21,7 +21,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.9.0
+ * @version 0.9.1
  * @lastmodified 2024-09-05
  * @package Controller\version\VersionController
  */
@@ -33,8 +33,8 @@ class VersionController
     public function __construct(Core $Core)
     {
         $this->Core = $Core;
-        $this->db = $Core->Database['default'];
-
+        if ($this->Core->Config->packages->tigress_database)
+            $this->db = $Core->Database['default'];
     }
 
     /**
@@ -46,7 +46,7 @@ class VersionController
     {
         // Get the version of the main Tigress Classes loaded
         $tigress_router_version = class_exists('Tigress\Router') ? Router::version() : '-';
-        $tigress_database_version = class_exists('Tigress\Database') ? Database::version() : '-';
+        $tigress_database_version = class_exists('Tigress\Database') && $this->Core->Config->packages->tigress_database ? Database::version() : 'Not Active';
 
         // Get the version of the Tigress Core Helper Classes loaded
         $framework_helper_version = class_exists('Tigress\FrameworkHelper') ? FrameworkHelper::version() : '-';
