@@ -17,14 +17,17 @@
             <div class="col-md-6">
                 <h5>Main Packages:</h5>
                 <p>Core: {{ tigress_core_version }}<br>
-                    Router: {{ tigress_router_version }}<br>
-                    {% if tigress_database_version %}Database: {{ tigress_database_version }}{% endif %}</p>
+                    Router: {{ tigress_router_version }}</p>
             </div>
             <div class="col-md-6">
                 <h5>Core Helper Classes</h5>
                 <p>Framework Helper: {{ framework_helper_version }}<br>
                     Display Helper: {{ display_helper_version }}<br>
                     PDF Creator Helper: {{ pdf_creator_helper_version }}</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Database Packages</h5>
+                <p>{% if tigress_database_version %}Database: {{ tigress_database_version }}{% endif %}</p>
             </div>
             <div class="col-md-6">
                 <h5>Support Packages</h5>
