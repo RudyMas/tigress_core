@@ -11,6 +11,7 @@ use Tigress\FileManager;
 use Tigress\FrameworkHelper;
 use Tigress\Model;
 use Tigress\PdfCreatorHelper;
+use Tigress\Repository;
 use Tigress\Router;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -48,6 +49,7 @@ class VersionController
         // Get the version of the main Tigress Classes loaded
         $tigress_router_version = class_exists('Tigress\Router') ? Router::version() : 'Not Active';
         $tigress_database_version = class_exists('Tigress\Database') && $this->Core->Config->packages->tigress_database ? Database::version() : 'Not Active';
+        $tigress_repository_version = class_exists('Tigress\Repository') ? Repository::version() : 'Not Active';
         $tigress_model_version = class_exists('Tigress\Model') ? Model::version() : 'Not Active';
 
         // Get the version of the Tigress Core Helper Classes loaded
@@ -63,6 +65,7 @@ class VersionController
             'tigress_core_version' => TIGRESS_CORE_VERSION,
             'tigress_router_version' => $tigress_router_version,
             'tigress_database_version' => $tigress_database_version,
+            'tigress_repository_version' => $tigress_repository_version,
             'tigress_model_version' => $tigress_model_version,
             'framework_helper_version' => $framework_helper_version,
             'display_helper_version' => $display_helper_version,
