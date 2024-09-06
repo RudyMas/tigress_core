@@ -3,7 +3,6 @@
 namespace Controller\version;
 
 use Exception;
-use Tigress\Core;
 use Tigress\Database;
 use Tigress\DataConverter;
 use Tigress\DisplayHelper;
@@ -23,22 +22,12 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.9.1
- * @lastmodified 2024-09-05
+ * @version 0.9.2
+ * @lastmodified 2024-09-06
  * @package Controller\version\VersionController
  */
 class VersionController
 {
-    private Core $Core;
-    private Database $db;
-
-    public function __construct(Core $Core)
-    {
-        $this->Core = $Core;
-        if ($this->Core->Config->packages->tigress_database)
-            $this->db = $Core->Database['default'];
-    }
-
     /**
      * @throws SyntaxError
      * @throws RuntimeError
@@ -48,7 +37,7 @@ class VersionController
     {
         // Get the version of the main Tigress Classes loaded
         $tigress_router_version = class_exists('Tigress\Router') ? Router::version() : 'Not Active';
-        $tigress_database_version = class_exists('Tigress\Database') && $this->Core->Config->packages->tigress_database ? Database::version() : 'Not Active';
+        $tigress_database_version = class_exists('Tigress\Database') && CONFIG->packages->tigress_database ? Database::version() : 'Not Active';
         $tigress_repository_version = class_exists('Tigress\Repository') ? Repository::version() : 'Not Active';
         $tigress_model_version = class_exists('Tigress\Model') ? Model::version() : 'Not Active';
 
@@ -61,7 +50,7 @@ class VersionController
         $tigress_data_converter_version = class_exists('Tigress\DataConverter') ? DataConverter::version() : 'Not Active';
         $tigress_file_manager_version = class_exists('Tigress\FileManager') ? FileManager::version() : 'Not Active';
 
-        $this->Core->Twig->render('version/index.twig', [
+        TWIG->render('version/index.twig', [
             'tigress_core_version' => TIGRESS_CORE_VERSION,
             'tigress_router_version' => $tigress_router_version,
             'tigress_database_version' => $tigress_database_version,
