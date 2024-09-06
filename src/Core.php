@@ -14,6 +14,7 @@ use Twig\Error\LoaderError;
  * - ROUTES                 Contains the routes.json file
  * - SYSTEM                 Contains the system.json file
  * - DATABASE               Contains the database connections
+ * - TWIG                   Contains the Twig instance
  * - WEBSITE                Contains information about the website
  * - BASE_URL               Path to the root of the website (URL)
  * - SYSTEM_ROOT            Full system path to the root of the website
