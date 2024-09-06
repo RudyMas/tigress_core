@@ -3,26 +3,38 @@
 namespace Tigress;
 
 use Exception;
-use stdClass;
 use Twig\Error\LoaderError;
 
 /**
  * Class Core (PHP version 8.3)
  *
+ * Following constants are defined:
+ * - TIGRESS_CORE_VERSION   Contains the version of the Tigress Core
+ * - CONFIG                 Contains the config.json file
+ * - ROUTES                 Contains the routes.json file
+ * - SYSTEM                 Contains the system.json file
+ * - WEBSITE                Contains the website information
+ * - BASE_URL               Path to the root of the website (URL)
+ * - SYSTEM_ROOT            Full system path to the root of the website
+ *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.4.1
+ * @version 0.5.0
  * @lastmodified 2024-09-04
  * @package Tigress\Core
  */
 class Core
 {
+    /**
+     * @var DisplayHelper
+     */
     public DisplayHelper $Twig;
+
+    /**
+     * @var array
+     */
     public array $Database = [];
-    public stdClass $Config;
-    public stdClass $Routes;
-    public stdClass $System;
 
     /**
      * @throws LoaderError
@@ -45,20 +57,23 @@ class Core
         }
 
         // Load the config files
-        $this->Config = json_decode(file_get_contents('config/config.json'));
-        $this->Routes = json_decode(file_get_contents('config/routes.json'));
-        $this->System = json_decode(file_get_contents('system/config.json'));
+        define('CONFIG', json_decode(file_get_contents('config/config.json')));
+        define('ROUTES', json_decode(file_get_contents('config/routes.json')));
+        define('SYSTEM', json_decode(file_get_contents('system/config.json')));
 
         // Define the constants for the website information
         define('WEBSITE', $this->Config->website ?? '');
 
+        // Set the timezone
+        date_default_timezone_set(SYSTEM->timezone);
+
         // Check if the database is enabled & connect to it
-        if ($this->Config->packages->tigress_database === true) {
+        if (CONFIG->packages->tigress_database === true) {
             if(!$this->connectDatabase()) throw new Exception('No database connection possible', 500);
         }
 
         // Create a new Twig instance
-        $this->Twig = new DisplayHelper($this->System->Core->Twig->views, $this->System->Core->debug);
+        $this->Twig = new DisplayHelper(SYSTEM->Core->Twig->views, SYSTEM->Core->debug);
         $this->Twig->addPath('vendor/tigress/core/src/views');
 
         $router = new Router($this);
@@ -73,10 +88,10 @@ class Core
      */
     private function connectDatabase(): bool
     {
-        foreach ($this->Config->servers as $server => $type) {
+        foreach (CONFIG->servers as $server => $type) {
             if (isset($_SERVER['HTTP_HOST'])) {
                 if (strpos($_SERVER['HTTP_HOST'], $server)) {
-                    foreach($this->Config->databases->$type as $key => $value) {
+                    foreach(CONFIG->databases->$type as $key => $value) {
                         $this->Database[$key] = new Database(
                             $value->host,
                             $value->port,
@@ -90,7 +105,7 @@ class Core
                     return true;
                 }
             } else {
-                foreach ($this->Config->databases->development as $key => $value) {
+                foreach (CONFIG->databases->development as $key => $value) {
                     $this->Database[$key] = new Database(
                         $value->host,
                         $value->port,
@@ -116,6 +131,7 @@ class Core
     private function settingUpRootMapping(): void
     {
         $arrayServerName = explode('.', $_SERVER['SERVER_NAME']);
+
         $numberOfServerNames = count($arrayServerName);
         unset($arrayServerName[$numberOfServerNames-2]);
         unset($arrayServerName[$numberOfServerNames-1]);
