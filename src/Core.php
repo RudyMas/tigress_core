@@ -13,15 +13,16 @@ use Twig\Error\LoaderError;
  * - CONFIG                 Contains the config.json file
  * - ROUTES                 Contains the routes.json file
  * - SYSTEM                 Contains the system.json file
- * - WEBSITE                Contains the website information
+ * - DATABASE               Contains the database connections
+ * - WEBSITE                Contains information about the website
  * - BASE_URL               Path to the root of the website (URL)
  * - SYSTEM_ROOT            Full system path to the root of the website
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.5.0
- * @lastmodified 2024-09-04
+ * @version 0.5.1
+ * @lastmodified 2024-09-06
  * @package Tigress\Core
  */
 class Core
@@ -32,17 +33,12 @@ class Core
     public DisplayHelper $Twig;
 
     /**
-     * @var array
-     */
-    public array $Database = [];
-
-    /**
      * @throws LoaderError
      * @throws Exception
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.4.1');
+        define('TIGRESS_CORE_VERSION', '0.5.1');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
@@ -69,14 +65,14 @@ class Core
 
         // Check if the database is enabled & connect to it
         if (CONFIG->packages->tigress_database === true) {
-            if(!$this->connectDatabase()) throw new Exception('No database connection possible', 500);
+            if (!$this->connectDatabase()) throw new Exception('No database connection possible', 500);
         }
 
         // Create a new Twig instance
-        $this->Twig = new DisplayHelper(SYSTEM->Core->Twig->views, SYSTEM->Core->debug);
-        $this->Twig->addPath('vendor/tigress/core/src/views');
+        define('TWIG', new DisplayHelper(SYSTEM->Core->Twig->views, SYSTEM->Core->debug));
+        TWIG->addPath('vendor/tigress/core/src/views');
 
-        $router = new Router($this);
+        $router = new Router();
         $router->execute();
     }
 
@@ -88,11 +84,12 @@ class Core
      */
     private function connectDatabase(): bool
     {
+        $database = [];
         foreach (CONFIG->servers as $server => $type) {
             if (isset($_SERVER['HTTP_HOST'])) {
                 if (strpos($_SERVER['HTTP_HOST'], $server)) {
-                    foreach(CONFIG->databases->$type as $key => $value) {
-                        $this->Database[$key] = new Database(
+                    foreach (CONFIG->databases->$type as $key => $value) {
+                        $database[$key] = new Database(
                             $value->host,
                             $value->port,
                             $value->username,
@@ -102,11 +99,12 @@ class Core
                             $value->dbType,
                         );
                     }
+                    define('DATABASE', $database);
                     return true;
                 }
             } else {
                 foreach (CONFIG->databases->development as $key => $value) {
-                    $this->Database[$key] = new Database(
+                    $database[$key] = new Database(
                         $value->host,
                         $value->port,
                         $value->username,
@@ -116,9 +114,11 @@ class Core
                         $value->dbType,
                     );
                 }
+                define('DATABASE', $database);
                 return true;
             }
         }
+        define('DATABASE', $database);
         return false;
     }
 
@@ -133,8 +133,8 @@ class Core
         $arrayServerName = explode('.', $_SERVER['SERVER_NAME']);
 
         $numberOfServerNames = count($arrayServerName);
-        unset($arrayServerName[$numberOfServerNames-2]);
-        unset($arrayServerName[$numberOfServerNames-1]);
+        unset($arrayServerName[$numberOfServerNames - 2]);
+        unset($arrayServerName[$numberOfServerNames - 1]);
 
         $scriptName = rtrim(str_replace($arrayServerName, '', dirname($_SERVER['SCRIPT_NAME'])), '/\\');
         define('BASE_URL', $scriptName);
@@ -150,7 +150,7 @@ class Core
      * @param mixed $array
      * @param bool $stop
      */
-    public static function dump($array, bool $stop = false): void
+    public static function dump($array, bool $stop = true): void
     {
         print('<pre>');
         print_r($array);
