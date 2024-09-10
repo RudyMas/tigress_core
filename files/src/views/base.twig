@@ -3,15 +3,11 @@
 <head>
     {% block head %}
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="revisit-after" content="2 days">
         <meta name="author" content="{% block meta_author %}{{ WEBSITE.author }}{% endblock %}">
         <meta name="contact" content="{% block meta_contact %}{{ WEBSITE.contact }}{% endblock %}">
         <meta name="keywords" content="{% block meta_keywords %}{{ WEBSITE.keywords }}{% endblock %}">
         <meta name="description" content="{% block meta_description %}{{ WEBSITE.description }}{% endblock %}">
-        <meta name="robots" content="index,follow">
-        <meta name="rating" content="General">
         <meta name="Cache-Control" content="no-cache, no-store, must-revalidate">
         <title>{% block title %}{{ WEBSITE.title }}{% endblock %}</title>
     {% endblock %}
