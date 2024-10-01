@@ -4,5 +4,6 @@
     "Twig": {
       "views": "src/views"
     }
-  }
+  },
+  "timezone": "Europe/Brussels"
 }
