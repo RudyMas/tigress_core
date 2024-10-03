@@ -8,8 +8,8 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.0.1
- * @lastmodified 2024-07-03
+ * @version 1.0.2
+ * @lastmodified 2024-10-03
  * @package Tigress\FrameworkHelper
  */
 class FrameworkHelper
@@ -21,7 +21,7 @@ class FrameworkHelper
      */
     public static function version(): string
     {
-        return '1.0.1';
+        return '1.0.2';
     }
 
     /**
@@ -61,6 +61,7 @@ class FrameworkHelper
             @mkdir(SYSTEM_ROOT . '/public/css', 0777, true);
             @mkdir(SYSTEM_ROOT . '/public/images', 0777, true);
             @mkdir(SYSTEM_ROOT . '/public/javascript', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/public/json', 0777, true);
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
                 SYSTEM_ROOT . '/public/css/.gitkeep'
@@ -72,6 +73,10 @@ class FrameworkHelper
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
                 SYSTEM_ROOT . '/public/javascript/.gitkeep'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
+                SYSTEM_ROOT . '/public/json/.gitkeep'
             );
         }
 
@@ -124,7 +129,7 @@ class FrameworkHelper
                 SYSTEM_ROOT . '/vendor/tigress/core/files/system/config.json',
                 SYSTEM_ROOT . '/system/config.json'
             );
-            file_put_contents(SYSTEM_ROOT . '/system/version', TIGRESS_CORE_VERSION);
+            file_put_contents(SYSTEM_ROOT . '/system/initial_version.txt', TIGRESS_CORE_VERSION);
         }
 
         if (is_dir('tests') === false) {
@@ -160,6 +165,6 @@ class FrameworkHelper
             SYSTEM_ROOT . '/vendor/tigress/core/files/system/config.json',
             SYSTEM_ROOT . '/system/config.json'
         );
-        file_put_contents('system/version.txt', TIGRESS_CORE_VERSION);
+        file_put_contents(SYSTEM_ROOT . 'system/update_version.txt', TIGRESS_CORE_VERSION);
     }
 }

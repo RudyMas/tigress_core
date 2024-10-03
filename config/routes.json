@@ -2,6 +2,12 @@
   "routes": [
     {
       "request": "GET",
+      "path": "/help",
+      "controller": "tigress\\TigressHelpController",
+        "method": "index"
+    },
+    {
+      "request": "GET",
       "path": "/version",
       "controller": "version\\VersionController",
       "method": "index"
