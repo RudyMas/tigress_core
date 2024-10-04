@@ -13,6 +13,7 @@ use Twig\Error\LoaderError;
  * - CONFIG                 Contains the config.json file
  * - ROUTES                 Contains the routes.json file
  * - SYSTEM                 Contains the system.json file
+ * - SERVER_TYPE            Contains the type of server (development, test, production)
  * - DATABASE               Contains the database connections
  * - TWIG                   Contains the Twig instance
  * - WEBSITE                Contains information about the website
@@ -22,7 +23,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.5.6
+ * @version 0.5.7
  * @lastmodified 2024-10-04
  * @package Tigress\Core
  */
@@ -39,7 +40,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.5.6');
+        define('TIGRESS_CORE_VERSION', '0.5.7');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
@@ -73,6 +74,17 @@ class Core
         define('TWIG', new DisplayHelper(SYSTEM->Core->Twig->views, SYSTEM->debug));
         TWIG->addPath('vendor/tigress/core/src/views');
 
+        foreach (CONFIG->servers as $server => $type) {
+            if (isset($_SERVER['HTTP_HOST'])) {
+                if ($_SERVER['HTTP_HOST'] == $server || strpos($_SERVER['HTTP_HOST'], $server)) {
+                    define('SERVER_TYPE', $type);
+                    break;
+                }
+            } else {
+                define('SERVER_TYPE', 'development');
+            }
+        }
+
         $router = new Router();
         $router->execute();
     }
@@ -100,11 +112,11 @@ class Core
                             $value->dbType,
                         );
                     }
-                    define('DATABASE', $database);
                     return true;
                 }
             } else {
                 foreach (CONFIG->databases->development as $key => $value) {
+                    define('SYSTEM->server_type', 'development');
                     $database[$key] = new Database(
                         $value->host,
                         $value->port,
