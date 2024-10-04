@@ -112,11 +112,11 @@ class Core
                             $value->dbType,
                         );
                     }
+                    define('DATABASE', $database);
                     return true;
                 }
             } else {
                 foreach (CONFIG->databases->development as $key => $value) {
-                    define('SYSTEM->server_type', 'development');
                     $database[$key] = new Database(
                         $value->host,
                         $value->port,
