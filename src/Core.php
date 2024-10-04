@@ -22,8 +22,8 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.5.5
- * @lastmodified 2024-10-03
+ * @version 0.5.6
+ * @lastmodified 2024-10-04
  * @package Tigress\Core
  */
 class Core
@@ -39,7 +39,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.5.5');
+        define('TIGRESS_CORE_VERSION', '0.5.6');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
@@ -88,7 +88,7 @@ class Core
         $database = [];
         foreach (CONFIG->servers as $server => $type) {
             if (isset($_SERVER['HTTP_HOST'])) {
-                if (strpos($_SERVER['HTTP_HOST'], $server)) {
+                if ($_SERVER['HTTP_HOST'] == $server || strpos($_SERVER['HTTP_HOST'], $server)) {
                     foreach (CONFIG->databases->$type as $key => $value) {
                         $database[$key] = new Database(
                             $value->host,
