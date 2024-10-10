@@ -8,6 +8,7 @@ use Tigress\DataConverter;
 use Tigress\DisplayHelper;
 use Tigress\FileManager;
 use Tigress\FrameworkHelper;
+use Tigress\GoogleApi;
 use Tigress\Manipulator;
 use Tigress\Model;
 use Tigress\PdfCreatorHelper;
@@ -24,7 +25,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.10.0
+ * @version 0.11.0
  * @lastmodified 2024-10-10
  * @package Controller\version\VersionController
  */
@@ -52,6 +53,7 @@ class VersionController
         // Get the version of the Tigress Support Classes loaded
         $tigress_data_converter_version = class_exists('Tigress\DataConverter') ? DataConverter::version() : 'Not Active';
         $tigress_file_manager_version = class_exists('Tigress\FileManager') ? FileManager::version() : 'Not Active';
+        $tigress_google_api_version = class_exists('Tigress\GoogleApi') ? GoogleApi::version() : ['GoogleApi' => 'Not Active'];
         $tigress_manipulator_version = class_exists('Tigress\Manipulator') ? Manipulator::version() : 'Not Active';
 
         TWIG->render('version/index.twig', [
@@ -66,6 +68,7 @@ class VersionController
             'tigress_model_version' => $tigress_model_version,
             'tigress_data_converter_version' => $tigress_data_converter_version,
             'tigress_file_manager_version' => $tigress_file_manager_version,
+            'tigress_google_api_version' => $tigress_google_api_version,
             'tigress_manipulator_version' => $tigress_manipulator_version,
         ]);
     }
