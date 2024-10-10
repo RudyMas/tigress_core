@@ -17,6 +17,7 @@
             <div class="col-md-6">
                 <h5>Main Packages:</h5>
                 <p>Core: {{ tigress_core_version }}<br>
+                    Security: {{ tigress_security_version }}<br>
                     Router: {{ tigress_router_version }}</p>
             </div>
             <div class="col-md-6">
@@ -35,7 +36,9 @@
                 <h5>Support Packages</h5>
                 <p>{% if tigress_data_converter_version %}Data Converter: {{ tigress_data_converter_version }}{% endif %}
                     <br>
-                    {% if tigress_file_manager_version %}File Manager: {{ tigress_file_manager_version }}{% endif %}</p>
+                    {% if tigress_file_manager_version %}File Manager: {{ tigress_file_manager_version }}{% endif %}
+                    <br>
+                    {% if tigress_manipulator_version %}Manipulator: {{ tigress_manipulator_version }}{% endif %}</p>
             </div>
         </div>
         <div id="versionBackButton">

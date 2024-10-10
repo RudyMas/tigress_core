@@ -21,6 +21,7 @@
     "tigress/model": ">=v1.0.0",
     "tigress/repository": ">=v1.0.0",
     "tigress/router": ">=v1.0.0",
+    "tigress/security": ">=v1.0.0",
     "twig/twig": ">=v3.10.3",
     "twig/intl-extra": ">=v3.10.0"
   },

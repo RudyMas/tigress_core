@@ -16,6 +16,7 @@ use Twig\Error\LoaderError;
  * - SERVER_TYPE            Contains the type of server (development, test, production)
  * - DATABASE               Contains the database connections
  * - TWIG                   Contains the Twig instance
+ * - SECURITY               Contains the security class
  * - WEBSITE                Contains information about the website
  * - BASE_URL               Path to the root of the website (URL)
  * - SYSTEM_ROOT            Full system path to the root of the website
@@ -23,8 +24,8 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.5.7
- * @lastmodified 2024-10-04
+ * @version 0.6.0
+ * @lastmodified 2024-10-10
  * @package Tigress\Core
  */
 class Core
@@ -73,6 +74,9 @@ class Core
         // Create a new Twig instance
         define('TWIG', new DisplayHelper(SYSTEM->Core->Twig->views, SYSTEM->debug));
         TWIG->addPath('vendor/tigress/core/src/views');
+
+        // Load the security class
+        define('SECURITY', new Security());
 
         foreach (CONFIG->servers as $server => $type) {
             if (isset($_SERVER['HTTP_HOST'])) {
