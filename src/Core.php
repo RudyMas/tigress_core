@@ -41,7 +41,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.5.7');
+        define('TIGRESS_CORE_VERSION', '0.6.0');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();

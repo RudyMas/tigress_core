@@ -8,6 +8,7 @@ use Tigress\DataConverter;
 use Tigress\DisplayHelper;
 use Tigress\FileManager;
 use Tigress\FrameworkHelper;
+use Tigress\Manipulator;
 use Tigress\Model;
 use Tigress\PdfCreatorHelper;
 use Tigress\Repository;
