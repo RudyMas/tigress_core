@@ -19,7 +19,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.2.2
+ * @version 1.2.3
  * @lastmodified 2024-10-15
  * @package Tigress\DisplayHelper
  */
@@ -218,6 +218,7 @@ class DisplayHelper
             'BASE_URL' => BASE_URL,
             'SYSTEM_ROOT' => SYSTEM_ROOT,
             'WEBSITE' => WEBSITE,
+            'menu' => MENU,
         ]);
 
         echo $this->twig->render($template, $mergedData);
