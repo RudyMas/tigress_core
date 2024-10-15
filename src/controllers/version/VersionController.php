@@ -2,6 +2,7 @@
 
 namespace Controller\version;
 
+use Controller\Menu;
 use Exception;
 use Tigress\Database;
 use Tigress\DataConverter;
@@ -41,6 +42,7 @@ class VersionController
         // Get the version of the main Tigress Classes loaded
         $tigress_security_version = class_exists('Tigress\Security') ? Security::version() : 'Not Active';
         $tigress_router_version = class_exists('Tigress\Router') ? Router::version() : 'Not Active';
+        $tigress_menu_version = class_exists('Tigress\Menu') ? Menu::version() : 'Not Active';
         $tigress_database_version = class_exists('Tigress\Database') && CONFIG->packages->tigress_database ? Database::version() : 'Not Active';
         $tigress_repository_version = class_exists('Tigress\Repository') ? Repository::version() : 'Not Active';
         $tigress_model_version = class_exists('Tigress\Model') ? Model::version() : 'Not Active';
@@ -60,12 +62,13 @@ class VersionController
             'tigress_core_version' => TIGRESS_CORE_VERSION,
             'tigress_security_version' => $tigress_security_version,
             'tigress_router_version' => $tigress_router_version,
-            'framework_helper_version' => $framework_helper_version,
-            'display_helper_version' => $display_helper_version,
-            'pdf_creator_helper_version' => $pdf_creator_helper_version,
+            'tigress_menu_version' => $tigress_menu_version,
             'tigress_database_version' => $tigress_database_version,
             'tigress_repository_version' => $tigress_repository_version,
             'tigress_model_version' => $tigress_model_version,
+            'framework_helper_version' => $framework_helper_version,
+            'display_helper_version' => $display_helper_version,
+            'pdf_creator_helper_version' => $pdf_creator_helper_version,
             'tigress_data_converter_version' => $tigress_data_converter_version,
             'tigress_file_manager_version' => $tigress_file_manager_version,
             'tigress_google_api_version' => $tigress_google_api_version,

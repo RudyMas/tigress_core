@@ -13,29 +13,85 @@
     {% endblock %}
     {% block css %}
         <!-- Loading Font Awesome -->
-        <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/fontawesome-free-v6/css/all.min.css">
         <!-- Loading Bootstrap -->
-        <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/bootstrap/dist/css/bootstrap.min.css">
         <!-- Loading Bootstrap Select -->
         <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/use-bootstrap-select/dist/use-bootstrap-select.css">
-        <!-- Loading Custom CSS -->
+        <!-- Loading Select2 -->
+        <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/select2/dist/css/select2.min.css">
+        <link rel="stylesheet"
+              href="{{ BASE_URL }}/node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css">
+        <!-- Loading Tigress CSS -->
         <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/tigress.css">
         {% if WEBSITE.mode == 'dark' %}
             <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/tigress_dark.css">
         {% else %}
             <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/tigress_light.css">
         {% endif %}
+        {% if menu or sidebar %}
+            {% if menu.position == 'top' %}
+                {% if sidebar.position == 'left' %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-top-left.css">
+                {% elseif sidebar.position == 'right' %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-top-right.css">
+                {% elseif sidebar.position == 'both' %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-top-both.css">
+                {% else %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-top-none.css">
+                {% endif %}
+            {% elseif menu.position == 'bottom' %}
+                {% if sidebar.position == 'left' %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-bottom-left.css">
+                {% elseif sidebar.position == 'right' %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-bottom-right.css">
+                {% elseif sidebar.position == 'both' %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-bottom-both.css">
+                {% else %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-bottom-none.css">
+                {% endif %}
+            {% else %}
+                {% if sidebar.position == 'left' %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-none-left.css">
+                {% elseif sidebar.position == 'right' %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-none-right.css">
+                {% elseif sidebar.position == 'both' %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-none-both.css">
+                {% else %}
+                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-none-none.css">
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        {% if sidebar %}
+            <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/sidebar-left.css">
+            <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/sidebar-right.css">
+        {% endif %}
     {% endblock %}
     {% block js %}
         <!-- Loading jQuery -->
         <script src="{{ BASE_URL }}/node_modules/jquery/dist/jquery.js"></script>
+        <!-- Loading Popper -->
+        <script src="{{ BASE_URL }}/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
         <!-- Loading Bootstrap -->
         <script src="{{ BASE_URL }}/node_modules/bootstrap/dist/js/bootstrap.js"></script>
         <!-- Loading Bootstrap Select -->
         <script src="{{ BASE_URL }}/node_modules/use-bootstrap-select/dist/use-bootstrap-select.js"></script>
+        <!-- Loading Select2 -->
+        <script src="{{ BASE_URL }}/node_modules/select2/dist/js/select2.min.js"></script>
+        <script src="{{ BASE_URL }}/node_modules/select2/dist/js/i18n/nl.js"></script>
     {% endblock %}
 </head>
 <body>
-{% block content %}{% endblock %}
+<div class="grid-container">
+    {% if (menu) %}
+        {% include 'menu.twig' %}
+    {% endif %}
+    {% if (sidebar) %}
+        {% include 'sidebar.twig' %}
+    {% endif %}
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+</div>
 </body>
 </html>

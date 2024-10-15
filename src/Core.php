@@ -2,6 +2,7 @@
 
 namespace Tigress;
 
+use Controller\Menu;
 use Exception;
 use Twig\Error\LoaderError;
 
@@ -18,13 +19,14 @@ use Twig\Error\LoaderError;
  * - TWIG                   Contains the Twig instance
  * - SECURITY               Contains the security class
  * - WEBSITE                Contains information about the website
+ * - MENU                   Contains the menu class
  * - BASE_URL               Path to the root of the website (URL)
  * - SYSTEM_ROOT            Full system path to the root of the website
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.6.3
+ * @version 0.6.4
  * @lastmodified 2024-10-15
  * @package Tigress\Core
  */
@@ -41,7 +43,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.6.3');
+        define('TIGRESS_CORE_VERSION', '0.6.4');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
@@ -74,6 +76,9 @@ class Core
         // Create a new Twig instance
         define('TWIG', new DisplayHelper(SYSTEM->Core->Twig->views, SYSTEM->debug));
         TWIG->addPath('vendor/tigress/core/src/views');
+
+        // Load the menu class
+        define('MENU', new Menu());
 
         // Load the security class
         define('SECURITY', new Security());

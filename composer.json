@@ -18,6 +18,7 @@
     "dompdf/dompdf": ">=v3.0.0",
     "tigress/database": ">=v1.0.0",
     "tigress/data-converter": ">=v1.0.0",
+    "tigress/menu": ">=v0.1.0",
     "tigress/model": ">=v1.0.0",
     "tigress/repository": ">=v1.0.0",
     "tigress/router": ">=v1.0.0",
