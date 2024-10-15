@@ -19,8 +19,8 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.2.0
- * @lastmodified 2024-07-04
+ * @version 1.2.1
+ * @lastmodified 2024-10-15
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -35,7 +35,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '1.2.0';
+        return '1.2.1';
     }
 
     /**
@@ -142,8 +142,11 @@ class DisplayHelper
         if (preg_match("/(http|ftp|https)?:?\/\//", $page)) {
             header('Location: ' . $page);
         } else {
-            $dirname = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
-            header('Location: ' . $dirname . $page);
+            if (!empty(SYSTEM->subfolder)) {
+                header('Location: /' . SYSTEM->subfolder . $page);
+            } else {
+                header('Location: ' . $page);
+            }
         }
         exit;
     }
