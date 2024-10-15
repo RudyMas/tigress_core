@@ -19,7 +19,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.2.1
+ * @version 1.2.2
  * @lastmodified 2024-10-15
  * @package Tigress\DisplayHelper
  */
@@ -35,7 +35,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '1.2.1';
+        return '1.2.2';
     }
 
     /**
@@ -212,6 +212,9 @@ class DisplayHelper
     private function renderTwig(string $template, array $data = []): void
     {
         $mergedData = array_merge($data, [
+            '_SESSION' => $_SESSION,
+            '_POST' => $_POST,
+            '_GET' => $_GET,
             'BASE_URL' => BASE_URL,
             'SYSTEM_ROOT' => SYSTEM_ROOT,
             'WEBSITE' => WEBSITE,
