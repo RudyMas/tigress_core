@@ -29,43 +29,8 @@
         {% else %}
             <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/tigress_light.css">
         {% endif %}
-        {% if menu or sidebar %}
-            {% if menu.position == 'top' %}
-                {% if sidebar.position == 'left' %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-top-left.css">
-                {% elseif sidebar.position == 'right' %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-top-right.css">
-                {% elseif sidebar.position == 'both' %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-top-both.css">
-                {% else %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-top-none.css">
-                {% endif %}
-            {% elseif menu.position == 'bottom' %}
-                {% if sidebar.position == 'left' %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-bottom-left.css">
-                {% elseif sidebar.position == 'right' %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-bottom-right.css">
-                {% elseif sidebar.position == 'both' %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-bottom-both.css">
-                {% else %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-bottom-none.css">
-                {% endif %}
-            {% else %}
-                {% if sidebar.position == 'left' %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-none-left.css">
-                {% elseif sidebar.position == 'right' %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-none-right.css">
-                {% elseif sidebar.position == 'both' %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-none-both.css">
-                {% else %}
-                    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/grid-none-none.css">
-                {% endif %}
-            {% endif %}
-        {% endif %}
-        {% if sidebar %}
-            <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/sidebar-left.css">
-            <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/menu/public/css/sidebar-right.css">
-        {% endif %}
+        <!-- Loading Custom Grid CSS for menus -->
+        {% include 'menu_grid_css.twig' %}
     {% endblock %}
     {% block js %}
         <!-- Loading jQuery -->
@@ -79,19 +44,23 @@
         <!-- Loading Select2 -->
         <script src="{{ BASE_URL }}/node_modules/select2/dist/js/select2.min.js"></script>
         <script src="{{ BASE_URL }}/node_modules/select2/dist/js/i18n/nl.js"></script>
+        <!-- Loading Tigress Menu JS -->
+        <script src="{{ BASE_URL }}/vendor/tigress/menu/public/javascript/menu.js"></script>
     {% endblock %}
 </head>
 <body>
 <div class="grid-container">
-    {% if (menu) %}
+    {% if (menu.position != 'none') %}
         {% include 'menu.twig' %}
     {% endif %}
     {% if (sidebar) %}
         {% include 'sidebar.twig' %}
     {% endif %}
+    <header>{% block header %}{% endblock %}</header>
     <div class="main-content">
         {% block content %}{% endblock %}
     </div>
+    <footer>{% block footer %}{% endblock %}</footer>
 </div>
 </body>
 </html>
