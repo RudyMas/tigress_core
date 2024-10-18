@@ -18,6 +18,7 @@ use Twig\Error\LoaderError;
  * - DATABASE               Contains the database connections
  * - TWIG                   Contains the Twig instance
  * - SECURITY               Contains the security class
+ * - RIGHTS                 Contains the rights class
  * - WEBSITE                Contains information about the website
  * - MENU                   Contains the menu class
  * - BASE_URL               Path to the root of the website (URL)
@@ -26,8 +27,8 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.6.6
- * @lastmodified 2024-10-17
+ * @version 0.6.7
+ * @lastmodified 2024-10-18
  * @package Tigress\Core
  */
 class Core
@@ -43,7 +44,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.6.6');
+        define('TIGRESS_CORE_VERSION', '0.6.7');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
@@ -82,6 +83,7 @@ class Core
 
         // Load the security class
         define('SECURITY', new Security());
+        define('RIGHTS', new Rights());
 
         foreach (CONFIG->servers as $server => $type) {
             if (isset($_SERVER['HTTP_HOST'])) {
