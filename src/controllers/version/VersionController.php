@@ -27,8 +27,8 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.11.0
- * @lastmodified 2024-10-10
+ * @version 0.12.0
+ * @lastmodified 2024-10-18
  * @package Controller\version\VersionController
  */
 class VersionController
@@ -40,11 +40,13 @@ class VersionController
      */
     public function index($args = []): void
     {
+        MENU->setPosition('none');
+
         // Get the version of the main Tigress Classes loaded
         $tigress_security_version = class_exists('Tigress\Security') ? Security::version() : 'Not Active';
         $tigress_router_version = class_exists('Tigress\Router') ? Router::version() : 'Not Active';
         $tigress_rights_version = class_exists('Tigress\Rights') ? Rights::version() : 'Not Active';
-        $tigress_menu_version = class_exists('Tigress\Menu') ? Menu::version() : 'Not Active';
+        $tigress_menu_version = class_exists('Controller\Menu') ? Menu::version() : 'Not Active';
         $tigress_database_version = class_exists('Tigress\Database') && CONFIG->packages->tigress_database ? Database::version() : 'Not Active';
         $tigress_repository_version = class_exists('Tigress\Repository') ? Repository::version() : 'Not Active';
         $tigress_model_version = class_exists('Tigress\Model') ? Model::version() : 'Not Active';
