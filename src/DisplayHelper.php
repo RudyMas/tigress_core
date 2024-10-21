@@ -19,8 +19,8 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.2.3
- * @lastmodified 2024-10-15
+ * @version 1.3.0
+ * @lastmodified 2024-10-21
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -35,7 +35,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '1.2.2';
+        return '1.3.0';
     }
 
     /**
@@ -211,6 +211,22 @@ class DisplayHelper
      */
     private function renderTwig(string $template, array $data = []): void
     {
+        if (isset($_SESSION['user'])) {
+            $rights = [
+                'access' => RIGHTS->checkRights('access'),
+                'read' => RIGHTS->checkRights('read'),
+                'write' => RIGHTS->checkRights('write'),
+                'delete' => RIGHTS->checkRights('delete'),
+            ];
+        } else {
+            $rights = [
+                'access' => false,
+                'read' => false,
+                'write' => false,
+                'delete' => false,
+            ];
+        }
+
         $mergedData = array_merge($data, [
             '_SESSION' => $_SESSION,
             '_POST' => $_POST,
@@ -219,6 +235,7 @@ class DisplayHelper
             'SYSTEM_ROOT' => SYSTEM_ROOT,
             'WEBSITE' => WEBSITE,
             'menu' => MENU,
+            'rights' => $rights,
         ]);
 
         echo $this->twig->render($template, $mergedData);
