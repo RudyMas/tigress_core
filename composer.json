@@ -30,7 +30,9 @@
   "autoload": {
     "psr-4": {
       "Tigress\\": "src/",
-      "Controller\\": "src/controllers/"
+      "Controller\\": "src/controllers/",
+      "Model\\": "src/models/",
+      "Repository\\": "src/repositories/"
     }
   }
 }
