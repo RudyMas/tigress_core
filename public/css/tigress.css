@@ -3,3 +3,20 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+/* Fieldset and legend styling */
+fieldset {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    background-color: #fdfdfd;
+    overflow: hidden;
+}
+
+fieldset legend {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #333;
+}
