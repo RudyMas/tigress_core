@@ -3,6 +3,7 @@
 namespace Controller\Core;
 
 use Repository\system_settings_repo;
+use Tigress\EncryptionRSA;
 use Tigress\Repository;
 
 /**
@@ -11,11 +12,13 @@ use Tigress\Repository;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.5.0
+ * @version 0.6.0
+ * @lastmodified 2024-10-24
  * @package Controller\Core\SettingsController
  */
 class SettingsController
 {
+    private EncryptionRSA $encryption;
     private Repository $systemSettings;
 
     /**
@@ -25,15 +28,19 @@ class SettingsController
      */
     public static function version(): string
     {
-        return '0.5.0';
+        return '0.6.0';
     }
 
     /**
      * SettingsController constructor.
      */
-    public function __construct()
+    public function __construct(bool $encryption = false)
     {
         $this->systemSettings = new system_settings_repo();
+
+        if ($encryption) {
+            $this->encryption = new EncryptionRSA();
+        }
     }
 
     /**
@@ -63,9 +70,10 @@ class SettingsController
      */
     public function getSettings(): array
     {
+        $this->encryption->setKey(file_get_contents(SYSTEM_ROOT . '/private/keys/private.pem'));
         $data = [];
         foreach ($this->systemSettings as $setting) {
-            $data[$setting->setting] = $setting->value;
+            $data[$setting->setting] = $this->encryption->decrypt($setting->value);
         }
         return $data;
     }
@@ -78,11 +86,12 @@ class SettingsController
      */
     public function saveSettings(array $settings): void
     {
+        $this->encryption->setKey(file_get_contents(SYSTEM_ROOT . '/private/keys/public.pem'));
         foreach ($settings as $key => $value) {
             $this->systemSettings->new();
             $setting = $this->systemSettings->current();
             $setting->setting = $key;
-            $setting->value = $value;
+            $setting->value = $this->encryption->encrypt($value);
             $this->systemSettings->save($setting);
         }
     }
