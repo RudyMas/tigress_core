@@ -2,11 +2,13 @@
 
 namespace Controller\version;
 
+use Controller\Core\SettingsController;
 use Controller\Menu;
 use Exception;
 use Tigress\Database;
 use Tigress\DataConverter;
 use Tigress\DisplayHelper;
+use Tigress\Encryption;
 use Tigress\FileManager;
 use Tigress\FrameworkHelper;
 use Tigress\GoogleApi;
@@ -46,6 +48,7 @@ class VersionController
         $tigress_security_version = class_exists('Tigress\Security') ? Security::version() : 'Not Active';
         $tigress_router_version = class_exists('Tigress\Router') ? Router::version() : 'Not Active';
         $tigress_rights_version = class_exists('Tigress\Rights') ? Rights::version() : 'Not Active';
+        $tigress_encryption_version = class_exists('Tigress\Encryption') ? Encryption::version() : 'Not Active';
         $tigress_menu_version = class_exists('Controller\Menu') ? Menu::version() : 'Not Active';
         $tigress_database_version = class_exists('Tigress\Database') && CONFIG->packages->tigress_database ? Database::version() : 'Not Active';
         $tigress_repository_version = class_exists('Tigress\Repository') ? Repository::version() : 'Not Active';
@@ -55,6 +58,9 @@ class VersionController
         $framework_helper_version = class_exists('Tigress\FrameworkHelper') ? FrameworkHelper::version() : 'Not Active';
         $display_helper_version = class_exists('Tigress\DisplayHelper') ? DisplayHelper::version() : 'Not Active';
         $pdf_creator_helper_version = class_exists('Tigress\PdfCreatorHelper') ? PdfCreatorHelper::version() : 'Not Active';
+
+        // Get the version of the Tigress Controller Classes loaded
+        $settings_controller_version = class_exists('Controller\Core\SettingsController') ? SettingsController::version() : 'Not Active';
 
         // Get the version of the Tigress Support Classes loaded
         $tigress_data_converter_version = class_exists('Tigress\DataConverter') ? DataConverter::version() : 'Not Active';
@@ -67,6 +73,7 @@ class VersionController
             'tigress_security_version' => $tigress_security_version,
             'tigress_router_version' => $tigress_router_version,
             'tigress_rights_version' => $tigress_rights_version,
+            'tigress_encryption_version' => $tigress_encryption_version,
             'tigress_menu_version' => $tigress_menu_version,
             'tigress_database_version' => $tigress_database_version,
             'tigress_repository_version' => $tigress_repository_version,
@@ -74,6 +81,7 @@ class VersionController
             'framework_helper_version' => $framework_helper_version,
             'display_helper_version' => $display_helper_version,
             'pdf_creator_helper_version' => $pdf_creator_helper_version,
+            'settings_controller_version' => $settings_controller_version,
             'tigress_data_converter_version' => $tigress_data_converter_version,
             'tigress_file_manager_version' => $tigress_file_manager_version,
             'tigress_google_api_version' => $tigress_google_api_version,

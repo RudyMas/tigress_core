@@ -7,18 +7,31 @@ use Tigress\EncryptionRSA;
 use Tigress\Repository;
 
 /**
- * Class SettingsController - This class is used in combination with the system_settings table (PHP version 8.3)
+ * Class SettingsController (PHP version 8.3)
+ *
+ * This class is used in combination with the system_settings table.
+ *     CREATE TABLE `system_settings` (
+ *     `setting` varchar(30) NOT NULL,
+ *     `value` text NOT NULL
+ *     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+ *
+ * It allows you to load, save and get settings from the database.
+ * If encryption is enabled, it will encrypt the settings before saving them to the database.
+ * If encryption is enabled, it will decrypt the settings before returning them.
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.6.0
- * @lastmodified 2024-10-24
+ * @version 0.6.5
+ * @lastmodified 2024-10-25
  * @package Controller\Core\SettingsController
  */
 class SettingsController
 {
+    private bool $enableEncryption;
     private EncryptionRSA $encryption;
+    private string $publicKey;
+    private string $privateKey;
     private Repository $systemSettings;
 
     /**
@@ -28,7 +41,7 @@ class SettingsController
      */
     public static function version(): string
     {
-        return '0.6.0';
+        return '0.6.5';
     }
 
     /**
@@ -38,6 +51,7 @@ class SettingsController
     {
         $this->systemSettings = new system_settings_repo();
 
+        $this->enableEncryption = $encryption;
         if ($encryption) {
             $this->encryption = new EncryptionRSA();
         }
@@ -70,10 +84,16 @@ class SettingsController
      */
     public function getSettings(): array
     {
-        $this->encryption->setKey(file_get_contents(SYSTEM_ROOT . '/private/keys/private.pem'));
         $data = [];
-        foreach ($this->systemSettings as $setting) {
-            $data[$setting->setting] = $this->encryption->decrypt($setting->value);
+        if ($this->enableEncryption) {
+            $this->encryption->setKey(file_get_contents(SYSTEM_ROOT . $this->privateKey));
+            foreach ($this->systemSettings as $setting) {
+                $data[$setting->setting] = $this->encryption->decrypt($setting->value);
+            }
+        } else {
+            foreach ($this->systemSettings as $setting) {
+                $data[$setting->setting] = $setting->value;
+            }
         }
         return $data;
     }
@@ -86,13 +106,45 @@ class SettingsController
      */
     public function saveSettings(array $settings): void
     {
-        $this->encryption->setKey(file_get_contents(SYSTEM_ROOT . '/private/keys/public.pem'));
-        foreach ($settings as $key => $value) {
-            $this->systemSettings->new();
-            $setting = $this->systemSettings->current();
-            $setting->setting = $key;
-            $setting->value = $this->encryption->encrypt($value);
-            $this->systemSettings->save($setting);
+        if ($this->enableEncryption) {
+            $this->encryption->setKey(file_get_contents(SYSTEM_ROOT . $this->publicKey));
+            foreach ($settings as $key => $value) {
+                $this->systemSettings->new();
+                $setting = $this->systemSettings->current();
+                $setting->setting = $key;
+                $setting->value = $this->encryption->encrypt($value);
+                $this->systemSettings->save($setting);
+            }
+        } else {
+            foreach ($settings as $key => $value) {
+                $this->systemSettings->new();
+                $setting = $this->systemSettings->current();
+                $setting->setting = $key;
+                $setting->value = $value;
+                $this->systemSettings->save($setting);
+            }
         }
+    }
+
+    /**
+     * Set the public key
+     *
+     * @param string $publicKey
+     * @return void
+     */
+    public function setPublicKey(string $publicKey): void
+    {
+        $this->publicKey = $publicKey;
+    }
+
+    /**
+     * Set the private key
+     *
+     * @param string $privateKey
+     * @return void
+     */
+    public function setPrivateKey(string $privateKey): void
+    {
+        $this->privateKey = $privateKey;
     }
 }

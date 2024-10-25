@@ -14,46 +14,55 @@
         <h2 class="text-nowrap">Tigress PHP Framework</h2>
         <h4><i>Tigress is a PHP MVC-framework for building web applications.</i></h4>
         <div class="row">
-            <div class="col-md-6">
-                <h5><u>Main Packages:</u></h5>
-                <p>
-                    Core: {{ tigress_core_version }}<br>
-                    Security: {{ tigress_security_version }}<br>
-                    Router: {{ tigress_router_version }}<br>
-                    Rights: {{ tigress_rights_version }}<br>
-                    Menu: {{ tigress_menu_version }}
-                </p>
-            </div>
-            <div class="col-md-6">
-                <h5><u>Core Helper Classes</u></h5>
-                <p>
-                    Framework Helper: {{ framework_helper_version }}<br>
-                    Display Helper: {{ display_helper_version }}<br>
-                    PDF Creator Helper: {{ pdf_creator_helper_version }}
-                </p>
-            </div>
-            <div class="col-md-6">
-                <h5><u>Database Packages</u></h5>
-                <p>
-                    Database: {{ tigress_database_version }}<br>
-                    Repository: {{ tigress_repository_version }}<br>
-                    Model: {{ tigress_model_version }}
-                </p>
-            </div>
-            <div class="col-md-6">
-                <h5><u>Support Packages</u></h5>
-                <p>
-                    Data Converter: {{ tigress_data_converter_version }}<br>
-                    File Manager: {{ tigress_file_manager_version }}<br>
-                    Google API: {{ tigress_google_api_version.GoogleApi }}<br>
-                    {% if tigress_google_api_version.GoogleApi != 'Not Active' %}
-                        &bullet; Google Auth: {{ tigress_google_api_version.GoogleApiAuth }}<br>
-                        &bullet; Google Calendar: {{ tigress_google_api_version.GoogleApiCalendar }}<br>
-                        &bullet; Google Drive: {{ tigress_google_api_version.GoogleApiDrive }}<br>
-                        &bullet; Google Script: {{ tigress_google_api_version.GoogleApiScript }}<br>
-                    {% endif %}
-                    Manipulator: {{ tigress_manipulator_version }}<br>
-                </p>
+            <div class="col-md-12" style="columns: 200px 4">
+                <div style="break-inside: avoid">
+                    <h5><u>Main Packages:</u></h5>
+                    <p>
+                        Core: {{ tigress_core_version }}<br>
+                        Security: {{ tigress_security_version }}<br>
+                        Router: {{ tigress_router_version }}<br>
+                        Rights: {{ tigress_rights_version }}<br>
+                        Menu: {{ tigress_menu_version }}<br>
+                        Encryption: {{ tigress_encryption_version }}<br>
+                    </p>
+                </div>
+                <div style="break-inside: avoid">
+                    <h5><u>Core Helper Classes</u></h5>
+                    <p>
+                        Framework Helper: {{ framework_helper_version }}<br>
+                        Display Helper: {{ display_helper_version }}<br>
+                        PDF Creator Helper: {{ pdf_creator_helper_version }}
+                    </p>
+                </div>
+                <div style="break-inside: avoid">
+                    <h5><u>Core Controller Classes</u></h5>
+                    <p>
+                        Settings Controller: {{ settings_controller_version }}<br>
+                    </p>
+                </div>
+                <div style="break-inside: avoid">
+                    <h5><u>Database Packages</u></h5>
+                    <p>
+                        Database: {{ tigress_database_version }}<br>
+                        Repository: {{ tigress_repository_version }}<br>
+                        Model: {{ tigress_model_version }}
+                    </p>
+                </div>
+                <div style="break-inside: avoid">
+                    <h5><u>Support Packages</u></h5>
+                    <p>
+                        Data Converter: {{ tigress_data_converter_version }}<br>
+                        File Manager: {{ tigress_file_manager_version }}<br>
+                        Google API: {{ tigress_google_api_version.GoogleApi }}<br>
+                        {% if tigress_google_api_version.GoogleApi != 'Not Active' %}
+                            &bullet; Google Auth: {{ tigress_google_api_version.GoogleApiAuth }}<br>
+                            &bullet; Google Calendar: {{ tigress_google_api_version.GoogleApiCalendar }}<br>
+                            &bullet; Google Drive: {{ tigress_google_api_version.GoogleApiDrive }}<br>
+                            &bullet; Google Script: {{ tigress_google_api_version.GoogleApiScript }}<br>
+                        {% endif %}
+                        Manipulator: {{ tigress_manipulator_version }}<br>
+                    </p>
+                </div>
             </div>
         </div>
         <div id="versionBackButton">
