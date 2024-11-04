@@ -48,7 +48,7 @@
         <script src="{{ BASE_URL }}/vendor/tigress/menu/public/javascript/menu.js"></script>
     {% endblock %}
 </head>
-<body>
+<body id="{{ SERVER_TYPE }}">
 <div class="grid-container">
     {% if (menu.position != 'none') %}
         {% include 'menu.twig' %}

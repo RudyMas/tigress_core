@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+body#development {
+    border-left: 10px solid red;
+}
+
+body#test {
+    border-left: 10px solid green;
+}
+
 /* Fieldset and legend styling */
 fieldset {
     border: 2px solid #ccc;
@@ -19,4 +27,232 @@ fieldset legend {
     font-weight: bold;
     font-size: 1.2em;
     color: #333;
+}
+
+/* Default color for buttons & tiles */
+.red {
+    background: #bc1c48;
+}
+
+.red-1 {
+    border: solid 2px;
+    border-color: #bc1c48;
+}
+
+.red-1 .label {
+    color: #DBDBDB;
+}
+
+.red-1 i {
+    color: #DBDBDB;
+}
+
+.blue {
+    background: #00a9ec;
+}
+
+.blue-1 {
+    border: solid 2px;
+    border-color: #00a9ec;
+}
+
+.blue-1 .label {
+    color: #DBDBDB;
+}
+
+.blue-1 i {
+    color: #DBDBDB;
+}
+
+.blue-2 {
+    border: solid 2px;
+    border-color: #04CBA2;
+}
+
+.blue-2 .label {
+    color: #DBDBDB;
+}
+
+.blue-2 i {
+    color: #DBDBDB;
+}
+
+.col2 {
+    border: solid 2px;
+    border-color: #cc6633;
+}
+
+.col2 .label {
+    color: #DBDBDB;
+}
+
+.col2 i {
+    color: #DBDBDB;
+}
+
+.col3 {
+    border: solid 2px;
+    border-color: #D8BB26;
+}
+
+.col3 .label {
+    color: #DBDBDB;
+}
+
+.col3 i {
+    color: #DBDBDB;
+}
+
+.col4 {
+    border: solid 2px;
+    border-color: #03C532;
+}
+
+.col4 .label {
+    color: #DBDBDB;
+}
+
+.col4 i {
+    color: #DBDBDB;
+}
+
+.orange {
+    background: #FF520E;
+}
+
+.orange-1 {
+    border: solid 2px;
+    border-color: #FF520E;
+}
+
+.orange-1 .label {
+    color: #DBDBDB;
+}
+
+.orange-1 i {
+    color: #DBDBDB;
+}
+
+.green {
+    background: #0e5d30;
+}
+
+.green-1 {
+    border: solid 2px;
+    border-color: #0e5d30;
+}
+
+.green-1 .label {
+    color: #DBDBDB;
+}
+
+.green-1 i {
+    color: #DBDBDB;
+}
+
+.purple {
+    background: #663399;
+}
+
+.purple-1 {
+    border: solid 2px;
+    border-color: #663399;
+}
+
+.purple-1 .label {
+    color: #DBDBDB;
+}
+
+.purple-1 i {
+    color: #DBDBDB;
+}
+
+.gray, .grey {
+    border: solid 1px;
+    border-color: #4E4E4D;
+}
+
+.gray i, .grey i {
+    opacity: 0.5;
+}
+
+.gray span, .grey span {
+    opacity: 0.5;
+}
+
+.green-bright {
+    background: #78d204;
+}
+
+.green-bright-1 {
+    border: solid 2px;
+    border-color: #78d204;
+}
+
+.green-bright-1 i {
+    color: #78d204;
+}
+
+.blue-nav {
+    background: #25478e;
+}
+
+.blue-nav-1 {
+    border: solid 2px;
+    border-color: #25478e;
+}
+
+.blue-nav .label {
+    color: #25478e;
+}
+
+.yellow {
+    background: #FFB400;
+}
+
+.yellow-1 {
+    border: solid 2px;
+    border-color: #FFB400;
+}
+
+.yellow-1 .label {
+    color: #DBDBDB;
+}
+
+.yellow-1 i {
+    color: #DBDBDB;
+}
+
+.brown {
+    background: #744021;
+}
+
+.brown-1 {
+    border: solid 2px;
+    border-color: #744021;
+}
+
+.brown-1 .label {
+    color: #DBDBDB;
+}
+
+.brown-1 i {
+    color: #DBDBDB;
+}
+
+.kerst {
+    background: #B51E31;
+}
+
+.kerst-1 {
+    border: solid 2px;
+    border-color: #B51E31;
+}
+
+.kerst-1 .label {
+    color: #DBDBDB;
+}
+
+.kerst-1 i {
+    color: #DBDBDB;
 }
