@@ -193,8 +193,12 @@ fieldset legend {
     border-color: #78d204;
 }
 
+.green-bright-1 .label {
+    color: #DBDBDB;
+}
+
 .green-bright-1 i {
-    color: #78d204;
+    color: #DBDBDB;
 }
 
 .blue-nav {
@@ -206,8 +210,12 @@ fieldset legend {
     border-color: #25478e;
 }
 
-.blue-nav .label {
-    color: #25478e;
+.blue-nav-1 .label {
+    color: #DBDBDB;
+}
+
+.blue-nav-1 i {
+    color: #DBDBDB;
 }
 
 .yellow {
