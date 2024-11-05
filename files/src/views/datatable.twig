@@ -1,0 +1,42 @@
+{% extends 'base.twig' %}
+{% block css %}
+    {{ parent() }}
+    <!-- Loading dataTables -->
+    <link rel="stylesheet" href="/node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css"/>
+    <!-- Loading dataTables Select -->
+{#    <link rel="stylesheet" href="/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css"/>#}
+    <!-- Loading dataTables FixedColumns -->
+{#    <link rel="stylesheet" href="/node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css"/>#}
+    <!-- Loading dataTables FixedHeaders -->
+{#    <link rel="stylesheet" href="/node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css"/>#}
+    <!-- Loading dataTables Buttons -->
+{#    <link rel="stylesheet" href="/node_modules/datatables.net-buttons-dt/css/buttons.dataTables.min.css"/>#}
+    <!-- Loading dataTables DateTime -->
+{#    <link rel="stylesheet" href="/node_modules/datatables.net-datetime/css/dataTables.dateTime.scss"/>#}
+    <!-- Loading dataTables SearchPanes -->
+{#    <link rel="stylesheet" href="/node_modules/datatables.net-searchpanes-dt/css/searchPanes.dataTables.min.css"/>#}
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <!-- Loading dataTables -->
+    <script src="/node_modules/datatables.net/js/dataTables.min.js"></script>
+    <script src="/node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Loading dataTables Select -->
+{#    <script src="/node_modules/datatables.net-select/js/dataTables.select.min.js"></script>#}
+{#    <script src="/node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js"></script>#}
+    <!-- Loading dataTables FixedColumns -->
+{#    <script src="/node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js"></script>#}
+{#    <script src="/node_modules/datatables.net-fixedcolumns-bs4/js/fixedColumns.bootstrap4.min.js"></script>#}
+    <!-- Loading dataTables FixedHeaders -->
+{#    <script src="/node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>#}
+{#    <script src="/node_modules/datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.min.js"></script>#}
+    <!-- Loading dataTables Buttons -->
+{#    <script src="/node_modules/datatables.net-buttons/js/dataTables.buttons.min.js"></script>#}
+{#    <script src="/node_modules/datatables.net-buttons-dt/js/buttons.dataTables.min.js"></script>#}
+    <!-- Loading dataTables DateTime -->
+{#    <script src="/node_modules/datatables.net-datetime/js/dataTables.dateTime.js"></script>#}
+{#    <script src="/node_modules/datatables.net-plugins/sorting/date-eu.js"></script>#}
+    <!-- Loading dataTables SearchPanes -->
+{#    <script src="/node_modules/datatables.net-searchpanes/js/dataTables.searchPanes.min.js"></script>#}
+{#    <script src="/node_modules/datatables.net-searchpanes-dt/js/searchPanes.dataTables.min.js"></script>#}
+{% endblock %}

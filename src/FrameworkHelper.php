@@ -8,8 +8,8 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.0.2
- * @lastmodified 2024-10-03
+ * @version 1.0.3
+ * @lastmodified 2024-11-05
  * @package Tigress\FrameworkHelper
  */
 class FrameworkHelper
@@ -21,7 +21,7 @@ class FrameworkHelper
      */
     public static function version(): string
     {
-        return '1.0.2';
+        return '1.0.3';
     }
 
     /**
@@ -109,6 +109,10 @@ class FrameworkHelper
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/src/views/base.twig',
                 SYSTEM_ROOT . '/src/views/base.twig'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/src/views/datatable.twig',
+                SYSTEM_ROOT . '/src/views/datatable.twig'
             );
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.htaccess',
