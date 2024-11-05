@@ -48,8 +48,8 @@
         <script src="{{ BASE_URL }}/vendor/tigress/menu/public/javascript/menu.js"></script>
     {% endblock %}
 </head>
-<body id="{{ SERVER_TYPE }}">
-<div class="grid-container">
+<body>
+<div id="{{ SERVER_TYPE }}" class="grid-container">
     {% if (menu.position != 'none') %}
         {% include 'menu.twig' %}
     {% endif %}
@@ -58,6 +58,26 @@
     {% endif %}
     <header>{% block header %}{% endblock %}</header>
     <div class="main-content">
+        {% if _SESSION.error %}
+            <div class="alert alert-danger" role="alert">
+                {{ _SESSION.error }}
+            </div>
+        {% endif %}
+        {% if _SESSION.success %}
+            <div class="alert alert-success" role="alert">
+                {{ _SESSION.success }}
+            </div>
+        {% endif %}
+        {% if _SESSION.warning %}
+            <div class="alert alert-warning" role="alert">
+                {{ _SESSION.warning }}
+            </div>
+        {% endif %}
+        {% if _SESSION.message %}
+            <div class="alert alert-info" role="alert">
+                {{ _SESSION.message }}
+            </div>
+        {% endif %}
         {% block content %}{% endblock %}
     </div>
     <footer>{% block footer %}{% endblock %}</footer>

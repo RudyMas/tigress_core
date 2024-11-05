@@ -19,8 +19,8 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.3.1
- * @lastmodified 2024-11-04
+ * @version 1.3.2
+ * @lastmodified 2024-11-05
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -35,7 +35,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '1.3.1';
+        return '1.3.2';
     }
 
     /**
@@ -113,6 +113,9 @@ class DisplayHelper
             case 'JSON':
                 $this->renderJson($data, $httpResponseCode);
                 break;
+            case 'DT':
+                $this->renderDatatable($data, $httpResponseCode);
+                break;
             case 'PDF':
                 $this->renderPDF($template, $data, $config);
                 break;
@@ -186,6 +189,18 @@ class DisplayHelper
         print($convert->getJsonData());
     }
 
+    private function renderDatatable(array $data, int $httpResponseCode = 200): void
+    {
+        $convert = $this->checkHttpResponseCode($httpResponseCode, ['data' => $data]);
+        $convert->arrayToJson();
+
+        http_response_code($httpResponseCode);
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: *');
+        print($convert->getJsonData());
+    }
+
     /**
      * Show a PHP file
      *
@@ -240,6 +255,20 @@ class DisplayHelper
         ]);
 
         echo $this->twig->render($template, $mergedData);
+
+        // Clear the session messages
+        if (isset($_SESSION['message'])) {
+            unset($_SESSION['message']);
+        }
+        if (isset($_SESSION['error'])) {
+            unset($_SESSION['error']);
+        }
+        if (isset($_SESSION['warning'])) {
+            unset($_SESSION['warning']);
+        }
+        if (isset($_SESSION['success'])) {
+            unset($_SESSION['success']);
+        }
     }
 
     /**

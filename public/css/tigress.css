@@ -4,12 +4,16 @@
     box-sizing: border-box;
 }
 
-body#development {
+#development {
     border-left: 10px solid red;
 }
 
-body#test {
+#test {
     border-left: 10px solid green;
+}
+
+.main-content {
+    padding: 20px 0;
 }
 
 /* Fieldset and legend styling */
@@ -255,4 +259,30 @@ fieldset legend {
 
 .kerst-1 i {
     color: #DBDBDB;
+}
+
+/* Default CSS for alert */
+.alert {
+    padding: 20px;
+    margin: 15px 15px 0 15px;
+}
+
+/* Breakout Container */
+.break-out {
+    width: 80vw;
+    position: relative;
+    margin-left: calc(-1 * (80vw - 100%) / 2);
+}
+
+.break-out90 {
+    width: 90vw;
+    position: relative;
+    margin-left: calc(-1 * (90vw - 100%) / 2);
+}
+
+.break-out-print {
+    min-width: 98vw;
+    max-width: 98vw;
+    position: relative;
+    margin-left: calc(-1 * (98vw - 100%) / 2);
 }
