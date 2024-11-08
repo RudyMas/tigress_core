@@ -33,6 +33,84 @@ fieldset legend {
     color: #333;
 }
 
+/* Transform checkboxes into toggle switches */
+.slider-container {
+    display: block; /* or inline-block based on layout */
+    position: relative;
+    cursor: pointer;
+    font-size: 16px; /* Adjust based on your design */
+    user-select: none; /* Prevent text selection */
+}
+
+/* Hide the checkbox */
+.slider-checkbox {
+    display: none;
+}
+
+/* Slider styling */
+.slider-label {
+    position: relative;
+    display: inline-block;
+    width: 50px; /* Width of the slider */
+    height: 24px; /* Height of the slider */
+    background-color: #ccc; /* Background of the slider */
+    border-radius: 34px; /* Rounded corners */
+    cursor: pointer;
+    transform: translateY(8px);
+}
+
+/* Adding text to the slider */
+.slider-checkbox:checked + .slider-label-text::after,
+.slider-checkbox:checked + b + .slider-label-text::after {
+    content: 'Ja';
+    color: white;
+    position: absolute;
+    left: 10px;
+    top: 2px;
+    font-size: 12px;
+}
+
+.slider-label-text::after {
+    content: 'Nee';
+    color: black;
+    position: absolute;
+    right: 5px;
+    top: 2px;
+    font-size: 12px;
+}
+
+/* Thumb styling */
+.slider-label::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px; /* Width of the thumb */
+    height: 20px; /* Height of the thumb */
+    border-radius: 50%; /* Rounded thumb */
+    background-color: white; /* Thumb color */
+    transition: 0.4s; /* Smooth transition for sliding effect */
+    z-index: 1000;
+}
+
+/* Checked state styling */
+.slider-checkbox:checked + .slider-label::before,
+.slider-checkbox:checked + b + .slider-label::before{
+    transform: translateX(26px); /* Move the thumb to the right */
+}
+
+/* Optional: Styling for when the slider is focused with keyboard navigation */
+.slider-checkbox:focus + .slider-label,
+.slider-checkbox:focus + b + .slider-label{
+    box-shadow: 0 0 1px #2196F3;
+}
+
+/* Optional: Styling for the slider when it is checked (active) */
+.slider-checkbox:checked + .slider-label,
+.slider-checkbox:checked + b + .slider-label{
+    background-color: #2196F3; /* Change slider background when active */
+}
+
 /* Default color for buttons & tiles */
 .red {
     background: #bc1c48;
