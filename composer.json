@@ -16,17 +16,17 @@
     "php": ">=8.3",
     "ext-dom": "*",
     "dompdf/dompdf": ">=v3.0.0",
-    "tigress/database": ">=v1.1",
-    "tigress/data-converter": ">=v1.0",
-    "tigress/encryption": ">=v1.0",
-    "tigress/menu": ">=v0.3",
-    "tigress/model": ">=v1.4",
-    "tigress/repository": ">=v1.5",
-    "tigress/rights": ">=v1.3",
-    "tigress/router": ">=v1.2",
-    "tigress/security": ">=v1.2",
-    "twig/twig": ">=v3.14",
-    "twig/intl-extra": ">=v3.13"
+    "tigress/database": ">=v1.1.1",
+    "tigress/data-converter": ">=v1.0.0",
+    "tigress/encryption": ">=v1.1.0",
+    "tigress/menu": ">=v0.3.0",
+    "tigress/model": ">=v1.4.2",
+    "tigress/repository": ">=v1.5.13",
+    "tigress/rights": ">=v1.5.1",
+    "tigress/router": ">=v1.2.1",
+    "tigress/security": ">=v1.2.0",
+    "twig/twig": ">=v3.14.2",
+    "twig/intl-extra": ">=v3.13.0"
   },
   "autoload": {
     "psr-4": {
