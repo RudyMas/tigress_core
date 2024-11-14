@@ -12,7 +12,6 @@ use Twig\Error\LoaderError;
  * Following constants are defined:
  * - TIGRESS_CORE_VERSION   Contains the version of the Tigress Core
  * - CONFIG                 Contains the config.json file
- * - ROUTES                 Contains the routes.json file
  * - SYSTEM                 Contains the system.json file
  * - SERVER_TYPE            Contains the type of server (development, test, production)
  * - DATABASE               Contains the database connections
@@ -27,8 +26,8 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.9.0
- * @lastmodified 2024-11-08
+ * @version 0.9.1
+ * @lastmodified 2024-11-14
  * @package Tigress\Core
  */
 class Core
@@ -44,7 +43,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.9.0');
+        define('TIGRESS_CORE_VERSION', '0.9.1');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
@@ -60,7 +59,6 @@ class Core
 
         // Load the config files
         define('CONFIG', json_decode(file_get_contents('config/config.json')));
-        define('ROUTES', json_decode(file_get_contents('config/routes.json')));
         define('SYSTEM', json_decode(file_get_contents('system/config.json')));
 
         // Define the constants for the website information
@@ -84,7 +82,6 @@ class Core
         // Load the security class
         define('SECURITY', new Security());
         define('RIGHTS', new Rights());
-        RIGHTS->setRights(ROUTES);
 
         foreach (CONFIG->servers as $server => $type) {
             if (isset($_SERVER['HTTP_HOST'])) {
@@ -98,6 +95,7 @@ class Core
         }
 
         $router = new Router();
+        RIGHTS->setRights($router->createRoutes());
         $router->execute();
     }
 
