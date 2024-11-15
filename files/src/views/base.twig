@@ -1,3 +1,5 @@
+<!-- This is the base template for all pages. It includes the menu, sidebar, header, content and footer. -->
+<!-- Version: 2024.11.15 -->
 <!DOCTYPE html>
 <html lang="{% block html_lang %}{{ WEBSITE.html_lang }}{% endblock %}">
 <head>
@@ -21,7 +23,7 @@
         <!-- Loading Select2 -->
         <link rel="stylesheet" href="{{ BASE_URL }}/node_modules/select2/dist/css/select2.min.css">
         <link rel="stylesheet"
-              href="{{ BASE_URL }}/node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css">
+              href="{{ BASE_URL }}/node_modules/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.min.css">
         <!-- Loading Tigress CSS -->
         <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/tigress.css">
         {% if WEBSITE.mode == 'dark' %}
@@ -44,6 +46,8 @@
         <!-- Loading Select2 -->
         <script src="{{ BASE_URL }}/node_modules/select2/dist/js/select2.min.js"></script>
         <script src="{{ BASE_URL }}/node_modules/select2/dist/js/i18n/nl.js"></script>
+        <!-- Loading Tigress JS -->
+        <script src="{{ BASE_URL }}/vendor/tigress/core/public/javascript/tigress.js"></script>
         <!-- Loading Tigress Menu JS -->
         <script src="{{ BASE_URL }}/vendor/tigress/menu/public/javascript/menu.js"></script>
     {% endblock %}
