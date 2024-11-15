@@ -26,8 +26,8 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.9.1
- * @lastmodified 2024-11-14
+ * @version 0.9.2
+ * @lastmodified 2024-11-15
  * @package Tigress\Core
  */
 class Core
@@ -43,7 +43,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.9.1');
+        define('TIGRESS_CORE_VERSION', '0.9.2');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
