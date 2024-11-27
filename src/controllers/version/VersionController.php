@@ -24,13 +24,12 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
- * Class VersionController (PHP version 8.3)
+ * Class VersionController (PHP version 8.4)
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.12.0
- * @lastmodified 2024-10-18
+ * @version 2024.11.27.0
  * @package Controller\version\VersionController
  */
 class VersionController

@@ -15,12 +15,12 @@ use Twig\Loader\FilesystemLoader;
 use Twig\TwigFilter;
 
 /**
- * Class DisplayHelper (PHP version 8.3)
+ * Class DisplayHelper (PHP version 8.4)
+ *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.3.2
- * @lastmodified 2024-11-05
+ * @version 2024.11.27.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -35,7 +35,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '1.3.2';
+        return '2024.11.27.0';
     }
 
     /**
@@ -189,6 +189,13 @@ class DisplayHelper
         print($convert->getJsonData());
     }
 
+    /**
+     * Return a JSON output for a Datatable
+     *
+     * @param array $data
+     * @param int $httpResponseCode
+     * @return void
+     */
     private function renderDatatable(array $data, int $httpResponseCode = 200): void
     {
         $convert = $this->checkHttpResponseCode($httpResponseCode, ['data' => $data]);

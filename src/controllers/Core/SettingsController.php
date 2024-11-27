@@ -7,7 +7,7 @@ use Tigress\EncryptionRSA;
 use Tigress\Repository;
 
 /**
- * Class SettingsController (PHP version 8.3)
+ * Class SettingsController (PHP version 8.4)
  *
  * This class is used in combination with the system_settings table.
  *     CREATE TABLE `system_settings` (
@@ -22,16 +22,23 @@ use Tigress\Repository;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.6.5
- * @lastmodified 2024-10-25
+ * @version 2024.11.27.0
  * @package Controller\Core\SettingsController
  */
 class SettingsController
 {
     private bool $enableEncryption;
     private EncryptionRSA $encryption;
-    private string $publicKey;
-    private string $privateKey;
+    private string $publicKey {
+        set {
+            $this->publicKey = $value;
+        }
+    }
+    private string $privateKey {
+        set {
+            $this->privateKey = $value;
+        }
+    }
     private Repository $systemSettings;
 
     /**
@@ -41,7 +48,7 @@ class SettingsController
      */
     public static function version(): string
     {
-        return '0.6.5';
+        return '2024.11.27.0';
     }
 
     /**
@@ -124,27 +131,5 @@ class SettingsController
                 $this->systemSettings->save($setting);
             }
         }
-    }
-
-    /**
-     * Set the public key
-     *
-     * @param string $publicKey
-     * @return void
-     */
-    public function setPublicKey(string $publicKey): void
-    {
-        $this->publicKey = $publicKey;
-    }
-
-    /**
-     * Set the private key
-     *
-     * @param string $privateKey
-     * @return void
-     */
-    public function setPrivateKey(string $privateKey): void
-    {
-        $this->privateKey = $privateKey;
     }
 }

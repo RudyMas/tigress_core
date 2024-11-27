@@ -13,14 +13,14 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": ">=8.3",
+    "php": ">=8.4",
     "ext-dom": "*",
     "dompdf/dompdf": ">=v3.0.0",
     "twig/twig": ">=v3.14.2",
     "twig/intl-extra": ">=v3.13.0"
   },
   "require-dev": {
-    "tigress/database": ">=v1.1.1",
+    "tigress/database": ">=2024",
     "tigress/data-converter": ">=v1.0.0",
     "tigress/encryption": ">=v1.1.0",
     "tigress/menu": ">=v0.3.0",

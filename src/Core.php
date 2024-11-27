@@ -7,7 +7,7 @@ use Exception;
 use Twig\Error\LoaderError;
 
 /**
- * Class Core (PHP version 8.3)
+ * Class Core (PHP version 8.4)
  *
  * Following constants are defined:
  * - TIGRESS_CORE_VERSION   Contains the version of the Tigress Core
@@ -26,8 +26,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.9.3
- * @lastmodified 2024-11-27
+ * @version 2024.11.27.0
  * @package Tigress\Core
  */
 class Core
@@ -43,7 +42,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '0.9.3');
+        define('TIGRESS_CORE_VERSION', '2024.11.27.0');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
@@ -173,7 +172,7 @@ class Core
      * @param mixed $array
      * @param bool $stop
      */
-    public static function dump($array, bool $stop = true): void
+    public static function dump(mixed $array, bool $stop = true): void
     {
         print('<pre>');
         print_r($array);

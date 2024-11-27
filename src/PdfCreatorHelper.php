@@ -10,8 +10,7 @@ use Dompdf\Dompdf;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.0.0
- * @lastmodified 2024-07-01
+ * @version 2024.11.27.0
  * @package Tigress\PdfCreatorHelper
  */
 class PdfCreatorHelper
@@ -25,9 +24,12 @@ class PdfCreatorHelper
      */
     public static function version(): string
     {
-        return '1.0.0';
+        return '2024.11.27.0';
     }
 
+    /**
+     * @param array $config
+     */
     public function __construct(array $config = [])
     {
         $this->Dompdf = new Dompdf($config);
@@ -91,11 +93,10 @@ class PdfCreatorHelper
      *
      * @param string $image
      * @param string $alt
-     * @param null $width
-     * @param null $height
+     * @param array|null $options
      * @return string
      */
-    public function getImage(string $image, string $alt = 'Logo', $width = null, $height = null): string
+    public function getImage(string $image, string $alt = 'Logo', ?array $options = null): string
     {
         $image = str_replace('\\', '/', $image);
         if ($image[0] != '/') {
@@ -103,14 +104,19 @@ class PdfCreatorHelper
         }
         $file = $_SERVER['DOCUMENT_ROOT'] . $image;
         $base64 = 'data:image/png;base64,' . base64_encode(file_get_contents($file));
-        if (is_null($width) && is_null($height)) {
+
+        if (is_null($options)) {
             return "<img src='$base64' alt='$alt'/>";
-        } elseif (is_null($width)) {
-            return "<img src='$base64' alt='$alt' height='$height'/>";
-        } elseif (is_null($height)) {
-            return "<img src='$base64' alt='$alt' width='$width'/>";
         } else {
-            return "<img src='$base64' alt='$alt' width='$width' height='$height'/>";
+            if (isset($options['width']) && isset($options['height'])) {
+                return "<img src='$base64' alt='$alt' width='{$options['width']}' height='{$options['height']}'/>";
+            } elseif (isset($options['width'])) {
+                return "<img src='$base64' alt='$alt' width='{$options['width']}'/>";
+            } elseif (isset($options['height'])) {
+                return "<img src='$base64' alt='$alt' height='{$options['height']}'/>";
+            } else {
+                return "<img src='$base64' alt='$alt'/>";
+            }
         }
     }
 }

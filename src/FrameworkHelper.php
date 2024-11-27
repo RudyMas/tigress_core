@@ -8,8 +8,7 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 1.0.3
- * @lastmodified 2024-11-05
+ * @version 2024.11.27.0
  * @package Tigress\FrameworkHelper
  */
 class FrameworkHelper
@@ -21,7 +20,7 @@ class FrameworkHelper
      */
     public static function version(): string
     {
-        return '1.0.3';
+        return '2024.11.27.0';
     }
 
     /**

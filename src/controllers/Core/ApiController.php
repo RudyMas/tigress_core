@@ -5,12 +5,12 @@ namespace Controller\Core;
 use Tigress\Core;
 
 /**
- * Class ApiController - This class is used to handle API requests (PHP version 8.3)
+ * Class ApiController - This class is used to handle API requests (PHP version 8.4)
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.9.0
+ * @version 2024.11.27.0
  * @package Controller\Core\ApiController
  */
 class ApiController

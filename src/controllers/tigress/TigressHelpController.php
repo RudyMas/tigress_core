@@ -3,18 +3,20 @@
 namespace Controller\tigress;
 
 /**
- * Class TigressHelpController (PHP version 8.3)
+ * Class TigressHelpController (PHP version 8.4)
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 0.1.0
- * @lastmodified 2024-10-03
+ * @version 2024.11.27.0
  * @package Controller\tigress_help\TigressHelpController
  */
 class TigressHelpController
 {
-    public function index()
+    /**
+     * @return void
+     */
+    public function index(): void
     {
         $output = <<<HTML
         <h1>Tigress Help</h1>
