@@ -13,7 +13,7 @@
 }
 
 .main-content {
-    padding: 20px 0;
+    padding: 10px 0;
 }
 
 /* Fieldset and legend styling */
@@ -349,8 +349,9 @@ fieldset legend {
 
 /* Default CSS for alert */
 .alert {
-    padding: 20px;
-    margin: 15px 15px 0 15px;
+    padding: 15px;
+    margin: 0 auto 10px;
+    max-width: 1024px;
 }
 
 /* Breakout Container */
