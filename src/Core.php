@@ -42,7 +42,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2024.11.28.0');
+        define('TIGRESS_CORE_VERSION', '2024.11.28');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
