@@ -12,5 +12,5 @@
       "package": "tigress/core"
     }
   ],
-  "defaultRoute": "/"
+  "defaultRoute": "/version"
 }
