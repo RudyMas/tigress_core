@@ -29,7 +29,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2024.11.28.0
+ * @version 2024.11.28.1
  * @package Controller\version\VersionController
  */
 class VersionController
@@ -65,7 +65,7 @@ class VersionController
         $tigress_data_converter_version = class_exists('Tigress\DataConverter') ? DataConverter::version() : 'Not Active';
         $tigress_file_manager_version = class_exists('Tigress\FileManager') ? FileManager::version() : 'Not Active';
         $tigress_google_api_version = class_exists('Tigress\GoogleApi') ? GoogleApi::version() : ['GoogleApi' => 'Not Active'];
-        $tigress_manipulator_version = class_exists('Tigress\Manipulator') ? Manipulator::version() : 'Not Active';
+        $tigress_manipulator_version = class_exists('Tigress\Manipulator') ? Manipulator::version() : ['Manipulator' => 'Not Active'];
 
         TWIG->render('version/index.twig', [
             'tigress_core_version' => TIGRESS_CORE_VERSION,

@@ -60,7 +60,13 @@
                             &bullet; Google Drive: {{ tigress_google_api_version.GoogleApiDrive }}<br>
                             &bullet; Google Script: {{ tigress_google_api_version.GoogleApiScript }}<br>
                         {% endif %}
-                        Manipulator: {{ tigress_manipulator_version }}<br>
+                        Manipulator: {{ tigress_manipulator_version.Manipulator }}<br>
+                        {% if tigress_manipulator_version.Manipulator != 'Not Active' %}
+                            &bullet; BBCode: {{ tigress_manipulator_version.BBCode }}<br>
+                            &bullet; CalculatePregnancy: {{ tigress_manipulator_version.CalculatePregnancy }}<br>
+                            &bullet; DateManipulator: {{ tigress_manipulator_version.DateManipulator }}<br>
+                            &bullet; TextManipulator: {{ tigress_manipulator_version.TextManipulator }}<br>
+                        {% endif %}
                     </p>
                 </div>
             </div>
