@@ -21,6 +21,16 @@ class ApiController
     private Core $Core;
 
     /**
+     * Get the version of the ApiController
+     *
+     * @return string
+     */
+    public static function version(): string
+    {
+        return '2024.11.28';
+    }
+
+    /**
      * @param Core $Core
      */
     public function __construct(Core $Core)
