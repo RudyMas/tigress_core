@@ -5,12 +5,13 @@ namespace Tigress;
 use Dompdf\Dompdf;
 
 /**
- * Class PdfCreatorClass - This class is used to create a PDF file from a HTML string.
+ * Class PdfCreatorClass (PHP version 8.4)
+ * - This class is used to create a PDF file from a HTML string.
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2024.11.27.0
+ * @version 2024.11.28.0
  * @package Tigress\PdfCreatorHelper
  */
 class PdfCreatorHelper
@@ -24,7 +25,7 @@ class PdfCreatorHelper
      */
     public static function version(): string
     {
-        return '2024.11.27.0';
+        return '2024.11.28.0';
     }
 
     /**

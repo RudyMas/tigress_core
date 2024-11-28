@@ -8,7 +8,7 @@ namespace Controller\tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2024.11.27.0
+ * @version 2024.11.28.0
  * @package Controller\tigress_help\TigressHelpController
  */
 class TigressHelpController

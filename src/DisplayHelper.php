@@ -2,6 +2,7 @@
 
 namespace Tigress;
 
+use Controller\Menu;
 use DOMDocument;
 use Exception;
 use JetBrains\PhpStorm\NoReturn;
@@ -20,7 +21,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2024.11.27.0
+ * @version 2024.11.28.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -35,7 +36,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2024.11.27.0';
+        return '2024.11.28.0';
     }
 
     /**
@@ -92,7 +93,7 @@ class DisplayHelper
      * @param string $type
      * @param int $httpResponseCode
      * @param array $config
-     * @return void
+     * @return string
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
@@ -104,7 +105,7 @@ class DisplayHelper
         string  $type = 'TWIG',
         int     $httpResponseCode = 200,
         array   $config = [],
-    ): void
+    ): string
     {
         switch (strtoupper($type)) {
             case 'HTML':
@@ -125,6 +126,9 @@ class DisplayHelper
             case 'TWIG':
                 $this->renderTwig($template, $data);
                 break;
+            case 'STWIG':
+                return $this->renderTwigString($template, $data);
+                break;
             case 'XML':
                 $this->renderXml($data, $httpResponseCode, $config);
                 break;
@@ -133,6 +137,7 @@ class DisplayHelper
         }
         ob_flush();
         flush();
+        return '';
     }
 
     /**
@@ -233,34 +238,7 @@ class DisplayHelper
      */
     private function renderTwig(string $template, array $data = []): void
     {
-        if (isset($_SESSION['user'])) {
-            $rights = [
-                'access' => RIGHTS->checkRights('access'),
-                'read' => RIGHTS->checkRights('read'),
-                'write' => RIGHTS->checkRights('write'),
-                'delete' => RIGHTS->checkRights('delete'),
-            ];
-        } else {
-            $rights = [
-                'access' => false,
-                'read' => false,
-                'write' => false,
-                'delete' => false,
-            ];
-        }
-
-        $mergedData = array_merge($data, [
-            '_SESSION' => $_SESSION,
-            '_POST' => $_POST,
-            '_GET' => $_GET,
-            'BASE_URL' => BASE_URL,
-            'SERVER_TYPE' => SERVER_TYPE,
-            'SYSTEM_ROOT' => SYSTEM_ROOT,
-            'WEBSITE' => WEBSITE,
-            'menu' => MENU,
-            'rights' => $rights,
-        ]);
-
+        $mergedData = $this->prepareTwigOutput($data);
         echo $this->twig->render($template, $mergedData);
 
         // Clear the session messages
@@ -276,6 +254,22 @@ class DisplayHelper
         if (isset($_SESSION['success'])) {
             unset($_SESSION['success']);
         }
+    }
+
+    /**
+     * Render a TWIG template as a string
+     *
+     * @param string $template
+     * @param array $data
+     * @return string
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    private function renderTwigString(string $template, array $data = []): string
+    {
+        $mergedData = $this->prepareTwigOutput($data);
+        return $this->twig->render($template, $mergedData);
     }
 
     /**
@@ -391,5 +385,40 @@ class DisplayHelper
         }
 
         return $dom->saveHTML();
+    }
+
+    /**
+     * @param array $data
+     * @return array|array[]|Menu[]|string[]
+     */
+    private function prepareTwigOutput(array $data): array
+    {
+        if (isset($_SESSION['user'])) {
+            $rights = [
+                'access' => RIGHTS->checkRights('access'),
+                'read' => RIGHTS->checkRights('read'),
+                'write' => RIGHTS->checkRights('write'),
+                'delete' => RIGHTS->checkRights('delete'),
+            ];
+        } else {
+            $rights = [
+                'access' => false,
+                'read' => false,
+                'write' => false,
+                'delete' => false,
+            ];
+        }
+
+        return array_merge($data, [
+            '_SESSION' => $_SESSION,
+            '_POST' => $_POST,
+            '_GET' => $_GET,
+            'BASE_URL' => BASE_URL,
+            'SERVER_TYPE' => SERVER_TYPE,
+            'SYSTEM_ROOT' => SYSTEM_ROOT,
+            'WEBSITE' => WEBSITE,
+            'menu' => MENU,
+            'rights' => $rights,
+        ]);
     }
 }

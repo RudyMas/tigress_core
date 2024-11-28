@@ -20,15 +20,15 @@
     "twig/intl-extra": ">=v3.13.0"
   },
   "require-dev": {
-    "tigress/database": ">=2024",
-    "tigress/data-converter": ">=v1.0.0",
-    "tigress/encryption": ">=v1.1.0",
-    "tigress/menu": ">=v0.3.0",
-    "tigress/model": ">=v1.4.2",
-    "tigress/repository": ">=v1.5.13",
-    "tigress/rights": ">=v1.5.1",
-    "tigress/router": ">=v1.2.1",
-    "tigress/security": ">=v1.2.0"
+    "tigress/database": "dev-main",
+    "tigress/data-converter": "dev-main",
+    "tigress/encryption": "dev-main",
+    "tigress/menu": "dev-main",
+    "tigress/model": "dev-main",
+    "tigress/repository": "dev-main",
+    "tigress/rights": "dev-main",
+    "tigress/router": "dev-main",
+    "tigress/security": "dev-main"
   },
   "autoload": {
     "psr-4": {
