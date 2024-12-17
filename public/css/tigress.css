@@ -373,3 +373,74 @@ fieldset legend {
     position: relative;
     margin-left: calc(-1 * (98vw - 100%) / 2);
 }
+
+/* Survey steps */
+.survey-form .steps {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 35px);
+    align-self: center;
+    margin: 10px auto;
+}
+
+.survey-form .steps::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #f2f4f7;
+    margin: auto 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.survey-form .steps .step {
+    width: 25px;
+    height: 25px;
+    background-color: #f2f4f7;
+    border: 3px solid #f2f4f7;
+    border-radius: 50px;
+    z-index: 1;
+}
+
+.survey-form .steps .step.current {
+    background-color: #8cc6f2;
+}
+
+.survey-form .steps .step.complete {
+    background-color: #6ECBA4;
+}
+
+.survey-form .step-content {
+    display: none;
+}
+
+.survey-form .step-content.current {
+    display: block;
+}
+
+.survey-form .group {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+.survey-form .group label {
+    display: flex;
+    font-weight: 500;
+    height: 25px;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.survey-form .step-content {
+    display: none;
+}
+
+.survey-form .step-content.current {
+    display: block;
+}
