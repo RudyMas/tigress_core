@@ -53,14 +53,30 @@
                     <p>
                         Data Converter: {{ tigress_data_converter_version }}<br>
                         File Manager: {{ tigress_file_manager_version }}<br>
-                        Google API: {{ tigress_google_api_version.GoogleApi }}<br>
+                    </p>
+                </div>
+                <div style="break-inside: avoid">
+                    <p>
+                        <i>Communication: {{ tigress_communication_version.Communication }}</i><br>
+                        {% if tigress_communication_version.Communication != 'Not Active' %}
+                            &bullet; Email: {{ tigress_communication_version.Email }}<br>
+                        {% endif %}
+                    </p>
+                </div>
+                <div style="break-inside: avoid">
+                    <p>
+                        <i>Google API: {{ tigress_google_api_version.GoogleApi }}</i><br>
                         {% if tigress_google_api_version.GoogleApi != 'Not Active' %}
                             &bullet; Google Auth: {{ tigress_google_api_version.GoogleApiAuth }}<br>
                             &bullet; Google Calendar: {{ tigress_google_api_version.GoogleApiCalendar }}<br>
                             &bullet; Google Drive: {{ tigress_google_api_version.GoogleApiDrive }}<br>
                             &bullet; Google Script: {{ tigress_google_api_version.GoogleApiScript }}<br>
                         {% endif %}
-                        Manipulator: {{ tigress_manipulator_version.Manipulator }}<br>
+                    </p>
+                </div>
+                <div style="break-inside: avoid">
+                    <p>
+                        <i>Manipulator: {{ tigress_manipulator_version.Manipulator }}</i><br>
                         {% if tigress_manipulator_version.Manipulator != 'Not Active' %}
                             &bullet; BBCode: {{ tigress_manipulator_version.BBCode }}<br>
                             &bullet; CalculateBirthday: {{ tigress_manipulator_version.CalculateBirthday }}<br>

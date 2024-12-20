@@ -1,20 +1,23 @@
 #version-box {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 5%;
+    right: 5%;
+    bottom: 5%;
+    left: 40%;
     background-color: darkgray;
     border: 2px solid white;
     border-radius: 15px;
     padding: 10px;
     min-width: 100px;
     box-shadow: 0 0 0 1px black;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #versionBackButton {
     position: absolute;
-    top: -12px;
-    right: -12px;
+    top: 2px;
+    right: 4px;
 }
 
 #versionBackButton button {

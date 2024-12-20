@@ -5,6 +5,7 @@ namespace Controller\version;
 use Controller\Core\SettingsController;
 use Controller\Menu;
 use Exception;
+use Tigress\Communication;
 use Tigress\Database;
 use Tigress\DataConverter;
 use Tigress\DisplayHelper;
@@ -63,6 +64,7 @@ class VersionController
 
         // Get the version of the Tigress Support Classes loaded
         $tigress_data_converter_version = class_exists('Tigress\DataConverter') ? DataConverter::version() : 'Not Active';
+        $tigress_communication_version = class_exists('Tigress\Communication') ? Communication::version() : ['Communication' => 'Not Active'];
         $tigress_file_manager_version = class_exists('Tigress\FileManager') ? FileManager::version() : 'Not Active';
         $tigress_google_api_version = class_exists('Tigress\GoogleApi') ? GoogleApi::version() : ['GoogleApi' => 'Not Active'];
         $tigress_manipulator_version = class_exists('Tigress\Manipulator') ? Manipulator::version() : ['Manipulator' => 'Not Active'];
@@ -82,6 +84,7 @@ class VersionController
             'pdf_creator_helper_version' => $pdf_creator_helper_version,
             'settings_controller_version' => $settings_controller_version,
             'tigress_data_converter_version' => $tigress_data_converter_version,
+            'tigress_communication_version' => $tigress_communication_version,
             'tigress_file_manager_version' => $tigress_file_manager_version,
             'tigress_google_api_version' => $tigress_google_api_version,
             'tigress_manipulator_version' => $tigress_manipulator_version,
