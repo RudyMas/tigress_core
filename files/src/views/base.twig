@@ -1,5 +1,5 @@
 <!-- This is the base template for all pages. It includes the menu, sidebar, header, content and footer. -->
-<!-- Version: 2024.11.15 -->
+<!-- Version: 2025.01.03 -->
 <!DOCTYPE html>
 <html lang="{% block html_lang %}{{ WEBSITE.html_lang }}{% endblock %}">
 <head>
@@ -63,23 +63,27 @@
     <header>{% block header %}{% endblock %}</header>
     <div class="main-content">
         {% if _SESSION.error %}
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ _SESSION.error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endif %}
         {% if _SESSION.success %}
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ _SESSION.success }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endif %}
         {% if _SESSION.warning %}
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 {{ _SESSION.warning }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endif %}
         {% if _SESSION.message %}
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
                 {{ _SESSION.message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endif %}
         {% block content %}{% endblock %}
