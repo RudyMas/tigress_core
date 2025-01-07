@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ WEBSITE.html_lang }}{% endblock %}">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>{% block title %}{{ WEBSITE.title }}{% endblock %}</title>
+    {% endblock %}
+    <style>
+        {% block style %}
+        {{ pdfStyle|raw }}
+        {% endblock %}
+    </style>
+</head>
+<body>
+{% block content %}{% endblock %}
+</body>
+</html>

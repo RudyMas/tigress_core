@@ -21,7 +21,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2024.11.28.0
+ * @version 2025.01.07.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -36,7 +36,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2024.11.28';
+        return '2025.01.07';
     }
 
     /**
@@ -317,7 +317,7 @@ class DisplayHelper
     {
         $pdf = new PdfCreatorHelper();
 
-        $pdfStyle = file_get_contents('../src/helper/css/PdfCreatorCss.css');
+        $pdfStyle = file_get_contents(SYSTEM_ROOT . '/vendor/tigress/core/public/css/PdfCreatorCss.css');
         $data = array_merge($data, ['pdfStyle' => $pdfStyle]);
 
         $pdfConfig = array_merge([
@@ -374,9 +374,10 @@ class DisplayHelper
         $images = $dom->getElementsByTagName('img');
         foreach ($images as $image) {
             $src = $image->getAttribute('src');
+            $src = preg_replace('/\.\.\//', '/', $src);
             $src = preg_replace('/%20/', ' ', $src);
             $type = pathinfo($src, PATHINFO_EXTENSION);
-            $data = file_get_contents($src);
+            $data = file_get_contents(SYSTEM_ROOT . $src);
             $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             $image->setAttribute('src', $base64);
 
