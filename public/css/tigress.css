@@ -33,6 +33,12 @@ fieldset legend {
     color: #333;
 }
 
+/* tab-menu styling */
+.tab-menu {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
 /* Transform checkboxes into toggle switches */
 .slider-container {
     display: block; /* or inline-block based on layout */
