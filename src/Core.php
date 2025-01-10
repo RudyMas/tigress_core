@@ -24,9 +24,9 @@ use Twig\Error\LoaderError;
  * - SYSTEM_ROOT            Full system path to the root of the website
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2025, rudymas.be. (http://www.rudymas.be/)
+ * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.08.0
+ * @version 2025.01.10.0
  * @package Tigress\Core
  */
 class Core
@@ -42,7 +42,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2025.01.08');
+        define('TIGRESS_CORE_VERSION', '2025.01.10');
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();

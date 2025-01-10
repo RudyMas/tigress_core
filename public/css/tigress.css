@@ -1,3 +1,4 @@
+/* version: 2025.01.10 */
 * {
     margin: 0;
     padding: 0;
@@ -44,7 +45,6 @@ fieldset legend {
     display: block; /* or inline-block based on layout */
     position: relative;
     cursor: pointer;
-    font-size: 16px; /* Adjust based on your design */
     user-select: none; /* Prevent text selection */
 }
 
@@ -57,42 +57,83 @@ fieldset legend {
 .slider-label {
     position: relative;
     display: inline-block;
-    width: 50px; /* Width of the slider */
-    height: 24px; /* Height of the slider */
+    width: 2.2em; /* Width of the slider */
+    height: 1em; /* Height of the slider */
     background-color: #ccc; /* Background of the slider */
-    border-radius: 34px; /* Rounded corners */
+    border-radius: 2em; /* Rounded corners */
     cursor: pointer;
-    transform: translateY(8px);
+    transform: translateY(0.20em);
 }
 
 /* Adding text to the slider */
 .slider-checkbox:checked + .slider-label-text::after,
-.slider-checkbox:checked + b + .slider-label-text::after {
+.slider-checkbox:checked + .slider-label-text-en::after,
+.slider-checkbox:checked + b + .slider-label-text::after,
+.slider-checkbox:checked + b + .slider-label-text-en::after {
+    content: 'Yes';
+    color: white;
+    position: absolute;
+    left: 0.3em;
+    top: 0.05em;
+    font-size: 0.6em;
+}
+
+.slider-label-text::after,
+.slider-label-text-en::after {
+    content: 'No';
+    color: black;
+    position: absolute;
+    right: 0.5em;
+    top: 0.05em;
+    font-size: 0.6em;
+}
+
+.slider-checkbox:checked + .slider-label-text-nl::after,
+.slider-checkbox:checked + b + .slider-label-text-nl::after {
     content: 'Ja';
     color: white;
     position: absolute;
-    left: 10px;
-    top: 2px;
-    font-size: 12px;
+    left: 0.5em;
+    top: 0.05em;
+    font-size: 0.6em;
 }
 
-.slider-label-text::after {
+.slider-label-text-nl::after {
     content: 'Nee';
     color: black;
     position: absolute;
-    right: 5px;
-    top: 2px;
-    font-size: 12px;
+    right: 0.3em;
+    top: 0.05em;
+    font-size: 0.6em;
+}
+
+.slider-checkbox:checked + .slider-label-text-fr::after,
+.slider-checkbox:checked + b + .slider-label-text-fr::after {
+    content: 'Oui';
+    color: white;
+    position: absolute;
+    left: 0.3em;
+    top: 0.05em;
+    font-size: 0.6em;
+}
+
+.slider-label-text-fr::after {
+    content: 'Non';
+    color: black;
+    position: absolute;
+    right: 0.3em;
+    top: 0.05em;
+    font-size: 0.6em;
 }
 
 /* Thumb styling */
 .slider-label::before {
     content: "";
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px; /* Width of the thumb */
-    height: 20px; /* Height of the thumb */
+    top: 0.08em;
+    left: 0.08em;
+    width: 0.8em; /* Width of the thumb */
+    height: 0.8em; /* Height of the thumb */
     border-radius: 50%; /* Rounded thumb */
     background-color: white; /* Thumb color */
     transition: 0.4s; /* Smooth transition for sliding effect */
@@ -102,7 +143,7 @@ fieldset legend {
 /* Checked state styling */
 .slider-checkbox:checked + .slider-label::before,
 .slider-checkbox:checked + b + .slider-label::before{
-    transform: translateX(26px); /* Move the thumb to the right */
+    transform: translateX(1.2em); /* Move the thumb to the right */
 }
 
 /* Optional: Styling for when the slider is focused with keyboard navigation */
