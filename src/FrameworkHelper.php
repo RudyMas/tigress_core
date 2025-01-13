@@ -7,9 +7,9 @@ namespace Tigress;
  * - This class is used to create the necessary directories and files for the framework.
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2024 Rudy Mas (https://rudymas.be)
+ * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2024.11.28.0
+ * @version 2025.01.13.0
  * @package Tigress\FrameworkHelper
  */
 class FrameworkHelper
@@ -21,7 +21,7 @@ class FrameworkHelper
      */
     public static function version(): string
     {
-        return '2024.11.28';
+        return '2025.01.13';
     }
 
     /**
@@ -62,13 +62,14 @@ class FrameworkHelper
             @mkdir(SYSTEM_ROOT . '/public/images', 0777, true);
             @mkdir(SYSTEM_ROOT . '/public/javascript', 0777, true);
             @mkdir(SYSTEM_ROOT . '/public/json', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/public/scripts', 0777, true);
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
                 SYSTEM_ROOT . '/public/css/.gitkeep'
             );
             @copy(
-                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
-                SYSTEM_ROOT . '/public/images/.gitkeep'
+                SYSTEM_ROOT . '/vendor/tigress/core/files/images/under_construction.jpg',
+                SYSTEM_ROOT . '/public/images/under_construction.jpg'
             );
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
@@ -78,10 +79,19 @@ class FrameworkHelper
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
                 SYSTEM_ROOT . '/public/json/.gitkeep'
             );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/scripts/tinymce_list_images.php',
+                SYSTEM_ROOT . '/public/scripts/tinymce_list_images.php'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/scripts/tinymce_upload_image.php',
+                SYSTEM_ROOT . '/public/scripts/tinymce_upload_image.php'
+            );
         }
 
         if (is_dir(SYSTEM_ROOT . '/src') === false) {
             @mkdir(SYSTEM_ROOT . '/src/controllers', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/src/menus', 0777, true);
             @mkdir(SYSTEM_ROOT . '/src/models', 0777, true);
             @mkdir(SYSTEM_ROOT . '/src/repositories', 0777, true);
             @mkdir(SYSTEM_ROOT . '/src/services', 0777, true);
@@ -89,6 +99,10 @@ class FrameworkHelper
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
                 SYSTEM_ROOT . '/src/controllers/.gitkeep'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
+                SYSTEM_ROOT . '/src/menus/.gitkeep'
             );
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
