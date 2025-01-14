@@ -2,6 +2,7 @@
 
 namespace Controller\version;
 
+use Controller\Core\GoogleDriveController;
 use Controller\Core\SettingsController;
 use Controller\Menu;
 use Exception;
@@ -60,6 +61,7 @@ class VersionController
         $pdf_creator_helper_version = class_exists('Tigress\PdfCreatorHelper') ? PdfCreatorHelper::version() : 'Not Active';
 
         // Get the version of the Tigress Controller Classes loaded
+        $google_drive_controller_version = class_exists('Controller\Core\GoogleDriveController') ? GoogleDriveController::version() : 'Not Active';
         $settings_controller_version = class_exists('Controller\Core\SettingsController') ? SettingsController::version() : 'Not Active';
 
         // Get the version of the Tigress Support Classes loaded
@@ -82,6 +84,7 @@ class VersionController
             'framework_helper_version' => $framework_helper_version,
             'display_helper_version' => $display_helper_version,
             'pdf_creator_helper_version' => $pdf_creator_helper_version,
+            'google_drive_controller_version' => $google_drive_controller_version,
             'settings_controller_version' => $settings_controller_version,
             'tigress_data_converter_version' => $tigress_data_converter_version,
             'tigress_communication_version' => $tigress_communication_version,

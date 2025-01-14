@@ -4,7 +4,13 @@
       "request": "GET",
       "path": "/help",
       "controller": "tigress\\TigressHelpController",
-        "method": "index"
+      "method": "index"
+    },
+    {
+      "request": "GET",
+      "path": "/google/drive/link",
+      "controller": "Core\\GoogleDriveController",
+      "method": "loadByLink"
     },
     {
       "request": "GET",
