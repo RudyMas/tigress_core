@@ -2,7 +2,7 @@
 
 namespace Controller\Core;
 
-use Repository\system_settings_repo;
+use Repository\systemSettingsRepo;
 use Tigress\EncryptionRSA;
 use Tigress\Repository;
 
@@ -20,9 +20,9 @@ use Tigress\Repository;
  * If encryption is enabled, it will decrypt the settings before returning them.
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2024 Rudy Mas (https://rudymas.be)
+ * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2024.11.28.0
+ * @version 2025.01.14.0
  * @package Controller\Core\SettingsController
  */
 class SettingsController
@@ -40,7 +40,7 @@ class SettingsController
      */
     public static function version(): string
     {
-        return '2024.11.28';
+        return '2025.01.14';
     }
 
     /**
@@ -48,7 +48,7 @@ class SettingsController
      */
     public function __construct(bool $encryption = false)
     {
-        $this->systemSettings = new system_settings_repo();
+        $this->systemSettings = new systemSettingsRepo();
 
         $this->enableEncryption = $encryption;
         if ($encryption) {
