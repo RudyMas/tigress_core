@@ -2,7 +2,9 @@
 
 namespace Controller\Core;
 
+use Random\RandomException;
 use Repository\systemSettingsRepo;
+use Tigress\EncryptionAES;
 use Tigress\EncryptionRSA;
 use Tigress\Repository;
 
@@ -29,8 +31,11 @@ class SettingsController
 {
     private bool $enableEncryption;
     private EncryptionRSA $encryption;
+    private EncryptionAES $largeEncryption;
     private string $publicKey;
     private string $privateKey;
+    private int $keySize = 2048;
+    private int $maxRsaPayloadSize;
     private Repository $systemSettings;
 
     /**
@@ -53,6 +58,8 @@ class SettingsController
         $this->enableEncryption = $encryption;
         if ($encryption) {
             $this->encryption = new EncryptionRSA();
+            $this->maxRsaPayloadSize = ($this->keySize / 8) -2 -2 * 32;
+            $this->largeEncryption = new EncryptionAES();
         }
     }
 
@@ -87,7 +94,20 @@ class SettingsController
         if ($this->enableEncryption) {
             $this->encryption->setKey(file_get_contents(SYSTEM_ROOT . $this->privateKey));
             foreach ($this->systemSettings as $setting) {
-                $data[$setting->setting] = $this->encryption->decrypt($setting->value);
+                // Check if $setting->value is encrypted with AES
+                if (str_contains($setting->value, ':aes:')) {
+                    $parts = explode(':aes:', $setting->value);
+                    $symmetricKey = $this->encryption->decrypt($parts[0]);
+                    $iv = $parts[1];
+                    $encryptedData = $parts[2];
+
+                    $this->largeEncryption->setKey($symmetricKey);
+                    $this->largeEncryption->setIv($iv);
+
+                    $data[$setting->setting] = $this->largeEncryption->decrypt($encryptedData);
+                } else {
+                    $data[$setting->setting] = $this->encryption->decrypt($setting->value);
+                }
             }
         } else {
             foreach ($this->systemSettings as $setting) {
@@ -102,6 +122,7 @@ class SettingsController
      *
      * @param array $settings
      * @return void
+     * @throws RandomException
      */
     public function saveSettings(array $settings): void
     {
@@ -111,7 +132,13 @@ class SettingsController
                 $this->systemSettings->new();
                 $setting = $this->systemSettings->current();
                 $setting->setting = $key;
-                $setting->value = $this->encryption->encrypt($value);
+
+                if (strlen($value) <= $this->maxRsaPayloadSize) {
+                    $setting->value = $this->rsaEncrypt($value);
+                } else {
+                    $setting->value = $this->aesEncrypt($value);
+                }
+
                 $this->systemSettings->save($setting);
             }
         } else {
@@ -145,5 +172,56 @@ class SettingsController
     public function setPrivateKey(string $privateKey): void
     {
         $this->privateKey = $privateKey;
+    }
+
+    /**
+     * Get the RSA key size
+     *
+     * @return int
+     */
+    public function getKeySize(): int
+    {
+        return $this->keySize;
+    }
+
+    /**
+     * Set the RSA key size
+     *
+     * @param int $keySize
+     * @return void
+     */
+    public function setKeySize(int $keySize): void
+    {
+        $this->keySize = $keySize;
+    }
+
+    /**
+     * @param mixed $value
+     * @return string
+     */
+    private function rsaEncrypt(mixed $value): string
+    {
+        return $this->encryption->encrypt($value);
+    }
+
+    /**
+     * @param mixed $value
+     * @return string
+     * @throws RandomException
+     */
+    private function aesEncrypt(mixed $value): string
+    {
+        // Encrypt with AES and RSA for the AES key
+        $symmetricKey = $this->largeEncryption->createKey();
+        $this->largeEncryption->setKey($symmetricKey);
+
+        $iv = $this->largeEncryption->createIv();
+        $this->largeEncryption->setIv($iv);
+
+        $encryptedData = $this->largeEncryption->encrypt($value);
+
+        $encryptedSymmetricKey = $this->encryption->encrypt($symmetricKey);
+
+        return $encryptedSymmetricKey . ':aes:' . $iv . ':aes:' . $encryptedData;
     }
 }
