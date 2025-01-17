@@ -9,6 +9,7 @@ use Exception;
 use Tigress\Communication;
 use Tigress\Database;
 use Tigress\DataConverter;
+use Tigress\DataFiles;
 use Tigress\DisplayHelper;
 use Tigress\Encryption;
 use Tigress\FileManager;
@@ -31,7 +32,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2024.11.28.1
+ * @version 2025.01.17.0
  * @package Controller\version\VersionController
  */
 class VersionController
@@ -66,6 +67,7 @@ class VersionController
 
         // Get the version of the Tigress Support Classes loaded
         $tigress_data_converter_version = class_exists('Tigress\DataConverter') ? DataConverter::version() : 'Not Active';
+        $tigress_data_files_version = class_exists('Tigress\DataFiles') ? DataFiles::version() : 'Not Active';
         $tigress_communication_version = class_exists('Tigress\Communication') ? Communication::version() : ['Communication' => 'Not Active'];
         $tigress_file_manager_version = class_exists('Tigress\FileManager') ? FileManager::version() : 'Not Active';
         $tigress_google_api_version = class_exists('Tigress\GoogleApi') ? GoogleApi::version() : ['GoogleApi' => 'Not Active'];
@@ -87,6 +89,7 @@ class VersionController
             'google_drive_controller_version' => $google_drive_controller_version,
             'settings_controller_version' => $settings_controller_version,
             'tigress_data_converter_version' => $tigress_data_converter_version,
+            'tigress_data_files_version' => $tigress_data_files_version,
             'tigress_communication_version' => $tigress_communication_version,
             'tigress_file_manager_version' => $tigress_file_manager_version,
             'tigress_google_api_version' => $tigress_google_api_version,

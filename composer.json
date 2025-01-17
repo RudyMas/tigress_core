@@ -22,6 +22,7 @@
   "require-dev": {
     "tigress/database": "dev-main",
     "tigress/data-converter": "dev-main",
+    "tigress/data-files": "dev-main",
     "tigress/encryption": "dev-main",
     "tigress/menu": "dev-main",
     "tigress/model": "dev-main",
