@@ -1,4 +1,4 @@
-/* version: 2025.01.10 */
+/* version: 2025.01.20 */
 body {
     font-size: 10pt;
     font-family: Arial, sans-serif;
@@ -9,6 +9,7 @@ h5 {
     margin: 5px 0;
 }
 
+/* Tables */
 table {
     border-collapse: collapse;
     border: 1px solid black;
@@ -81,14 +82,9 @@ table, .table-borderless > thead > tr > th, .table-borderless > tbody > tr > th,
     border: none;
 }
 
-th {
+/* Padding for table cells */
+th, td {
     padding: 2px 5px;
-    text-align: left;
-}
-
-td {
-    padding: 2px 5px;
-    text-align: left;
 }
 
 .thead-light {
@@ -143,6 +139,74 @@ td {
 
 .mt-5 {
     margin-top: 5em;
+}
+
+/* Margins (Bootstrap 4 and 5 Compatible) */
+.ml-1, .ms-1 {
+    margin-left: 0.25rem;
+}
+
+.ml-2, .ms-2 {
+    margin-left: 0.5rem;
+}
+
+.ml-3, .ms-3 {
+    margin-left: 1rem;
+}
+
+.ml-4, .ms-4 {
+    margin-left: 1.5rem;
+}
+
+.ml-5, .ms-5 {
+    margin-left: 3rem;
+}
+
+.mr-1, .me-1 {
+    margin-right: 0.25rem;
+}
+
+.mr-2, .me-2 {
+    margin-right: 0.5rem;
+}
+
+.mr-3, .me-3 {
+    margin-right: 1rem;
+}
+
+.mr-4, .me-4 {
+    margin-right: 1.5rem;
+}
+
+.mr-5, .me-5 {
+    margin-right: 3rem;
+}
+
+/* Gaps for Bootstrap 5 */
+.g-1 {
+    gap: 0.25rem;
+}
+
+.g-2 {
+    gap: 0.5rem;
+}
+
+.g-3 {
+    gap: 1rem;
+}
+
+.g-4 {
+    gap: 1.5rem;
+}
+
+.g-5 {
+    gap: 3rem;
+}
+
+/* Responsive images */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
 }
 
 .row {
@@ -283,20 +347,17 @@ td {
     margin-left: 100%;
 }
 
-.text-center {
-    text-align: center;
-}
-
-.text-right {
+/* Bootstrap 5 and 4 Compatible Text Alignments */
+.text-right, .text-end {
     text-align: right;
 }
 
-.text-left {
+.text-left, .text-start {
     text-align: left;
 }
 
-.text-justify {
-    text-align: justify;
+.text-center {
+    text-align: center;
 }
 
 .text-uppercase {
@@ -331,6 +392,10 @@ td {
     text-decoration: overline;
 }
 
+.text-wrap {
+    white-space: normal !important;
+}
+
 .text-nowrap {
     white-space: nowrap;
 }
@@ -349,4 +414,34 @@ td {
     overflow: hidden;
     text-overflow: clip;
     white-space: nowrap;
+}
+
+/* Custom text-justify for Bootstrap 5 */
+.text-justify {
+    text-align: justify;
+}
+
+/* Font Sizes */
+.fs-1 {
+    font-size: 2.5rem;
+}
+
+.fs-2 {
+    font-size: 2rem;
+}
+
+.fs-3 {
+    font-size: 1.75rem;
+}
+
+.fs-4 {
+    font-size: 1.5rem;
+}
+
+.fs-5 {
+    font-size: 1.25rem;
+}
+
+.fs-6 {
+    font-size: 1rem;
 }
