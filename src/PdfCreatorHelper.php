@@ -11,7 +11,7 @@ use Dompdf\Dompdf;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.21.0
+ * @version 2025.01.21.1
  * @package Tigress\PdfCreatorHelper
  */
 class PdfCreatorHelper
@@ -88,18 +88,20 @@ class PdfCreatorHelper
             );
         }
 
-        // Check if $filepath end with a slash else add it
-        if (!str_ends_with($filepath, '/')) {
-            $filepath .= '/';
+        if ($attachment === 2) {
+            // check if $filepath starts and ends with a slash
+            ($filepath[0] === '/') ?: $filepath = '/' . $filepath;
+            ($filepath[strlen($filepath) - 1] === '/') ?: $filepath = $filepath . '/';
+
+            $workingDir = SYSTEM_ROOT . $filepath;
+            if (!is_dir($workingDir)) {
+                mkdir($workingDir, 0777, true);
+            }
+            file_put_contents($workingDir . $filename, $this->Dompdf->output());
+            return;
         }
 
-        // Check if folder exists, else create it
-        $workingDir = SYSTEM_ROOT . $filepath ?? '/';
-        if (!is_dir($filepath)) {
-            mkdir($workingDir, 0777, true);
-        }
-
-        $this->Dompdf->stream($workingDir . $filename, ['Attachment' => $attachment]);
+        $this->Dompdf->stream($filename, ['Attachment' => $attachment]);
     }
 
     /**
