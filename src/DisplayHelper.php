@@ -21,7 +21,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.21.1
+ * @version 2025.01.21.2
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -110,12 +110,18 @@ class DisplayHelper
         switch (strtoupper($type)) {
             case 'HTML':
                 $this->renderHtml($template);
+                ob_flush();
+                flush();
                 break;
             case 'JSON':
                 $this->renderJson($data, $httpResponseCode);
+                ob_flush();
+                flush();
                 break;
             case 'DT':
                 $this->renderDatatable($data, $httpResponseCode);
+                ob_flush();
+                flush();
                 break;
             case 'PDF':
                 $this->renderPDF($template, $data, $config);
@@ -125,18 +131,19 @@ class DisplayHelper
                 break;
             case 'TWIG':
                 $this->renderTwig($template, $data);
+                ob_flush();
+                flush();
                 break;
             case 'STWIG':
                 return $this->renderTwigString($template, $data);
-                break;
             case 'XML':
                 $this->renderXml($data, $httpResponseCode, $config);
+                ob_flush();
+                flush();
                 break;
             default:
                 throw new Exception("<p><b>Exception:</b> Wrong page type ({$type}) given.</p>", 500);
         }
-        ob_flush();
-        flush();
         return '';
     }
 
