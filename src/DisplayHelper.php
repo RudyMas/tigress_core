@@ -19,9 +19,9 @@ use Twig\TwigFilter;
  * Class DisplayHelper (PHP version 8.4)
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2024 Rudy Mas (https://rudymas.be)
+ * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.07.0
+ * @version 2025.01.21.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -36,7 +36,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.01.07';
+        return '2025.01.21';
     }
 
     /**
@@ -324,6 +324,7 @@ class DisplayHelper
             'format' => 'A4',
             'orientation' => 'portrait',
             'filename' => 'document.pdf',
+            'filepath' => '/public/tmp/',
             'pagination' => false,
             'attachment' => 1
         ], $pdfConfig);
@@ -335,6 +336,7 @@ class DisplayHelper
             $pdfConfig['format'],
             $pdfConfig['orientation'],
             $pdfConfig['filename'],
+            $pdfConfig['filepath'],
             $pdfConfig['pagination'],
             $pdfConfig['attachment']
         );

@@ -9,9 +9,9 @@ use Dompdf\Dompdf;
  * - This class is used to create a PDF file from a HTML string.
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2024 Rudy Mas (https://rudymas.be)
+ * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2024.11.28.0
+ * @version 2025.01.21.0
  * @package Tigress\PdfCreatorHelper
  */
 class PdfCreatorHelper
@@ -25,7 +25,7 @@ class PdfCreatorHelper
      */
     public static function version(): string
     {
-        return '2024.11.28';
+        return '2025.01.21';
     }
 
     /**
@@ -43,6 +43,7 @@ class PdfCreatorHelper
      * @param string $format
      * @param string $orientation
      * @param string $filename
+     * @param string $filepath
      * @param bool $paginatie
      * @param int $attachment
      * @return void
@@ -52,6 +53,7 @@ class PdfCreatorHelper
         string $format = 'A4',
         string $orientation = 'portrait',
         string $filename = 'document.pdf',
+        string $filepath = '/public/tmp/',
         bool   $paginatie = false,
         int    $attachment = 1
     ): void
@@ -86,7 +88,18 @@ class PdfCreatorHelper
             );
         }
 
-        $this->Dompdf->stream($filename, ['Attachment' => $attachment]);
+        // Check if $filepath end with a slash else add it
+        if (!str_ends_with($filepath, '/')) {
+            $filepath .= '/';
+        }
+
+        // Check if folder exists, else create it
+        $workingDir = SYSTEM_ROOT . $filepath ?? '/';
+        if (!is_dir($filepath)) {
+            mkdir($workingDir, 0777, true);
+        }
+
+        $this->Dompdf->stream($workingDir . $filename, ['Attachment' => $attachment]);
     }
 
     /**
