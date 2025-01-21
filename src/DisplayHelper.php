@@ -21,7 +21,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.21.0
+ * @version 2025.01.21.1
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -383,8 +383,19 @@ class DisplayHelper
             $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             $image->setAttribute('src', $base64);
 
+            $height = $image->getAttribute('height');
+            $width = $image->getAttribute('width');
+
             # make sure the image is not too big
-            $image->setAttribute('style', 'max-width: 100%; height: auto;');
+            if ($height && $width) {
+                $image->setAttribute('style', 'max-width: ' . $width . '; height: ' . $height . ';');
+            } elseif ($height && !$width) {
+                $image->setAttribute('style', 'max-width: auto; height: ' . $height . ';');
+            } elseif (!$height && $width) {
+                $image->setAttribute('style', 'max-width: ' . $width . '; height: auto;');
+            } else {
+                $image->setAttribute('style', 'max-width: 100%; height: auto;');
+            }
         }
 
         return $dom->saveHTML();

@@ -26,7 +26,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.17.3
+ * @version 2025.01.17.4
  * @package Tigress\Core
  */
 class Core
