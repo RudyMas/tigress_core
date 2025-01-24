@@ -26,7 +26,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.17.6
+ * @version 2025.01.24.0
  * @package Tigress\Core
  */
 class Core
@@ -42,7 +42,11 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2025.01.17');
+        define('TIGRESS_CORE_VERSION', '2025.01.24');
+
+        // Load the config files
+        define('CONFIG', json_decode(file_get_contents('config/config.json')));
+        define('SYSTEM', json_decode(file_get_contents('system/config.json')));
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
@@ -55,10 +59,6 @@ class Core
         ) {
             FrameworkHelper::create();
         }
-
-        // Load the config files
-        define('CONFIG', json_decode(file_get_contents('config/config.json')));
-        define('SYSTEM', json_decode(file_get_contents('system/config.json')));
 
         // Define the constants for the website information
         define('WEBSITE', CONFIG->website ?? '');
@@ -162,8 +162,10 @@ class Core
         define('BASE_URL', $scriptName);
 
         $extraPath = '';
-        for ($i = 0; $i < count($arrayServerName); $i++) {
-            $extraPath .= '/' . $arrayServerName[$i];
+        if (SYSTEM->subdomain_in_subfolder) {
+            for ($i = 0; $i < count($arrayServerName); $i++) {
+                $extraPath .= '/' . $arrayServerName[$i];
+            }
         }
         define('SYSTEM_ROOT', $_SERVER['DOCUMENT_ROOT'] . $extraPath . BASE_URL);
     }
