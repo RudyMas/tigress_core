@@ -21,7 +21,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.21.2
+ * @version 2025.01.24.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -36,7 +36,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.01.21';
+        return '2025.01.24';
     }
 
     /**
@@ -110,17 +110,17 @@ class DisplayHelper
         switch (strtoupper($type)) {
             case 'HTML':
                 $this->renderHtml($template);
-                ob_flush();
+                if (ob_get_level() > 0) ob_flush();
                 flush();
                 break;
             case 'JSON':
                 $this->renderJson($data, $httpResponseCode);
-                ob_flush();
+                if (ob_get_level() > 0) ob_flush();
                 flush();
                 break;
             case 'DT':
                 $this->renderDatatable($data, $httpResponseCode);
-                ob_flush();
+                if (ob_get_level() > 0) ob_flush();
                 flush();
                 break;
             case 'PDF':
@@ -131,14 +131,14 @@ class DisplayHelper
                 break;
             case 'TWIG':
                 $this->renderTwig($template, $data);
-                ob_flush();
+                if (ob_get_level() > 0) ob_flush();
                 flush();
                 break;
             case 'STWIG':
                 return $this->renderTwigString($template, $data);
             case 'XML':
                 $this->renderXml($data, $httpResponseCode, $config);
-                ob_flush();
+                if (ob_get_level() > 0) ob_flush();
                 flush();
                 break;
             default:

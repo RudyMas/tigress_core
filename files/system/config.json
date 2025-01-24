@@ -6,5 +6,6 @@
     }
   },
   "timezone": "Europe/Brussels",
-  "subfolder": ""
+  "subfolder": "",
+  "subdomain_in_subfolder": false
 }
