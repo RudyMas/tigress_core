@@ -1,5 +1,10 @@
-/* version: 2025.01.10 */
+/* version: 2025.01.31 */
+:root {
+    --color: #000000;
+    --background-color: #ffffff;
+}
+
 body {
-    background-color: white;
-    color: black;
+    background-color: var(--background-color);
+    color: var(--color);
 }

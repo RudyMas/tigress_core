@@ -1,5 +1,10 @@
-/* version: 2025.01.10 */
+/* version: 2025.01.31 */
+:root {
+    --tigress-color: #ffffff;
+    --tigress-background-color: #000000;
+}
+
 body {
-    background-color: black;
-    color: white;
+    background-color: var(--tigress-background-color);
+    color: var(--tigress-color);
 }
