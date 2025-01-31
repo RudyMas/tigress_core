@@ -16,6 +16,7 @@
     "php": ">=8.4",
     "ext-dom": "*",
     "dompdf/dompdf": ">=v3",
+    "tigress/database": "*",
     "tigress/menu": "*",
     "tigress/model": "*",
     "tigress/repository": "*",
@@ -26,10 +27,9 @@
     "twig/intl-extra": ">=v3"
   },
   "require-dev": {
-    "tigress/database": "dev-main",
     "tigress/data-converter": "dev-main",
     "tigress/data-files": "dev-main",
-    "tigress/encryption": "dev-main",
+    "tigress/encryption": "dev-main"
   },
   "autoload": {
     "psr-4": {
