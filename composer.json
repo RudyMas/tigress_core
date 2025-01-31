@@ -15,16 +15,16 @@
   "require": {
     "php": ">=8.4",
     "ext-dom": "*",
-    "dompdf/dompdf": ">=v3.0.0",
-    "twig/twig": ">=v3.14.2",
-    "twig/intl-extra": ">=v3.13.0"
+    "tigress/menu": "*",
+    "dompdf/dompdf": ">=v3",
+    "twig/twig": ">=v3",
+    "twig/intl-extra": ">=v3"
   },
   "require-dev": {
     "tigress/database": "dev-main",
     "tigress/data-converter": "dev-main",
     "tigress/data-files": "dev-main",
     "tigress/encryption": "dev-main",
-    "tigress/menu": "dev-main",
     "tigress/model": "dev-main",
     "tigress/repository": "dev-main",
     "tigress/rights": "dev-main",
