@@ -16,6 +16,7 @@
     "php": ">=8.4",
     "ext-dom": "*",
     "tigress/menu": "*",
+    "tigress/security": "*",
     "dompdf/dompdf": ">=v3",
     "twig/twig": ">=v3",
     "twig/intl-extra": ">=v3"
@@ -28,8 +29,7 @@
     "tigress/model": "dev-main",
     "tigress/repository": "dev-main",
     "tigress/rights": "dev-main",
-    "tigress/router": "dev-main",
-    "tigress/security": "dev-main"
+    "tigress/router": "dev-main"
   },
   "autoload": {
     "psr-4": {
