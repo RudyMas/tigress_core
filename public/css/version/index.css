@@ -14,6 +14,13 @@
     overflow-x: hidden;
 }
 
+#image-tigress img {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    max-width: 30%;
+}
+
 #versionBackButton {
     position: absolute;
     top: 2px;
@@ -41,4 +48,14 @@
 
 button {
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    #image-tigress img {
+        display: none;
+    }
+
+    #version-box {
+        left: 5%;
+    }
 }
