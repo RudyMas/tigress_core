@@ -26,8 +26,8 @@
     "tigress/rights": "*",
     "tigress/router": "*",
     "tigress/security": "*",
-    "twig/twig": ">=v3",
-    "twig/intl-extra": ">=v3"
+    "twig/twig": "^v3",
+    "twig/intl-extra": "^v3"
   },
   "autoload": {
     "psr-4": {

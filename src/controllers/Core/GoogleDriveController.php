@@ -13,11 +13,14 @@ use Tigress\EncryptionRSA;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.14.0
+ * @version 2025.02.04.0
  * @package Controller
  */
 class GoogleDriveController
 {
+    private string $publicKey = '/private/keys/OLSC_public.key';
+    private string $privateKey = '/private/keys/OLSC_private.key';
+
     /**
      * @var Core
      */
@@ -30,7 +33,7 @@ class GoogleDriveController
      */
     public static function version(): string
     {
-        return '2025.01.14';
+        return '2025.02.04';
     }
 
     /**
@@ -56,7 +59,7 @@ class GoogleDriveController
 
         $encryption = new EncryptionRSA();
         if (preg_match('/^https?:\/\/(docs|drive).google.com\//', $link)) {
-            $encryption->setKey(file_get_contents(SYSTEM_ROOT . '/private/keys/OLSC_public.key'));
+            $encryption->setKey(file_get_contents(SYSTEM_ROOT . $this->publicKey));
             $urlEncrypt = $encryption->encrypt($link);
             if ($repoData->isset($field)) {
                 $repoData->$field = $urlEncrypt;
@@ -64,10 +67,32 @@ class GoogleDriveController
             }
             $show = $link;
         } else {
-            $encryption->setKey(file_get_contents(SYSTEM_ROOT . '/private/keys/OLSC_private.key'));
+            $encryption->setKey(file_get_contents(SYSTEM_ROOT . $this->privateKey));
             $show = $encryption->decrypt($link);
         }
 
         TWIG->redirect($show);
+    }
+
+    /**
+     * Set the public key
+     *
+     * @param string $publicKey
+     * @return void
+     */
+    public function setPublicKey(string $publicKey): void
+    {
+        $this->publicKey = $publicKey;
+    }
+
+    /**
+     * Set the private key
+     *
+     * @param string $privateKey
+     * @return void
+     */
+    public function setPrivateKey(string $privateKey): void
+    {
+        $this->privateKey = $privateKey;
     }
 }
