@@ -1,11 +1,11 @@
 /* version: 2025.02.06 */
-body {
+* {
     font-size: 10pt;
     font-family: Arial, sans-serif;
 }
 
 h5 {
-    font-size: 12pt;
+    font-size: 1.2em;
     margin: 5px 0;
 }
 
