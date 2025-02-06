@@ -1,4 +1,4 @@
-/* version: 2025.01.20 */
+/* version: 2025.02.06 */
 body {
     font-size: 10pt;
     font-family: Arial, sans-serif;
@@ -70,16 +70,6 @@ table {
 
 .table-5x {
     font-size: 5em;
-}
-
-.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th,
-.table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
-    border: 1px solid black;
-}
-
-table, .table-borderless > thead > tr > th, .table-borderless > tbody > tr > th, .table-borderless > tfoot > tr > th,
-.table-borderless > thead > tr > td, .table-borderless > tbody > tr > td, .table-borderless > tfoot > tr > td {
-    border: none;
 }
 
 /* Padding for table cells */
