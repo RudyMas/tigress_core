@@ -21,7 +21,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.24.0
+ * @version 2025.02.10.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -36,14 +36,14 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.01.24';
+        return '2025.02.10';
     }
 
     /**
      * @param string $viewFolder
      * @param bool $debug
      */
-    public function __construct(string $viewFolder = __DIR__ . '/../view/', bool $debug = false)
+    public function __construct(string $viewFolder = __DIR__ . '/views/', bool $debug = false)
     {
         // Active error reporting PHP
         if ($debug) {
@@ -114,7 +114,7 @@ class DisplayHelper
                 flush();
                 break;
             case 'JSON':
-                $this->renderJson($data, $httpResponseCode);
+                $this->renderJson($data, $httpResponseCode, $config);
                 if (ob_get_level() > 0) ob_flush();
                 flush();
                 break;
@@ -187,14 +187,18 @@ class DisplayHelper
      *
      * @param array $data
      * @param int $httpResponseCode
+     * @param array $config
      * @return void
      */
-    private function renderJson(array $data, int $httpResponseCode = 200): void
+    private function renderJson(array $data, int $httpResponseCode = 200, array $config = []): void
     {
         $convert = $this->checkHttpResponseCode($httpResponseCode, $data);
         $convert->arrayToJson();
 
         http_response_code($httpResponseCode);
+        if (isset($config['filename'])) {
+            header('Content-Disposition: attachment; filename="' . $config['filename'] . '"');
+        }
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Allow-Headers: *');
@@ -282,20 +286,29 @@ class DisplayHelper
     /**
      * Show an XML output
      *
+     * Config options:
+     * - xmlRoot: The root element of the XML (default: root)
+     * - prevKey: The key of the previous element (default: data)
+     * - filename: The name of the XML file (default: null)
+     *
      * @param array $data
      * @param int $httpResponseCode
      * @param array $config
      * @return void
+     * @throws Exception
      */
     private function renderXml(array $data, int $httpResponseCode = 200, array $config = []): void
     {
         $xmlRoot = $config['xmlRoot'] ?? 'root';
-        $xmlItem = $config['xmlItem'] ?? 'item';
+        $prevKey = $config['prevKey'] ?? 'data';
 
         $convert = $this->checkHttpResponseCode($httpResponseCode, $data);
-        $convert->arrayToXml($xmlRoot, $xmlItem);
+        $convert->arrayToXml($xmlRoot, $prevKey);
 
         http_response_code($httpResponseCode);
+        if (isset($config['filename'])) {
+            header('Content-Disposition: attachment; filename="' . $config['filename'] . '"');
+        }
         header('Content-Type: application/xml');
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Allow-Headers: *');
