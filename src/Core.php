@@ -26,7 +26,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.24.9
+ * @version 2025.02.10.0
  * @package Tigress\Core
  */
 class Core
@@ -42,7 +42,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2025.01.24');
+        define('TIGRESS_CORE_VERSION', '2025.02.10');
 
         // Load the config files
         define('CONFIG', json_decode(file_get_contents('config/config.json')));
@@ -73,7 +73,7 @@ class Core
 
         // Create a new Twig instance
         define('TWIG', new DisplayHelper(SYSTEM->Core->Twig->views, SYSTEM->debug));
-        TWIG->addPath('vendor/tigress/core/src/views');
+        TWIG->addPath(SYSTEM_ROOT . '/vendor/tigress/core/src/views');
 
         // Load the menu class
         define('MENU', new Menu());

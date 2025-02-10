@@ -13,18 +13,13 @@ use Tigress\EncryptionRSA;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.02.04.0
+ * @version 2025.02.04.1
  * @package Controller
  */
 class GoogleDriveController
 {
     private string $publicKey = '/private/keys/OLSC_public.key';
     private string $privateKey = '/private/keys/OLSC_private.key';
-
-    /**
-     * @var Core
-     */
-    private Core $Core;
 
     /**
      * Get the version of the ApiController

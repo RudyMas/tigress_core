@@ -17,24 +17,6 @@
       "path": "/version",
       "controller": "version\\VersionController",
       "method": "index"
-    },
-    {
-      "request": "GET",
-      "path": "/api/database",
-      "controller": "Core\\ApiController",
-      "method": "getData"
-    },
-    {
-      "request": "POST",
-      "path": "/api/database",
-      "controller": "Core\\ApiController",
-      "method": "postData"
-    },
-    {
-      "request": "PUT",
-      "path": "/api/database",
-      "controller": "Core\\ApiController",
-      "method": "putData"
     }
   ]
 }
