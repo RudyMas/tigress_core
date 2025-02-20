@@ -5,97 +5,97 @@
 {% endblock %}
 {% block content %}
     <div class="container-lg">
-    </div>
-    <div id="image-tigress">
-        <img src="{{ BASE_URL }}/vendor/tigress/core/public/images/tigress.jpg" alt="Tigress">
-    </div>
-    <div id="version-box">
-        <h1 class="text-nowrap">{{ WEBSITE.title }}</h1>
-        <h4><i>{{ WEBSITE.description }}</i></h4>
-        <p>Author: {{ WEBSITE.author }}</p>
-        <hr>
-        <h2 class="text-nowrap">Tigress PHP Framework</h2>
-        <h4><i>Tigress is a PHP MVC-framework for building web applications.</i></h4>
-        <div class="row">
-            <div class="col-md-12" style="columns: 250px 3">
-                <div style="break-inside: avoid">
-                    <h5><u>Main Packages:</u></h5>
-                    <p>
-                        Core: {{ tigress_core_version }}<br>
-                        Security: {{ tigress_security_version }}<br>
-                        Router: {{ tigress_router_version }}<br>
-                        Rights: {{ tigress_rights_version }}<br>
-                        Menu: {{ tigress_menu_version }}<br>
-                        Encryption: {{ tigress_encryption_version }}<br>
-                    </p>
-                </div>
-                <div style="break-inside: avoid">
-                    <h5><u>Core Helper Classes</u></h5>
-                    <p>
-                        Framework Helper: {{ framework_helper_version }}<br>
-                        Display Helper: {{ display_helper_version }}<br>
-                        PDF Creator Helper: {{ pdf_creator_helper_version }}
-                    </p>
-                </div>
-                <div style="break-inside: avoid">
-                    <h5><u>Core Controller Classes</u></h5>
-                    <p>
-                        Google Drive Controller: {{ google_drive_controller_version }}<br>
-                        Settings Controller: {{ settings_controller_version }}
-                    </p>
-                </div>
-                <div style="break-inside: avoid">
-                    <h5><u>Database Packages</u></h5>
-                    <p>
-                        Database: {{ tigress_database_version }}<br>
-                        Repository: {{ tigress_repository_version }}<br>
-                        Model: {{ tigress_model_version }}
-                    </p>
-                </div>
-                <div style="break-inside: avoid">
-                    <h5><u>Support Packages</u></h5>
-                    <p>
-                        Data Converter: {{ tigress_data_converter_version }}<br>
-                        Data Files: {{ tigress_data_files_version }}<br>
-                        File Manager: {{ tigress_file_manager_version }}<br>
-                    </p>
-                </div>
-                <div style="break-inside: avoid">
-                    <p>
-                        <i>Communication: {{ tigress_communication_version.Communication }}</i><br>
-                        {% if tigress_communication_version.Communication != 'Not Active' %}
-                            &bullet; Email: {{ tigress_communication_version.Email }}<br>
-                        {% endif %}
-                    </p>
-                </div>
-                <div style="break-inside: avoid">
-                    <p>
-                        <i>Google API: {{ tigress_google_api_version.GoogleApi }}</i><br>
-                        {% if tigress_google_api_version.GoogleApi != 'Not Active' %}
-                            &bullet; Google Auth: {{ tigress_google_api_version.GoogleApiAuth }}<br>
-                            &bullet; Google Calendar: {{ tigress_google_api_version.GoogleApiCalendar }}<br>
-                            &bullet; Google Drive: {{ tigress_google_api_version.GoogleApiDrive }}<br>
-                            &bullet; Google Script: {{ tigress_google_api_version.GoogleApiScript }}<br>
-                        {% endif %}
-                    </p>
-                </div>
-                <div style="break-inside: avoid">
-                    <p>
-                        <i>Manipulator: {{ tigress_manipulator_version.Manipulator }}</i><br>
-                        {% if tigress_manipulator_version.Manipulator != 'Not Active' %}
-                            &bullet; BBCode: {{ tigress_manipulator_version.BBCode }}<br>
-                            &bullet; CalculateBirthday: {{ tigress_manipulator_version.CalculateBirthday }}<br>
-                            &bullet; CalculatePregnancy: {{ tigress_manipulator_version.CalculatePregnancy }}<br>
-                            &bullet; DateManipulator: {{ tigress_manipulator_version.DateManipulator }}<br>
-                            &bullet; NationalIdentification: {{ tigress_manipulator_version.NationalIdentification }}<br>
-                            &bullet; TextManipulator: {{ tigress_manipulator_version.TextManipulator }}<br>
-                        {% endif %}
-                    </p>
+        <div id="image-tigress">
+            <img src="{{ BASE_URL }}/vendor/tigress/core/public/images/tigress.jpg" alt="Tigress">
+        </div>
+        <div id="version-box">
+            <h1 class="text-nowrap">{{ WEBSITE.title }}</h1>
+            <h4><i>{{ WEBSITE.description }}</i></h4>
+            <p>Author: {{ WEBSITE.author }}</p>
+            <hr>
+            <h2 class="text-nowrap">Tigress PHP Framework</h2>
+            <h4><i>Tigress is a PHP MVC-framework for building web applications.</i></h4>
+            <div class="row">
+                <div class="col-md-12" style="columns: 250px 3">
+                    <div style="break-inside: avoid">
+                        <h5><u>Main Packages:</u></h5>
+                        <p>
+                            Core: {{ tigress_core_version }}<br>
+                            Security: {{ tigress_security_version }}<br>
+                            Router: {{ tigress_router_version }}<br>
+                            Rights: {{ tigress_rights_version }}<br>
+                            Menu: {{ tigress_menu_version }}<br>
+                            Encryption: {{ tigress_encryption_version }}<br>
+                        </p>
+                    </div>
+                    <div style="break-inside: avoid">
+                        <h5><u>Core Helper Classes</u></h5>
+                        <p>
+                            Framework Helper: {{ framework_helper_version }}<br>
+                            Display Helper: {{ display_helper_version }}<br>
+                            PDF Creator Helper: {{ pdf_creator_helper_version }}
+                        </p>
+                    </div>
+                    <div style="break-inside: avoid">
+                        <h5><u>Core Controller Classes</u></h5>
+                        <p>
+                            Google Drive Controller: {{ google_drive_controller_version }}<br>
+                            Settings Controller: {{ settings_controller_version }}
+                        </p>
+                    </div>
+                    <div style="break-inside: avoid">
+                        <h5><u>Database Packages</u></h5>
+                        <p>
+                            Database: {{ tigress_database_version }}<br>
+                            Repository: {{ tigress_repository_version }}<br>
+                            Model: {{ tigress_model_version }}
+                        </p>
+                    </div>
+                    <div style="break-inside: avoid">
+                        <h5><u>Support Packages</u></h5>
+                        <p>
+                            Data Converter: {{ tigress_data_converter_version }}<br>
+                            Data Files: {{ tigress_data_files_version }}<br>
+                            File Manager: {{ tigress_file_manager_version }}<br>
+                        </p>
+                    </div>
+                    <div style="break-inside: avoid">
+                        <p>
+                            <i>Communication: {{ tigress_communication_version.Communication }}</i><br>
+                            {% if tigress_communication_version.Communication != 'Not Active' %}
+                                &bullet; Email: {{ tigress_communication_version.Email }}<br>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div style="break-inside: avoid">
+                        <p>
+                            <i>Google API: {{ tigress_google_api_version.GoogleApi }}</i><br>
+                            {% if tigress_google_api_version.GoogleApi != 'Not Active' %}
+                                &bullet; Google Auth: {{ tigress_google_api_version.GoogleApiAuth }}<br>
+                                &bullet; Google Calendar: {{ tigress_google_api_version.GoogleApiCalendar }}<br>
+                                &bullet; Google Drive: {{ tigress_google_api_version.GoogleApiDrive }}<br>
+                                &bullet; Google Script: {{ tigress_google_api_version.GoogleApiScript }}<br>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div style="break-inside: avoid">
+                        <p>
+                            <i>Manipulator: {{ tigress_manipulator_version.Manipulator }}</i><br>
+                            {% if tigress_manipulator_version.Manipulator != 'Not Active' %}
+                                &bullet; BBCode: {{ tigress_manipulator_version.BBCode }}<br>
+                                &bullet; CalculateBirthday: {{ tigress_manipulator_version.CalculateBirthday }}<br>
+                                &bullet; CalculatePregnancy: {{ tigress_manipulator_version.CalculatePregnancy }}<br>
+                                &bullet; DateManipulator: {{ tigress_manipulator_version.DateManipulator }}<br>
+                                &bullet; NationalIdentification: {{ tigress_manipulator_version.NationalIdentification }}<br>
+                                &bullet; TextManipulator: {{ tigress_manipulator_version.TextManipulator }}<br>
+                            {% endif %}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="versionBackButton">
-            <button type="button" class="btn btn-dark" onclick="window.history.back()"></button>
+            <div id="versionBackButton">
+                <button type="button" class="btn btn-dark" onclick="window.history.back()"></button>
+            </div>
         </div>
     </div>
 {% endblock %}

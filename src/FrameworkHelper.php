@@ -9,7 +9,7 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.13.0
+ * @version 2025.02.20.0
  * @package Tigress\FrameworkHelper
  */
 class FrameworkHelper
@@ -21,7 +21,7 @@ class FrameworkHelper
      */
     public static function version(): string
     {
-        return '2025.01.13';
+        return '2025.02.20';
     }
 
     /**
@@ -58,17 +58,17 @@ class FrameworkHelper
         }
 
         if (is_dir(SYSTEM_ROOT . '/public') === false) {
-            @mkdir(SYSTEM_ROOT . '/public/css', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/public/css/home', 0777, true);
             @mkdir(SYSTEM_ROOT . '/public/images', 0777, true);
             @mkdir(SYSTEM_ROOT . '/public/javascript', 0777, true);
             @mkdir(SYSTEM_ROOT . '/public/json', 0777, true);
             @mkdir(SYSTEM_ROOT . '/public/scripts', 0777, true);
             @copy(
-                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
-                SYSTEM_ROOT . '/public/css/.gitkeep'
+                SYSTEM_ROOT . '/vendor/tigress/core/files/public/css/home/index.css',
+                SYSTEM_ROOT . '/public/css/home/index.css'
             );
             @copy(
-                SYSTEM_ROOT . '/vendor/tigress/core/files/images/under_construction.jpg',
+                SYSTEM_ROOT . '/vendor/tigress/core/files/public/images/under_construction.jpg',
                 SYSTEM_ROOT . '/public/images/under_construction.jpg'
             );
             @copy(
@@ -90,15 +90,15 @@ class FrameworkHelper
         }
 
         if (is_dir(SYSTEM_ROOT . '/src') === false) {
-            @mkdir(SYSTEM_ROOT . '/src/controllers', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/src/controllers/home', 0777, true);
             @mkdir(SYSTEM_ROOT . '/src/menus', 0777, true);
             @mkdir(SYSTEM_ROOT . '/src/models', 0777, true);
             @mkdir(SYSTEM_ROOT . '/src/repositories', 0777, true);
             @mkdir(SYSTEM_ROOT . '/src/services', 0777, true);
-            @mkdir(SYSTEM_ROOT . '/src/views', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/src/views/home', 0777, true);
             @copy(
-                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
-                SYSTEM_ROOT . '/src/controllers/.gitkeep'
+                SYSTEM_ROOT . '/vendor/tigress/core/files/src/controllers/home/HomeController.php',
+                SYSTEM_ROOT . '/src/controllers/home/HomeController.php'
             );
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
@@ -117,16 +117,16 @@ class FrameworkHelper
                 SYSTEM_ROOT . '/src/services/.gitkeep'
             );
             @copy(
-                SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
-                SYSTEM_ROOT . '/src/views/.gitkeep'
-            );
-            @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/src/views/base.twig',
                 SYSTEM_ROOT . '/src/views/base.twig'
             );
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/src/views/datatable.twig',
                 SYSTEM_ROOT . '/src/views/datatable.twig'
+            );
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/src/views/home/index.twig',
+                SYSTEM_ROOT . '/src/views/home/index.twig'
             );
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.htaccess',
