@@ -2,8 +2,8 @@
   "routes": [
     {
       "request": "GET",
-      "path": "/url_path",
-      "controller": "YourController",
+      "path": "/",
+      "controller": "home\\HomeController",
       "method": "index"
     }
   ],
