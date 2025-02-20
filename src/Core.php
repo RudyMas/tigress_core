@@ -26,7 +26,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.02.10.0
+ * @version 2025.02.20.0
  * @package Tigress\Core
  */
 class Core
@@ -42,11 +42,15 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2025.02.10');
+        define('TIGRESS_CORE_VERSION', '2025.02.20');
 
         // Load the config files
-        define('CONFIG', json_decode(file_get_contents('config/config.json')));
-        define('SYSTEM', json_decode(file_get_contents('system/config.json')));
+        if (file_exists('config/config.json') === true) {
+            define('CONFIG', json_decode(file_get_contents('config/config.json')));
+        }
+        if (file_exists('system/config.json') === true) {
+            define('SYSTEM', json_decode(file_get_contents('system/config.json')));
+        }
 
         // Create BASE_URL, SYSTEM_ROOT & others
         $this->settingUpRootMapping();
@@ -162,7 +166,7 @@ class Core
         define('BASE_URL', $scriptName);
 
         $extraPath = '';
-        if (SYSTEM->subdomain_in_subfolder) {
+        if (defined('SYSTEM') && SYSTEM->subdomain_in_subfolder) {
             for ($i = 0; $i < count($arrayServerName); $i++) {
                 $extraPath .= '/' . $arrayServerName[$i];
             }
