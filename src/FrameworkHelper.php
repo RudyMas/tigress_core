@@ -68,8 +68,8 @@ class FrameworkHelper
                 SYSTEM_ROOT . '/public/css/home/home.css'
             );
             @copy(
-                SYSTEM_ROOT . '/vendor/tigress/core/files/public/images/under_construction.jpg',
-                SYSTEM_ROOT . '/public/images/under_construction.jpg'
+                SYSTEM_ROOT . '/vendor/tigress/core/files/public/images/under_construction.png',
+                SYSTEM_ROOT . '/public/images/under_construction.png'
             );
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.gitkeep',
