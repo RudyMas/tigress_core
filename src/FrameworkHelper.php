@@ -64,8 +64,8 @@ class FrameworkHelper
             @mkdir(SYSTEM_ROOT . '/public/json', 0777, true);
             @mkdir(SYSTEM_ROOT . '/public/scripts', 0777, true);
             @copy(
-                SYSTEM_ROOT . '/vendor/tigress/core/files/public/css/home/index.css',
-                SYSTEM_ROOT . '/public/css/home/index.css'
+                SYSTEM_ROOT . '/vendor/tigress/core/files/public/css/home/home.css',
+                SYSTEM_ROOT . '/public/css/home/home.css'
             );
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/public/images/under_construction.jpg',
@@ -126,7 +126,7 @@ class FrameworkHelper
             );
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/src/views/home/index.twig',
-                SYSTEM_ROOT . '/src/views/home/index.twig'
+                SYSTEM_ROOT . '/src/views/home/home.twig'
             );
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.htaccess',
