@@ -125,7 +125,7 @@ class FrameworkHelper
                 SYSTEM_ROOT . '/src/views/datatable.twig'
             );
             @copy(
-                SYSTEM_ROOT . '/vendor/tigress/core/files/src/views/home/index.twig',
+                SYSTEM_ROOT . '/vendor/tigress/core/files/src/views/home/home.twig',
                 SYSTEM_ROOT . '/src/views/home/home.twig'
             );
             @copy(
