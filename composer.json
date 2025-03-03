@@ -24,7 +24,7 @@
     "tigress/model": "^2025",
     "tigress/repository": "^2025",
     "tigress/rights": "^2025",
-    "tigress/router": "^2024",
+    "tigress/router": "^2025",
     "tigress/security": "^2025",
     "twig/twig": "^v3",
     "twig/intl-extra": "^v3"

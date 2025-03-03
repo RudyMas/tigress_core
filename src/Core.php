@@ -16,6 +16,7 @@ use Twig\Error\LoaderError;
  * - SERVER_TYPE            Contains the type of server (development, test, production)
  * - DATABASE               Contains the database connections
  * - TWIG                   Contains the Twig instance
+ * - ROUTER                 Contains the Router instance
  * - SECURITY               Contains the security class
  * - RIGHTS                 Contains the rights class
  * - WEBSITE                Contains information about the website
@@ -26,7 +27,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.02.20.0
+ * @version 2025.03.03.0
  * @package Tigress\Core
  */
 class Core
@@ -42,7 +43,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2025.02.20');
+        define('TIGRESS_CORE_VERSION', '2025.03.03');
 
         // Load the config files
         if (file_exists('config/config.json') === true) {
@@ -98,6 +99,7 @@ class Core
         }
 
         $router = new Router();
+        define('ROUTER', $router);
         RIGHTS->setRights($router->createRoutes());
         $router->execute();
     }
