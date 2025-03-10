@@ -62,6 +62,7 @@
     {% endif %}
     <header>{% block header %}{% endblock %}</header>
     <div class="main-content">
+        <div class="container break-out99">{% block breadcrumb %}{% endblock %}</div>
         {% if _SESSION.error %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ _SESSION.error }}
