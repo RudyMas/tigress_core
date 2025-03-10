@@ -415,6 +415,12 @@ fieldset legend {
     margin-left: calc(-1 * (90vw - 100%) / 2);
 }
 
+.break-out99 {
+    width: 99vw;
+    position: relative;
+    margin-left: calc(-1 * (99vw - 100%) / 2);
+}
+
 .break-out-print {
     min-width: 98vw;
     max-width: 98vw;
