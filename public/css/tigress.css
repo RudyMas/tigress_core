@@ -177,6 +177,10 @@ fieldset legend {
     color: #DBDBDB;
 }
 
+.red-1-text {
+    color: #bc1c48 !important;
+}
+
 .blue {
     background: #00a9ec;
 }
@@ -194,6 +198,10 @@ fieldset legend {
     color: #DBDBDB;
 }
 
+.blue-1-text {
+    color: #00a9ec !important;
+}
+
 .blue-2 {
     border: solid 2px;
     border-color: #04CBA2;
@@ -205,6 +213,10 @@ fieldset legend {
 
 .blue-2 i {
     color: #DBDBDB;
+}
+
+.blue-2-text {
+    color: #04CBA2 !important;
 }
 
 .col2 {
@@ -225,12 +237,20 @@ fieldset legend {
     border-color: #D8BB26;
 }
 
+.col2-text {
+    color: #cc6633 !important;
+}
+
 .col3 .label {
     color: #DBDBDB;
 }
 
 .col3 i {
     color: #DBDBDB;
+}
+
+.col3-text {
+    color: #D8BB26 !important;
 }
 
 .col4 {
@@ -244,6 +264,10 @@ fieldset legend {
 
 .col4 i {
     color: #DBDBDB;
+}
+
+.col4-text {
+    color: #03C532 !important;
 }
 
 .orange {
@@ -263,6 +287,10 @@ fieldset legend {
     color: #DBDBDB;
 }
 
+.orange-1-text {
+    color: #FF520E !important;
+}
+
 .green {
     background: #0e5d30;
 }
@@ -278,6 +306,10 @@ fieldset legend {
 
 .green-1 i {
     color: #DBDBDB;
+}
+
+.green-1-text {
+    color: #0e5d30 !important;
 }
 
 .purple {
@@ -297,6 +329,10 @@ fieldset legend {
     color: #DBDBDB;
 }
 
+.purple-1-text {
+    color: #663399 !important;
+}
+
 .gray, .grey {
     border: solid 1px;
     border-color: #4E4E4D;
@@ -308,6 +344,10 @@ fieldset legend {
 
 .gray span, .grey span {
     opacity: 0.5;
+}
+
+.gray-text {
+    color: #4E4E4D !important;
 }
 
 .green-bright {
@@ -327,6 +367,10 @@ fieldset legend {
     color: #DBDBDB;
 }
 
+.green-bright-1-text {
+    color: #78d204 !important;
+}
+
 .blue-nav {
     background: #25478e;
 }
@@ -342,6 +386,10 @@ fieldset legend {
 
 .blue-nav-1 i {
     color: #DBDBDB;
+}
+
+.blue-nav-1-text {
+    color: #25478e !important;
 }
 
 .yellow {
@@ -361,6 +409,10 @@ fieldset legend {
     color: #DBDBDB;
 }
 
+.yellow-1-text {
+    color: #FFB400 !important;
+}
+
 .brown {
     background: #744021;
 }
@@ -378,6 +430,10 @@ fieldset legend {
     color: #DBDBDB;
 }
 
+.brown-1-text {
+    color: #744021 !important;
+}
+
 .kerst {
     background: #B51E31;
 }
@@ -393,6 +449,10 @@ fieldset legend {
 
 .kerst-1 i {
     color: #DBDBDB;
+}
+
+.kerst-1-text {
+    color: #B51E31 !important;
 }
 
 /* Default CSS for alert */
