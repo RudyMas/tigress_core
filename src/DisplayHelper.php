@@ -21,7 +21,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.02.10.0
+ * @version 2025.03.14.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -36,7 +36,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.02.10';
+        return '2025.03.14';
     }
 
     /**
@@ -396,6 +396,7 @@ class DisplayHelper
         $images = $dom->getElementsByTagName('img');
         foreach ($images as $image) {
             $src = $image->getAttribute('src');
+            $src = preg_replace('#https?://[^/]+#', '', $src);
             $src = preg_replace('/\.\.\//', '/', $src);
             $src = preg_replace('/%20/', ' ', $src);
             $type = pathinfo($src, PATHINFO_EXTENSION);
@@ -403,19 +404,8 @@ class DisplayHelper
             $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
             $image->setAttribute('src', $base64);
 
-            $height = $image->getAttribute('height');
-            $width = $image->getAttribute('width');
-
             # make sure the image is not too big
-            if ($height && $width) {
-                $image->setAttribute('style', 'max-width: ' . $width . '; height: ' . $height . ';');
-            } elseif ($height && !$width) {
-                $image->setAttribute('style', 'max-width: auto; height: ' . $height . ';');
-            } elseif (!$height && $width) {
-                $image->setAttribute('style', 'max-width: ' . $width . '; height: auto;');
-            } else {
-                $image->setAttribute('style', 'max-width: 100%; height: auto;');
-            }
+            $image->setAttribute('style', 'max-width: 100%;');
         }
 
         return $dom->saveHTML();
