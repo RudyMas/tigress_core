@@ -1,5 +1,5 @@
-<!-- This is the base template for all pages. It includes the menu, sidebar, header, content and footer. -->
-<!-- Version: 2025.01.03 -->
+<!-- This is the base template for all pages. It includes the menu, sidebar, header, content, footer, ... -->
+<!-- Version: 2025.03.11 -->
 <!DOCTYPE html>
 <html lang="{% block html_lang %}{{ WEBSITE.html_lang }}{% endblock %}">
 <head>
@@ -62,7 +62,9 @@
     {% endif %}
     <header>{% block header %}{% endblock %}</header>
     <div class="main-content">
-        <div class="container break-out99">{% block breadcrumb %}{% endblock %}</div>
+        <div class="container">
+            {% block breadcrumb %}{% endblock %}
+        </div>
         {% if _SESSION.error %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ _SESSION.error }}
