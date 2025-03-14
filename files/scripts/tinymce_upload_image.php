@@ -22,7 +22,7 @@ if (exif_imagetype($uploadedFile) != IMAGETYPE_JPEG && exif_imagetype($uploadedF
 // Move the uploaded file to the destination path
 if (move_uploaded_file($uploadedFile, $destinationPath)) {
     // Respond with the URL to the uploaded image
-    echo json_encode(['location' => '/public/images/tinymce/' . $_GET['folder'] . '/' . $randomText . '_' . $_FILES['file']['name']]);
+    echo json_encode(['location' => $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/public/images/tinymce/' . $_GET['folder'] . '/' . $randomText . '_' . $_FILES['file']['name']]);
 } else {
     // Handle errors
     header("HTTP/1.1 500 Internal Server Error");
