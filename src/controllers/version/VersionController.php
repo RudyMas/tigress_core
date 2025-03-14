@@ -7,6 +7,7 @@ use Controller\Core\SettingsController;
 use Controller\Menu;
 use Exception;
 use Tigress\Communication;
+use Tigress\Core;
 use Tigress\Database;
 use Tigress\DataConverter;
 use Tigress\DataFiles;
@@ -46,6 +47,12 @@ class VersionController
     {
         MENU->setPosition('none');
 
+        if (isset(CONFIG->website->naughty) && CONFIG->website->naughty) {
+            $image = file_get_contents(SYSTEM_ROOT . '/vendor/tigress/core/public/images/tigress_naughty.txt');
+        } else {
+            $image = BASE_URL . '/vendor/tigress/core/public/images/tigress.jpg';
+        }
+
         // Get the version of the main Tigress Classes loaded
         $tigress_security_version = class_exists('Tigress\Security') ? Security::version() : 'Not Active';
         $tigress_router_version = class_exists('Tigress\Router') ? Router::version() : 'Not Active';
@@ -76,6 +83,7 @@ class VersionController
         $tigress_manipulator_version = class_exists('Tigress\Manipulator') ? Manipulator::version() : ['Manipulator' => 'Not Active'];
 
         TWIG->render('version/index.twig', [
+            'image' => $image,
             'tigress_core_version' => TIGRESS_CORE_VERSION,
             'tigress_security_version' => $tigress_security_version,
             'tigress_router_version' => $tigress_router_version,
