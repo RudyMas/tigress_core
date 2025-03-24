@@ -1,0 +1,20 @@
+{% extends 'base.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/core/public/css/under_construction.css">
+{% endblock %}
+{% block content %}
+    <img src="{{ BASE_URL }}/vendor/tigress/core/public/images/under_construction.png" alt="under construction" id="img-uc">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Under Construction</h3>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4 text-end">
+                <a href="javascript:history.back()" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Terug</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
