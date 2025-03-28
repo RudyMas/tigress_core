@@ -3,7 +3,6 @@
 namespace Controller\Core;
 
 use JetBrains\PhpStorm\NoReturn;
-use Tigress\Core;
 use Tigress\EncryptionRSA;
 
 /**
@@ -18,8 +17,8 @@ use Tigress\EncryptionRSA;
  */
 class GoogleDriveController
 {
-    private string $publicKey = '/private/keys/OLSC_public.key';
-    private string $privateKey = '/private/keys/OLSC_private.key';
+    private string $publicKey = '/private/keys/public.key';
+    private string $privateKey = '/private/keys/private.key';
 
     /**
      * Get the version of the ApiController

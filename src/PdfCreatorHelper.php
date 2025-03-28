@@ -11,7 +11,7 @@ use Dompdf\Dompdf;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.03.28.0
+ * @version 2025.03.28.1
  * @package Tigress\PdfCreatorHelper
  */
 class PdfCreatorHelper
@@ -157,8 +157,8 @@ class PdfCreatorHelper
             'az' => "Səhifə {PAGE_NUM} / {PAGE_COUNT}",
             'be' => "Старонка {PAGE_NUM} з {PAGE_COUNT}",
             'bg' => "Страница {PAGE_NUM} от {PAGE_COUNT}",
-            'bs' => "Stranica {PAGE_NUM} od {PAGE_COUNT}",
-            'cs' => "Strana {PAGE_NUM} z {PAGE_COUNT}",
+            'bs', 'hr' => "Stranica {PAGE_NUM} od {PAGE_COUNT}",
+            'cs', 'sk' => "Strana {PAGE_NUM} z {PAGE_COUNT}",
             'da' => "Side {PAGE_NUM} af {PAGE_COUNT}",
             'de' => "Seite {PAGE_NUM} von {PAGE_COUNT}",
             'el' => "Σελίδα {PAGE_NUM} από {PAGE_COUNT}",
@@ -168,16 +168,14 @@ class PdfCreatorHelper
             'fi' => "Sivu {PAGE_NUM} / {PAGE_COUNT}",
             'fr' => "Page {PAGE_NUM} sur {PAGE_COUNT}",
             'hi' => "पृष्ठ {PAGE_NUM} का {PAGE_COUNT} में",
-            'hr' => "Stranica {PAGE_NUM} od {PAGE_COUNT}",
             'hu' => "Oldal {PAGE_NUM} / {PAGE_COUNT}",
             'hy' => "Էջ {PAGE_NUM} է {PAGE_COUNT}-ից",
             'id' => "Halaman {PAGE_NUM} dari {PAGE_COUNT}",
             'it' => "Pagina {PAGE_NUM} di {PAGE_COUNT}",
             'ja' => "ページ {PAGE_NUM} / {PAGE_COUNT}",
             'ka' => "გვერდი {PAGE_NUM} სულ {PAGE_COUNT}-დან",
-            'kk' => "Бет {PAGE_NUM} / {PAGE_COUNT}",
+            'kk', 'ky' => "Бет {PAGE_NUM} / {PAGE_COUNT}",
             'ko' => "페이지 {PAGE_NUM} / {PAGE_COUNT}",
-            'ky' => "Бет {PAGE_NUM} / {PAGE_COUNT}",
             'lt' => "Puslapis {PAGE_NUM} iš {PAGE_COUNT}",
             'lv' => "Lapa {PAGE_NUM} no {PAGE_COUNT}",
             'mk' => "Страна {PAGE_NUM} од {PAGE_COUNT}",
@@ -188,7 +186,6 @@ class PdfCreatorHelper
             'pl' => "Strona {PAGE_NUM} z {PAGE_COUNT}",
             'ro' => "Pagina {PAGE_NUM} din {PAGE_COUNT}",
             'ru' => "Страница {PAGE_NUM} из {PAGE_COUNT}",
-            'sk' => "Strana {PAGE_NUM} z {PAGE_COUNT}",
             'sl' => "Stran {PAGE_NUM} od {PAGE_COUNT}",
             'sq' => "Faqja {PAGE_NUM} nga {PAGE_COUNT}",
             'sr' => "Страница {PAGE_NUM} од {PAGE_COUNT}",
