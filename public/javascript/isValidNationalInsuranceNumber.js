@@ -1,7 +1,7 @@
 // Message to display when the national insurance number is invalid
 const rrnErrorMsg = {
     'BE': 'Dit is geen geldig rijksregisternummer',
-    'NL': 'Dit is geen geldig burgerservicenummer.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 toevoegen bij een 8-cijfer nummer.',
+    'NL': 'Dit is geen geldig burgerservicenummer.',
     'DE': 'Dies ist keine gültige nationale Registernummer.',
     'FR': 'Ce n\'est pas un numéro de registre national valide.',
     'LU': 'Dëst ass keng valabel national Registernummer.',
