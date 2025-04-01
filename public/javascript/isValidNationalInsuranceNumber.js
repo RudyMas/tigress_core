@@ -27,10 +27,12 @@ const validateId = {
         return mod97 === controlNumber;
     },
     'NL': (id) => {
-        if (!/^\d{9}$/.test(id)) return false;
+        if (!/^\d{8,9}$/.test(id)) return false;
+        id = id.padStart(9, '0'); // Voeg voorloopnul toe als nodig
+
         let sum = 0;
         for (let i = 0; i < 9; i++) {
-            let digit = parseInt(id.charAt(i));
+            let digit = parseInt(id.charAt(i), 10);
             if (i < 8) {
                 sum += (9 - i) * digit;
             } else {
@@ -123,7 +125,7 @@ const formatId = {
         return output.substring(0, 15);
     },
     'NL': (id) => {
-        return id.replace(/^([0-9]{9})$/, '$1').substring(0, 9);
+        return id.replace(/\D/g, '').padStart(9, '0').substring(0, 9);
     },
     'DE': (id) => {
         return id.replace(/^([A-Z0-9]{9})$/, '$1').substring(0, 9);
