@@ -1,4 +1,4 @@
-/* version: 2025.01.10 */
+/* version: 2025.04.03 */
 * {
     margin: 0;
     padding: 0;
@@ -39,6 +39,11 @@ fieldset legend {
 .tab-menu {
     background-color: #f2f2f2;
     border-radius: 5px;
+}
+
+/* auto-grow for textarea */
+.auto-grow {
+    overflow: hidden;
 }
 
 /* Transform checkboxes into toggle switches */
