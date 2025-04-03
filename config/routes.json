@@ -2,15 +2,24 @@
   "routes": [
     {
       "request": "GET",
+      "path": "/google/drive/link",
+      "controller": "Core\\GoogleDriveController",
+      "method": "loadByLink"
+    },
+    {
+      "request": "GET",
       "path": "/help",
       "controller": "tigress\\TigressHelpController",
       "method": "index"
     },
     {
       "request": "GET",
-      "path": "/google/drive/link",
-      "controller": "Core\\GoogleDriveController",
-      "method": "loadByLink"
+      "path": "/phpinfo",
+      "controller": "Core\\PhpInfoController",
+      "method": "index",
+      "level_rights": [
+        100
+      ]
     },
     {
       "request": "GET",
