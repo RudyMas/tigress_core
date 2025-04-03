@@ -21,7 +21,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.03.14.0
+ * @version 2025.04.03.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -36,7 +36,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.03.14';
+        return '2025.04.03';
     }
 
     /**
@@ -154,6 +154,13 @@ class DisplayHelper
      */
     #[NoReturn] public function redirect(string $page): void
     {
+        if (in_array(SERVER_TYPE, ['development', 'test']) && headers_sent($file, $line)) {
+            echo "<pre style='color:red; background:#ffecec; padding:10px; border:1px solid #f00'>";
+            echo "⚠️ DEBUG: Redirect naar $page kon niet meer, headers zijn al verzonden in $file op lijn $line";
+            echo "</pre>";
+            exit;
+        }
+
         if (preg_match("/(http|ftp|https)?:?\/\//", $page)) {
             header('Location: ' . $page);
         } else {
