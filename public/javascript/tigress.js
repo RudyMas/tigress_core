@@ -16,4 +16,9 @@ $(function () {
     $(document).on('input', '.auto-grow', function () {
         autoResize($(this));
     });
+
+    $('[data-toggle="tooltip"]').tooltip({
+        boundary: 'window',
+        trigger: 'hover'
+    });
 });
