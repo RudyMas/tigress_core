@@ -14,6 +14,7 @@ use Twig\Extension\DebugExtension;
 use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
  * Class DisplayHelper (PHP version 8.4)
@@ -21,7 +22,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.04.29.0
+ * @version 2025.04.29.1
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -73,6 +74,14 @@ class DisplayHelper
         }));
         $this->twig->addFilter(new TwigFilter('base64_encode', function ($data) {
             return base64_encode($data);
+        }));
+
+        // Register custom functions in Twig
+        $this->twig->addFunction(new TwigFunction('in_keys', function ($needle, $haystack, $strict = false) {
+            return in_array($needle, array_keys($haystack), $strict);
+        }));
+        $this->twig->addFunction(new TwigFunction('in_values', function ($needle, $haystack, $strict = false) {
+            return in_array($needle, array_values($haystack), $strict);
         }));
     }
 
@@ -412,12 +421,27 @@ class DisplayHelper
             $src = preg_replace('/%20/', ' ', $src);
             $type = pathinfo($src, PATHINFO_EXTENSION);
             if (is_file(SYSTEM_ROOT . $src)) {
+                $width = $image->getAttribute('width');
+                $height = $image->getAttribute('height');
+
                 $data = file_get_contents(SYSTEM_ROOT . $src);
                 $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
                 $image->setAttribute('src', $base64);
 
                 # make sure the image is not too big
-                $image->setAttribute('style', 'max-width: 100%;');
+                if ($width && $height) {
+                    $image->setAttribute('width', $width);
+                    $image->setAttribute('height', $height);
+                } elseif ($width && !$height) {
+                    $image->setAttribute('width', $width);
+                    $image->setAttribute('height', 'auto');
+                } elseif (!$width && $height) {
+                    $image->setAttribute('width', 'auto');
+                    $image->setAttribute('height', $width);
+                } else {
+                    $image->setAttribute('width', '100%');
+                    $image->setAttribute('height', 'auto');
+                }
             }
         }
 

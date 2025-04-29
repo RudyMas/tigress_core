@@ -16,6 +16,7 @@
     "php": ">=8.4",
     "ext-dom": "*",
     "ext-exif": "*",
+    "ext-libxml": "*",
     "dompdf/dompdf": ">=v3",
     "tigress/data-converter": "^2025",
     "tigress/data-files": "^2025",
