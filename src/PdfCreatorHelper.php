@@ -3,6 +3,7 @@
 namespace Tigress;
 
 use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * Class PdfCreatorClass (PHP version 8.4)
@@ -11,7 +12,7 @@ use Dompdf\Dompdf;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.03.28.1
+ * @version 2025.04.29.0
  * @package Tigress\PdfCreatorHelper
  */
 class PdfCreatorHelper
@@ -26,19 +27,19 @@ class PdfCreatorHelper
      */
     public static function version(): string
     {
-        return '2025.03.28';
+        return '2025.04.29';
     }
 
     /**
-     * @param array $config
+     * @param array|Options|null $config
      */
-    public function __construct(array $config = [])
+    public function __construct(array|Options|null $config = null)
     {
         $this->Dompdf = new Dompdf($config);
     }
 
     /**
-     * This function creates a PDF file from a HTML string.
+     * This function creates a PDF file from an HTML string.
      *
      * @param string $html
      * @param string $format

@@ -21,7 +21,7 @@ use Twig\TwigFilter;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.04.03.0
+ * @version 2025.04.29.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -36,7 +36,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.04.03';
+        return '2025.04.29';
     }
 
     /**
@@ -70,6 +70,9 @@ class DisplayHelper
         }));
         $this->twig->addFilter(new TwigFilter('bitwise_not', function ($a) {
             return ~$a;
+        }));
+        $this->twig->addFilter(new TwigFilter('base64_encode', function ($data) {
+            return base64_encode($data);
         }));
     }
 
@@ -399,7 +402,8 @@ class DisplayHelper
     private function ImgTagToBase64InHtml(string $html): string
     {
         $dom = new DOMDocument();
-        $dom->loadHTML($html);
+        $dom->loadHTML($html, LIBXML_NOERROR);
+
         $images = $dom->getElementsByTagName('img');
         foreach ($images as $image) {
             $src = $image->getAttribute('src');
@@ -407,12 +411,14 @@ class DisplayHelper
             $src = preg_replace('/\.\.\//', '/', $src);
             $src = preg_replace('/%20/', ' ', $src);
             $type = pathinfo($src, PATHINFO_EXTENSION);
-            $data = file_get_contents(SYSTEM_ROOT . $src);
-            $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-            $image->setAttribute('src', $base64);
+            if (is_file(SYSTEM_ROOT . $src)) {
+                $data = file_get_contents(SYSTEM_ROOT . $src);
+                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                $image->setAttribute('src', $base64);
 
-            # make sure the image is not too big
-            $image->setAttribute('style', 'max-width: 100%;');
+                # make sure the image is not too big
+                $image->setAttribute('style', 'max-width: 100%;');
+            }
         }
 
         return $dom->saveHTML();
