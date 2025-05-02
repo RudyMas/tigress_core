@@ -1,4 +1,4 @@
-/* version: 2025.04.29 */
+/* version: 2025.05.02 */
 * {
     font-size: 9pt;
     font-family: Arial, sans-serif;
@@ -157,6 +157,10 @@ table {
 /* Padding for table cells */
 th, td {
     padding: 1.5pt 3.75pt;
+}
+
+.no-padding {
+    padding: 0 !important;
 }
 
 .thead-light {
@@ -430,6 +434,18 @@ th, td {
 
 .text-center {
     text-align: center;
+}
+
+.text-top {
+    vertical-align: top;
+}
+
+.text-middle {
+    vertical-align: middle;
+}
+
+.text-bottom {
+    vertical-align: bottom;
 }
 
 .text-uppercase {

@@ -22,7 +22,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.04.29.1
+ * @version 2025.05.02.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -37,7 +37,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.04.29';
+        return '2025.05.02';
     }
 
     /**
@@ -365,10 +365,13 @@ class DisplayHelper
             'filename' => 'document.pdf',
             'filepath' => '/public/tmp/',
             'pagination' => false,
-            'attachment' => 1
+            'attachment' => 1,
+            'language' => 'nl',
         ], $pdfConfig);
         $html = $this->twig->render($template, $data);
         $html = $this->ImgTagToBase64InHtml($html);
+
+        $pdf->setLanguage($pdfConfig['language']);
 
         $pdf->createPdf(
             $html,
