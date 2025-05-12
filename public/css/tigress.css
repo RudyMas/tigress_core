@@ -164,6 +164,19 @@ fieldset legend {
     background-color: #2196F3; /* Change slider background when active */
 }
 
+/* Styling for text */
+.text-top {
+    vertical-align: top;
+}
+
+.text-middle {
+    vertical-align: middle;
+}
+
+.text-bottom {
+    vertical-align: bottom;
+}
+
 /* Default color for buttons & tiles */
 .red {
     background: #bc1c48;

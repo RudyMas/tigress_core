@@ -17,6 +17,7 @@ use Tigress\FileManager;
 use Tigress\FrameworkHelper;
 use Tigress\GoogleApi;
 use Tigress\HttpRequests;
+use Tigress\LoggerHelper;
 use Tigress\Manipulator;
 use Tigress\Model;
 use Tigress\PdfCreatorHelper;
@@ -65,6 +66,7 @@ class VersionController
         $framework_helper_version = class_exists('Tigress\FrameworkHelper') ? FrameworkHelper::version() : 'Not Active';
         $display_helper_version = class_exists('Tigress\DisplayHelper') ? DisplayHelper::version() : 'Not Active';
         $pdf_creator_helper_version = class_exists('Tigress\PdfCreatorHelper') ? PdfCreatorHelper::version() : 'Not Active';
+        $logger_helper_version = class_exists('Tigress\LoggerHelper') ? LoggerHelper::version() : 'Not Active';
 
         // Get the version of the Tigress Controller Classes loaded
         $google_drive_controller_version = class_exists('Controller\Core\GoogleDriveController') ? GoogleDriveController::version() : 'Not Active';
@@ -95,6 +97,7 @@ class VersionController
             'framework_helper_version' => $framework_helper_version,
             'display_helper_version' => $display_helper_version,
             'pdf_creator_helper_version' => $pdf_creator_helper_version,
+            'logger_helper_version' => $logger_helper_version,
             'google_drive_controller_version' => $google_drive_controller_version,
             'settings_controller_version' => $settings_controller_version,
             'tigress_database_version' => $tigress_database_version,

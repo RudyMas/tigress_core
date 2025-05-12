@@ -18,6 +18,7 @@
     "ext-exif": "*",
     "ext-libxml": "*",
     "dompdf/dompdf": ">=v3",
+    "monolog/monolog": "^3.9",
     "tigress/data-converter": "^2025",
     "tigress/data-files": "^2025",
     "tigress/database": "^2025",

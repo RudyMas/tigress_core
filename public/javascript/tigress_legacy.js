@@ -1,8 +1,12 @@
 $(function () {
     $('select').each(function () {
-        $(this).select2({
+        const $select = $(this);
+        const parentModal = $select.closest('.modal');
+
+        $select.select2({
             theme: 'bootstrap-5',
-            placeholder: $(this).data('placeholder') || ''
+            placeholder: $select.find('option[value=""]').text(),
+            dropdownParent: parentModal.length ? parentModal : $(document.body)
         });
     });
 });

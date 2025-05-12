@@ -38,8 +38,37 @@ function initModals() {
     if (modalVerwijder) {
         modalVerwijder.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
+            modalVerwijder.querySelector('#VerwijderRfd').value = button.getAttribute('data-id');
+        });
+    }
+}
+
+function initGebruikersTable() {
+    const datatableElement = document.getElementById('datatableTigress');
+
+    if (!datatableElement) return;
+
+    if (typeof jQuery !== 'undefined' && typeof jQuery.fn.DataTable === 'function') {
+        jQuery(datatableElement).DataTable({
+            stateSave: true,
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Alle"]],
+            language: {
+                url: '/node_modules/datatables.net-plugins/i18n/nl-NL.json'
+            },
+        });
+    } else {
+        console.warn('DataTables vereist nog jQuery – kan niet initialiseren zonder jQuery.');
+    }
+
+    const modal = document.getElementById('ModalGebruikerVerwijderen');
+    if (modal) {
+        modal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
             const itemId = button.getAttribute('data-id');
-            modalVerwijder.querySelector('#VerwijderRfd').value = itemId;
+            const input = modal.querySelector('#VerwijderGebruiker');
+            if (input) {
+                input.value = itemId;
+            }
         });
     }
 }
@@ -49,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initAutoGrow();
     initTooltips();
     initModals();
+    initGebruikersTable();
 });
 
 window.initTooltips = initTooltips;
