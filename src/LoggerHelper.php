@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.05.12.0
+ * @version 2025.05.13.0
  * @package Tigress\LoggerHelper
  */
 class LoggerHelper
@@ -27,7 +27,7 @@ class LoggerHelper
      */
     public static function version(): string
     {
-        return '2025.05.12';
+        return '2025.05.13';
     }
 
     /**
@@ -51,7 +51,7 @@ class LoggerHelper
     ): LoggerInterface
     {
         if (!$logDirectory) {
-            $logDirectory = __DIR__ . '/../../logs';
+            $logDirectory = SYSTEM_ROOT . '/logs';
         }
 
         if (!is_dir($logDirectory)) {
@@ -94,7 +94,7 @@ class LoggerHelper
     {
         return self::create(
             channelName: 'tigress',
-            logDirectory: __DIR__ . '/../../logs',
+            logDirectory: SYSTEM_ROOT . '/logs',
             level: Level::Error,
             retentionDays: 30,
             dateFormat: 'Y-m-d'
