@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.05.13.0
+ * @version 2025.05.13.1
  * @package Tigress\LoggerHelper
  */
 class LoggerHelper
@@ -36,18 +36,18 @@ class LoggerHelper
      * - optional rotation
      *
      * @param string $channelName The name of the log channel (e.g. 'smartschool')
-     * @param string|null $logDirectory Path to the log directory (default: __DIR__ . '/../../logs')
      * @param Level $level Logging level (e.g. Level::Error, Level::Debug, etc. - Default: Level::Error)
      * @param int $retentionDays Number of days to keep log files (0 = no rotation, keep everything - Default: 30)
      * @param string|null $dateFormat e.g. 'Y-m-d' for daily logs (null = no date suffix - Default: 'Y-m-d')
      * @return LoggerInterface
+     * @param string|null $logDirectory Path to the log directory (default: SYSTEM_ROOT . '/logs')
      */
     public static function create(
         string  $channelName,
-        ?string $logDirectory = null,
         Level   $level = Level::Error,
         int     $retentionDays = 30,
         ?string $dateFormat = 'Y-m-d',
+        ?string $logDirectory = null,
     ): LoggerInterface
     {
         if (!$logDirectory) {
@@ -95,9 +95,6 @@ class LoggerHelper
         return self::create(
             channelName: 'tigress',
             logDirectory: SYSTEM_ROOT . '/logs',
-            level: Level::Error,
-            retentionDays: 30,
-            dateFormat: 'Y-m-d'
         );
     }
 }
