@@ -1,4 +1,4 @@
-/* version: 2025.05.02 */
+/* version: 2025.05.19 */
 * {
     font-size: 9pt;
     font-family: Arial, sans-serif;
@@ -532,4 +532,20 @@ th, td {
 
 .fs-6 {
     font-size: 1rem;
+}
+
+.fs-7 {
+    font-size: 0.75rem;
+}
+
+.fs-8 {
+    font-size: 0.5rem;
+}
+
+.fs-9 {
+    font-size: 0.25rem;
+}
+
+.fs-10 {
+    font-size: 0;
 }
