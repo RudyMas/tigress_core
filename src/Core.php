@@ -27,7 +27,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.05.19.0
+ * @version 2025.05.19.1
  * @package Tigress\Core
  */
 class Core
@@ -100,8 +100,8 @@ class Core
 
         if (SERVER_TYPE === 'development') {
             $system->debug = true;
-            define('SYSTEM', $system);
         }
+        define('SYSTEM', $system);
 
         $router = new Router();
         define('ROUTER', $router);
