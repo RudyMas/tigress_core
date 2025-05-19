@@ -27,7 +27,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.05.08.0
+ * @version 2025.05.19.0
  * @package Tigress\Core
  */
 class Core
@@ -43,14 +43,14 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2025.05.08');
+        define('TIGRESS_CORE_VERSION', '2025.05.19');
 
         // Load the config files
         if (file_exists('config/config.json') === true) {
             define('CONFIG', json_decode(file_get_contents('config/config.json')));
         }
         if (file_exists('system/config.json') === true) {
-            define('SYSTEM', json_decode(file_get_contents('system/config.json')));
+            $system = json_decode(file_get_contents('system/config.json'));
         }
 
         // Create BASE_URL, SYSTEM_ROOT & others
@@ -69,7 +69,7 @@ class Core
         define('WEBSITE', CONFIG->website ?? '');
 
         // Set the timezone
-        date_default_timezone_set(SYSTEM->timezone);
+        date_default_timezone_set($system->timezone);
 
         // Check if the database is enabled & connect to it
         if (CONFIG->packages->tigress_database === true) {
@@ -77,7 +77,7 @@ class Core
         }
 
         // Create a new Twig instance
-        define('TWIG', new DisplayHelper(SYSTEM->Core->Twig->views, SYSTEM->debug));
+        define('TWIG', new DisplayHelper($system->Core->Twig->views, $system->debug));
         TWIG->addPath(SYSTEM_ROOT . '/vendor/tigress/core/src/views');
 
         // Load the menu class
@@ -96,6 +96,11 @@ class Core
             } else {
                 define('SERVER_TYPE', 'development');
             }
+        }
+
+        if (SERVER_TYPE === 'development') {
+            $system->debug = true;
+            define('SYSTEM', $system);
         }
 
         $router = new Router();

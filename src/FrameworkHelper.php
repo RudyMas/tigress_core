@@ -9,7 +9,7 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.02.20.0
+ * @version 2025.05.19.0
  * @package Tigress\FrameworkHelper
  */
 class FrameworkHelper
@@ -21,7 +21,7 @@ class FrameworkHelper
      */
     public static function version(): string
     {
-        return '2025.02.20';
+        return '2025.05.19';
     }
 
     /**
@@ -158,7 +158,7 @@ class FrameworkHelper
             );
         }
 
-        if (file_exists('config/config.json') === false) {
+        if (file_exists('config/config.json') === false || file_exists('config/routes.json') === false) {
             if ($firstInstall) {
                 print('Installation is complete. You can now create the config/config.json & config/routes.json file. Use the sample.json-files as a starting point.');
             } else {
