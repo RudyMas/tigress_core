@@ -12,7 +12,7 @@ use Dompdf\Options;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.04.29.0
+ * @version 2025.05.20.0
  * @package Tigress\PdfCreatorHelper
  */
 class PdfCreatorHelper
@@ -27,7 +27,7 @@ class PdfCreatorHelper
      */
     public static function version(): string
     {
-        return '2025.04.29';
+        return '2025.05.20';
     }
 
     /**
@@ -68,16 +68,16 @@ class PdfCreatorHelper
             $canvas = $this->Dompdf->getCanvas();
             $page = [
                 'A3' => [
-                    'portrait' => ['x' => 380, 'y' => 1160],
-                    'landscape' => ['x' => 1090, 'y' => 810],
+                    'portrait' => ['x' => 380, 'y' => 1165],
+                    'landscape' => ['x' => 1090, 'y' => 817],
                 ],
                 'A4' => [
-                    'portrait' => ['x' => 270, 'y' => 820],
-                    'landscape' => ['x' => 750, 'y' => 575],
+                    'portrait' => ['x' => 270, 'y' => 815],
+                    'landscape' => ['x' => 750, 'y' => 570],
                 ],
                 'A5' => [
-                    'portrait' => ['x' => 170, 'y' => 575],
-                    'landscape' => ['x' => 500, 'y' => 390],
+                    'portrait' => ['x' => 170, 'y' => 570],
+                    'landscape' => ['x' => 500, 'y' => 395],
                 ],
             ];
 

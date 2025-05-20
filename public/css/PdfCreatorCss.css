@@ -1,7 +1,45 @@
-/* version: 2025.05.19 */
+/* version: 2025.05.20 */
 * {
     font-size: 9pt;
     font-family: Arial, sans-serif;
+}
+
+#header,
+#header-landscape,
+#footer,
+#footer-landscape {
+    position: fixed;
+    left: 0;
+    right: 0;
+    padding: 0;
+}
+
+#header {
+    top: -20pt;
+    border-bottom: 1pt solid #000;
+}
+
+#footer {
+    bottom: -22pt;
+    border-top: 1pt solid #000;
+}
+
+#header-landscape {
+    top: -24pt;
+    border-bottom: 1pt solid #000;
+}
+
+#footer-landscape {
+    bottom: -24pt;
+    border-top: 1pt solid #000;
+}
+
+.page-number {
+    text-align: center;
+}
+
+.page-number:before {
+    content: "Page " counter(page);
 }
 
 h1 {
