@@ -580,7 +580,7 @@ fieldset legend {
 /* Fix for DataTables SearchPane */
 
 @media (min-width: 768px) {
-    .table-responsive .d-md-flex {
+    .d-md-flex:has(.dtsp-searchPanes) {
         display: block !important;
     }
 }
