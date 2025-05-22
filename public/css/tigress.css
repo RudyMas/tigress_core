@@ -1,4 +1,4 @@
-/* version: 2025.04.03 */
+/* version: 2025.05.22 */
 * {
     margin: 0;
     padding: 0;
@@ -148,19 +148,19 @@ fieldset legend {
 
 /* Checked state styling */
 .slider-checkbox:checked + .slider-label::before,
-.slider-checkbox:checked + b + .slider-label::before{
+.slider-checkbox:checked + b + .slider-label::before {
     transform: translateX(1.2em); /* Move the thumb to the right */
 }
 
 /* Optional: Styling for when the slider is focused with keyboard navigation */
 .slider-checkbox:focus + .slider-label,
-.slider-checkbox:focus + b + .slider-label{
+.slider-checkbox:focus + b + .slider-label {
     box-shadow: 0 0 1px #2196F3;
 }
 
 /* Optional: Styling for the slider when it is checked (active) */
 .slider-checkbox:checked + .slider-label,
-.slider-checkbox:checked + b + .slider-label{
+.slider-checkbox:checked + b + .slider-label {
     background-color: #2196F3; /* Change slider background when active */
 }
 
@@ -364,7 +364,7 @@ fieldset legend {
     opacity: 0.5;
 }
 
-.gray-text {
+.gray-text, .grey-text {
     color: #4E4E4D !important;
 }
 
@@ -575,4 +575,12 @@ fieldset legend {
 
 .survey-form .step-content.current {
     display: block;
+}
+
+/* Fix for DataTables SearchPane */
+
+@media (min-width: 768px) {
+    .table-responsive .d-md-flex {
+        display: block !important;
+    }
 }
