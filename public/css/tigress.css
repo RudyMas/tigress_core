@@ -584,3 +584,8 @@ fieldset legend {
         display: block !important;
     }
 }
+
+/* Fix for DataTables FixedColumns */
+table.dataTable {
+    border-collapse: collapse !important;
+}
