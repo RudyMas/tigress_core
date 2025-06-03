@@ -1,5 +1,5 @@
 <!-- This is the base template for all pages. It includes the menu, sidebar, header, content, footer, ... -->
-<!-- Version: 2025.03.11 -->
+<!-- Version: 2025.06.03 -->
 <!DOCTYPE html>
 <html lang="{% block html_lang %}{{ WEBSITE.html_lang }}{% endblock %}">
 <head>
@@ -56,10 +56,10 @@
 <body>
 <div id="{{ SERVER_TYPE }}" class="grid-container">
     {% if (menu.position != 'none') %}
-        {% include 'menu.twig' %}
+        {% include loadMenu|default('menu.twig') %}
     {% endif %}
     {% if (sidebar) %}
-        {% include 'sidebar.twig' %}
+        {% include loadSidebar|default('sidebar.twig') %}
     {% endif %}
     <header>{% block header %}{% endblock %}</header>
     <div class="main-content">

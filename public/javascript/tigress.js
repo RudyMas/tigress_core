@@ -34,13 +34,6 @@ function initAutoGrow(scope = document) {
 
 // Initialiseer modale dialoogknoppen (bv. ID zetten bij verwijderen)
 function initModals() {
-    const modalVerwijder = document.getElementById('ModalRfdVerwijderen');
-    if (modalVerwijder) {
-        modalVerwijder.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            modalVerwijder.querySelector('#VerwijderRfd').value = button.getAttribute('data-id');
-        });
-    }
 }
 
 function initGebruikersTable() {
@@ -77,11 +70,11 @@ function initGebruikersTable() {
 document.addEventListener('DOMContentLoaded', function () {
     initAutoGrow();
     initTooltips();
-    initModals();
+    // initModals();
     initGebruikersTable();
 });
 
 window.initTooltips = initTooltips;
 window.autoResize = autoResize;
 window.initAutoGrow = initAutoGrow;
-window.initModals = initModals;
+// window.initModals = initModals;
