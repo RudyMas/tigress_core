@@ -68,27 +68,37 @@ function initPasswordToggles(scope = document) {
     const passwordFields = scope.querySelectorAll('input[type="password"]:not([data-password-toggle-initialized])');
 
     passwordFields.forEach((input) => {
-        // Markeer als geïnitialiseerd
         input.setAttribute('data-password-toggle-initialized', 'true');
-
-        // Zorg dat de ouder een juiste wrapper heeft
-        const wrapper = input.closest('.position-relative') || input.parentElement;
-        wrapper.classList.add('position-relative');
-
-        // Padding zodat oogje niet overlapt
         input.classList.add('pe-5');
 
-        // Maak de toggleknop
+        // Maak de wrapper <div class="position-relative">
+        const wrapper = document.createElement('div');
+        wrapper.className = 'position-relative';
+
+        // Vervang input met wrapper, en zet input in wrapper
+        input.parentNode.insertBefore(wrapper, input);
+        wrapper.appendChild(input);
+
+        // Maak en configureer de toggle-knop
         const button = document.createElement("button");
         button.type = "button";
-        button.className = "btn btn-sm btn-link position-absolute end-0 top-0";
-        button.style.marginTop = '2.55em';
-        button.style.marginRight = '1em';
-        button.style.color = 'darkgray';
+        button.className = "btn btn-sm btn-link position-absolute end-0";
         button.setAttribute("aria-label", "Toon/verberg wachtwoord");
         button.innerHTML = `<i class="fa-regular fa-eye"></i>`;
+        wrapper.appendChild(button);
 
-        // Toggle logica
+        // Wacht op een repaint om correcte hoogte te krijgen
+        requestAnimationFrame(() => {
+            const inputHeight = input.offsetHeight;
+            const buttonHeight = button.offsetHeight;
+            const topOffset = (inputHeight - buttonHeight) / 2;
+            button.style.top = `${topOffset}px`;
+            button.style.marginRight = '0.3em';
+            button.style.color = 'black';
+            button.style.fontSize = '1rem';
+        });
+
+        // Toggle functionaliteit
         button.addEventListener("click", () => {
             const isPassword = input.type === "password";
             input.type = isPassword ? "text" : "password";
@@ -96,12 +106,8 @@ function initPasswordToggles(scope = document) {
             icon.classList.toggle("fa-eye", !isPassword);
             icon.classList.toggle("fa-eye-slash", isPassword);
         });
-
-        // Voeg knop toe aan de wrapper
-        wrapper.appendChild(button);
     });
 }
-
 
 // Automatisch opstarten bij DOM klaar
 document.addEventListener('DOMContentLoaded', function () {
