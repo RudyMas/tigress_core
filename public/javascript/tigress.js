@@ -32,10 +32,7 @@ function initAutoGrow(scope = document) {
     });
 }
 
-// Initialiseer modale dialoogknoppen (bv. ID zetten bij verwijderen)
-function initModals() {
-}
-
+// Initialiseer de gebruikers datatable
 function initGebruikersTable() {
     const datatableElement = document.getElementById('datatableTigress');
 
@@ -66,15 +63,54 @@ function initGebruikersTable() {
     }
 }
 
+// Initialiseer wachtwoord toggle knoppen
+function initPasswordToggles(scope = document) {
+    const passwordFields = scope.querySelectorAll('input[type="password"]:not([data-password-toggle-initialized])');
+
+    passwordFields.forEach((input) => {
+        // Markeer als geïnitialiseerd
+        input.setAttribute('data-password-toggle-initialized', 'true');
+
+        // Zorg dat de ouder een juiste wrapper heeft
+        const wrapper = input.closest('.position-relative') || input.parentElement;
+        wrapper.classList.add('position-relative');
+
+        // Padding zodat oogje niet overlapt
+        input.classList.add('pe-5');
+
+        // Maak de toggleknop
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "btn btn-sm btn-link position-absolute end-0 top-0";
+        button.style.marginTop = '2.55em';
+        button.style.marginRight = '1em';
+        button.style.color = 'darkgray';
+        button.setAttribute("aria-label", "Toon/verberg wachtwoord");
+        button.innerHTML = `<i class="fa-regular fa-eye"></i>`;
+
+        // Toggle logica
+        button.addEventListener("click", () => {
+            const isPassword = input.type === "password";
+            input.type = isPassword ? "text" : "password";
+            const icon = button.querySelector("i");
+            icon.classList.toggle("fa-eye", !isPassword);
+            icon.classList.toggle("fa-eye-slash", isPassword);
+        });
+
+        // Voeg knop toe aan de wrapper
+        wrapper.appendChild(button);
+    });
+}
+
+
 // Automatisch opstarten bij DOM klaar
 document.addEventListener('DOMContentLoaded', function () {
     initAutoGrow();
     initTooltips();
-    // initModals();
     initGebruikersTable();
+    initPasswordToggles();
 });
 
 window.initTooltips = initTooltips;
 window.autoResize = autoResize;
 window.initAutoGrow = initAutoGrow;
-// window.initModals = initModals;
