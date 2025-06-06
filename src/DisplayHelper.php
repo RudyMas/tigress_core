@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.06.0
+ * @version 2025.06.06.1
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -85,12 +85,21 @@ class DisplayHelper
         $this->twig->addFunction(new TwigFunction('in_values', function ($needle, $haystack, $strict = false) {
             return in_array($needle, array_values($haystack), $strict);
         }));
-        $this->twig->addFunction(new TwigFunction('strip_dangerous_tags', function ($text) {
-            $config = HTMLPurifier_Config::createDefault();
-            $config->set('HTML.Allowed', 'b,i,u');
-            $purifier = new HTMLPurifier($config);
 
-            return $purifier->purify($text);
+        $purifiers = [];
+        $this->twig->addFunction(new TwigFunction('strip_dangerous_tags', function ($text, $profile = 'default') use (&$purifiers) {
+            if (!isset($purifiers[$profile])) {
+                $config = HTMLPurifier_Config::createDefault();
+                match ($profile) {
+                    'links' => $config->set('HTML.Allowed', 'b,i,u,a[href],br'),
+                    'images' => $config->set('HTML.Allowed', 'b,i,u,img[src|alt|width|height],br'),
+                    default => $config->set('HTML.Allowed', 'b,i,u,br'),
+                };
+
+                $purifiers[$profile] = new HTMLPurifier($config);
+            }
+
+            return $purifiers[$profile]->purify($text);
         }));
     }
 
