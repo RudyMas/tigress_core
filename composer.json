@@ -30,7 +30,8 @@
     "tigress/router": "^2025",
     "tigress/security": "^2025",
     "twig/twig": "^v3",
-    "twig/intl-extra": "^v3"
+    "twig/intl-extra": "^v3",
+    "ezyang/htmlpurifier": "^4.18"
   },
   "autoload": {
     "psr-4": {
