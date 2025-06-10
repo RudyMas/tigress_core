@@ -1,4 +1,4 @@
-/* version: 2025.05.22 */
+/* version: 2025.06.10 */
 * {
     margin: 0;
     padding: 0;
@@ -349,6 +349,27 @@ fieldset legend {
 
 .purple-1-text {
     color: #663399 !important;
+}
+
+.light-purple {
+    background: #a885cc;
+}
+
+.light-purple-1 {
+    border: solid 2px;
+    border-color: #a885cc;
+}
+
+.light-purple-1 .label {
+    color: #DBDBDB;
+}
+
+.light-purple-1 i {
+    color: #DBDBDB;
+}
+
+.light-purple-1-text {
+    color: #a885cc !important;
 }
 
 .gray, .grey {
