@@ -3,7 +3,7 @@
  * Tooltip-init, auto-grow textareas, modals
  */
 
-// Initialiseer Bootstrap-tooltips (ook voor modalknoppen als ze een title hebben)
+// Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
 function initTooltips(scope = document) {
     const tooltipTriggerList = scope.querySelectorAll('[data-bs-toggle="tooltip"], [data-toggle="tooltip"], [data-bs-toggle="modal"]');
     tooltipTriggerList.forEach(el => {
@@ -16,7 +16,7 @@ function initTooltips(scope = document) {
     });
 }
 
-// Automatisch textarea laten meegroeien bij input
+// Automatically resize textareas based on content
 function autoResize(el) {
     el.style.height = 'auto';
     el.style.height = `${el.scrollHeight}px`;
@@ -32,7 +32,27 @@ function initAutoGrow(scope = document) {
     });
 }
 
-// Initialiseer de gebruikers datatable
+// Initialise DataTables translations based on the document language
+function initDatatablesTranslations() {
+    window.tigress = window.tigress || {};
+
+    const htmlLang = document.documentElement.lang.toLowerCase();
+    const shortLang = htmlLang.substring(0, 2);
+    window.tigress.shortLang = shortLang;
+
+    const languageFiles = {
+        nl: '/node_modules/datatables.net-plugins/i18n/nl-NL.json',
+        fr: '/node_modules/datatables.net-plugins/i18n/fr-FR.json',
+        de: '/node_modules/datatables.net-plugins/i18n/de-DE.json',
+        es: '/node_modules/datatables.net-plugins/i18n/es-ES.json',
+        // no entry for en-US → use default
+        // en: '/node_modules/datatables.net-plugins/i18n/en-GB.json',
+    };
+
+    window.tigress.languageOption = languageFiles[shortLang] ? {url: languageFiles[shortLang]} : {};
+}
+
+// Initialise the user datatable with DataTables, if jQuery is available
 function initGebruikersTable() {
     const datatableElement = document.getElementById('datatableTigress');
 
@@ -42,20 +62,18 @@ function initGebruikersTable() {
         jQuery(datatableElement).DataTable({
             stateSave: true,
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Alle"]],
-            language: {
-                url: '/node_modules/datatables.net-plugins/i18n/nl-NL.json'
-            },
+            language: tigress.languageOption,
         });
     } else {
-        console.warn('DataTables vereist nog jQuery – kan niet initialiseren zonder jQuery.');
+        console.warn('DataTables requires jQuery – cannot initialize without jQuery.');
     }
 
-    const modal = document.getElementById('ModalGebruikerVerwijderen');
+    const modal = document.getElementById('ModalRemoveUser');
     if (modal) {
         modal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
             const itemId = button.getAttribute('data-id');
-            const input = modal.querySelector('#VerwijderGebruiker');
+            const input = modal.querySelector('#RemoveUser');
             if (input) {
                 input.value = itemId;
             }
@@ -63,7 +81,7 @@ function initGebruikersTable() {
     }
 }
 
-// Initialiseer wachtwoord toggle knoppen
+// Initialise password toggle buttons for password fields
 function initPasswordToggles(scope = document) {
     const passwordFields = scope.querySelectorAll('input[type="password"]:not([data-password-toggle-initialized])');
 
@@ -109,10 +127,11 @@ function initPasswordToggles(scope = document) {
     });
 }
 
-// Automatisch opstarten bij DOM klaar
+// Automatically initialize on DOM ready
 document.addEventListener('DOMContentLoaded', function () {
     initAutoGrow();
     initTooltips();
+    initDatatablesTranslations();
     initGebruikersTable();
     initPasswordToggles();
 });
