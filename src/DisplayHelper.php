@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.12.0
+ * @version 2025.06.19.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.06.12';
+        return '2025.06.19';
     }
 
     /**
@@ -89,6 +89,54 @@ class DisplayHelper
             $lang = CONFIG->website->html_lang ?? 'en';
             $lang = substr($lang, 0, 2);
             return $translations[$lang][$key] ?? $key;
+        }));
+        $this->twig->addFunction(new TwigFunction('match', function (string $pattern, string $subject): array {
+            if (!preg_match($pattern, $subject, $matches)) {
+                return ['no_match' => true];
+            }
+            return $matches;
+        }));
+        $this->twig->addFunction(new TwigFunction('get_attr', function (string $html, string $attr): ?string {
+            if (preg_match('/' . preg_quote($attr, '/') . '\s*=\s*"([^"]+)"/i', $html, $matches)) {
+                return $matches[1];
+            }
+            return null;
+        }));
+        $this->twig->addFunction(new TwigFunction('get_all_attrs', function (string $input): array {
+            $attributes = [];
+
+            preg_match_all('/(\w+)\s*=\s*"([^"]*)"/', $input, $matches, PREG_SET_ORDER);
+
+            foreach ($matches as $match) {
+                $attributes[$match[1]] = $match[2];
+            }
+
+            return $attributes;
+        }));
+        $this->twig->addFunction(new TwigFunction('week_range', function (string $isoWeek): string {
+            if (!preg_match('/^(\d{4})-W(\d{2})$/', $isoWeek, $m)) {
+                return 'Ongeldige weeknotatie';
+            }
+
+            $year = (int) $m[1];
+            $week = (int) $m[2];
+
+            $start = new \DateTime();
+            $start->setISODate($year, $week);
+
+            $end = clone $start;
+            $end->modify('+6 days');
+
+            return sprintf(
+                '%d - %s tem %s',
+                $week,
+                $start->format('d-m-Y'),
+                $end->format('d-m-Y')
+            );
+        }));
+        $this->twig->addFunction(new TwigFunction('file_exists', function (string $path): bool {
+            $fullPath = SYSTEM_ROOT . $path;
+            return file_exists($fullPath);
         }));
 
         $purifiers = [];
