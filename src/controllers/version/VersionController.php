@@ -7,6 +7,7 @@ use Controller\Core\SettingsController;
 use Controller\Menu;
 use Exception;
 use Tigress\Communication;
+use Tigress\Controller;
 use Tigress\Core;
 use Tigress\Database;
 use Tigress\DataConverter;
@@ -62,6 +63,7 @@ class VersionController
         $tigress_rights_version = class_exists('Tigress\Rights') ? Rights::version() : 'Not Active';
         $tigress_menu_version = class_exists('Controller\Menu') ? Menu::version() : 'Not Active';
         $tigress_encryption_version = class_exists('Tigress\Encryption') ? Encryption::version() : 'Not Active';
+        $tigress_controller_version = class_exists('Tigress\Controller') ? Controller::version() : 'Not Active';
 
         // Get the version of the Tigress Core Helper Classes loaded
         $framework_helper_version = class_exists('Tigress\FrameworkHelper') ? FrameworkHelper::version() : 'Not Active';
@@ -96,6 +98,7 @@ class VersionController
             'tigress_rights_version' => $tigress_rights_version,
             'tigress_menu_version' => $tigress_menu_version,
             'tigress_encryption_version' => $tigress_encryption_version,
+            'tigress_controller_version' => $tigress_controller_version,
             'framework_helper_version' => $framework_helper_version,
             'display_helper_version' => $display_helper_version,
             'pdf_creator_helper_version' => $pdf_creator_helper_version,
