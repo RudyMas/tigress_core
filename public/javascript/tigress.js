@@ -36,7 +36,7 @@ function initAutoGrow(scope = document) {
 function initDatatablesTranslations() {
     window.tigress = window.tigress || {};
 
-    const htmlLang = document.documentElement.lang.toLowerCase();
+    const htmlLang = document.documentElement.lang.toLowerCase() || navigator.language.toLowerCase() || 'en';;
     const shortLang = htmlLang.substring(0, 2);
     window.tigress.shortLang = shortLang;
 
