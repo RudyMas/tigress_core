@@ -45,14 +45,25 @@ function initDatatablesTranslations() {
         fr: '/node_modules/datatables.net-plugins/i18n/fr-FR.json',
         de: '/node_modules/datatables.net-plugins/i18n/de-DE.json',
         es: '/node_modules/datatables.net-plugins/i18n/es-ES.json',
+        it: '/node_modules/datatables.net-plugins/i18n/it-IT.json',
         // no entry for en-US → use default
         // en: '/node_modules/datatables.net-plugins/i18n/en-GB.json',
     };
 
+    const languageTinymce = {
+        nl: { url: '/node_modules/tinymce-i18n/langs7/nl_BE.js', lang: 'nl_BE' },
+        fr: { url: '/node_modules/tinymce-i18n/langs7/fr_FR.js', lang: 'fr_FR' },
+        de: { url: '/node_modules/tinymce-i18n/langs7/de.js', lang: 'de' },
+        es: { url: '/node_modules/tinymce-i18n/langs7/es.js', lang: 'es' },
+        it: { url: '/node_modules/tinymce-i18n/langs7/it.js', lang: 'it' },
+        // no entry for English → use default
+    }
+
     window.tigress.languageOption = languageFiles[shortLang] ? {url: languageFiles[shortLang]} : {};
+    window.tigress.languageTinymce = languageTinymce[shortLang] ? languageTinymce[shortLang] : '';
 }
 
-// Initialise the user datatable with DataTables, if jQuery is available
+// Initialise the user datatable with DataTables if jQuery is available
 function initGebruikersTable() {
     const datatableElement = document.getElementById('datatableTigress');
 
