@@ -19,7 +19,7 @@ use Tigress\FileManager;
 use Tigress\FrameworkHelper;
 use Tigress\GoogleApi;
 use Tigress\HttpRequests;
-use Tigress\KanbanBoards;
+use Tigress\KanbanBoard;
 use Tigress\LoggerHelper;
 use Tigress\Manipulator;
 use Tigress\Model;
@@ -85,12 +85,15 @@ class VersionController
         $tigress_data_converter_version = class_exists('Tigress\DataConverter') ? DataConverter::version() : 'Not Active';
         $tigress_data_files_version = class_exists('Tigress\DataFiles') ? DataFiles::version() : 'Not Active';
         $tigress_file_manager_version = class_exists('Tigress\FileManager') ? FileManager::version() : 'Not Active';
-        $tigress_kanban_boards_version = class_exists('Tigress\KanbanBoards') ? KanbanBoards::version() : 'Not Active';
-        $tigress_form_builder_version = class_exists('Tigress\FormBuilder') ? FormBuilder::version() : 'Not Active';
         $tigress_http_requests_version = class_exists('Tigress\HttpRequests') ? HttpRequests::version() : 'Not Active';
         $tigress_communication_version = class_exists('Tigress\Communication') ? Communication::version() : ['Communication' => 'Not Active'];
         $tigress_google_api_version = class_exists('Tigress\GoogleApi') ? GoogleApi::version() : ['GoogleApi' => 'Not Active'];
         $tigress_manipulator_version = class_exists('Tigress\Manipulator') ? Manipulator::version() : ['Manipulator' => 'Not Active'];
+
+        // Get the version of the standalone Tigress Modules loaded
+        $tigress_kanban_board_version = class_exists('Tigress\KanbanBoard') ? KanbanBoard::version() : 'Not Active';
+        $tigress_form_builder_version = class_exists('Tigress\FormBuilder') ? FormBuilder::version() : 'Not Active';
+
 
         TWIG->render('version/index.twig', [
             'image' => $image,
@@ -113,12 +116,12 @@ class VersionController
             'tigress_data_converter_version' => $tigress_data_converter_version,
             'tigress_data_files_version' => $tigress_data_files_version,
             'tigress_file_manager_version' => $tigress_file_manager_version,
-            'tigress_kanban_boards_version' => $tigress_kanban_boards_version,
-            'tigress_form_builder_version' => $tigress_form_builder_version,
             'tigress_http_requests_version' => $tigress_http_requests_version,
             'tigress_communication_version' => $tigress_communication_version,
             'tigress_google_api_version' => $tigress_google_api_version,
             'tigress_manipulator_version' => $tigress_manipulator_version,
+            'tigress_kanban_board_version' => $tigress_kanban_board_version,
+            'tigress_form_builder_version' => $tigress_form_builder_version,
         ]);
     }
 }
