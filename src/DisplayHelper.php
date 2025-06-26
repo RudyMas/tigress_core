@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.19.0
+ * @version 2025.06.26.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.06.19';
+        return '2025.06.26';
     }
 
     /**
@@ -61,31 +61,34 @@ class DisplayHelper
         if ($debug) $this->twig->addExtension(new DebugExtension());
         $this->twig->addExtension(new IntlExtension());
 
+        $translationsFile = json_decode(file_get_contents(SYSTEM_ROOT . '/vendor/tigress/core/translations/base_' . substr(CONFIG->website->html_lang, 0, 2) . '.json'), true);
+        $this->twig->addGlobal('base_trans', $translationsFile);
+
         // Register custom filters in Twig
-        $this->twig->addFilter(new TwigFilter('bitwise_and', function ($a, $b) {
+        $this->twig->addFilter(new TwigFilter('bitwise_and', function ($a, $b): int {
             return $a & $b;
         }));
-        $this->twig->addFilter(new TwigFilter('bitwise_or', function ($a, $b) {
+        $this->twig->addFilter(new TwigFilter('bitwise_or', function ($a, $b): int {
             return $a | $b;
         }));
-        $this->twig->addFilter(new TwigFilter('bitwise_xor', function ($a, $b) {
+        $this->twig->addFilter(new TwigFilter('bitwise_xor', function ($a, $b): int {
             return $a ^ $b;
         }));
-        $this->twig->addFilter(new TwigFilter('bitwise_not', function ($a) {
+        $this->twig->addFilter(new TwigFilter('bitwise_not', function ($a): int {
             return ~$a;
         }));
-        $this->twig->addFilter(new TwigFilter('base64_encode', function ($data) {
+        $this->twig->addFilter(new TwigFilter('base64_encode', function ($data): string {
             return base64_encode($data);
         }));
 
         // Register custom functions in Twig
-        $this->twig->addFunction(new TwigFunction('in_keys', function ($needle, $haystack, $strict = false) {
+        $this->twig->addFunction(new TwigFunction('in_keys', function ($needle, $haystack, $strict = false): bool {
             return in_array($needle, array_keys($haystack), $strict);
         }));
-        $this->twig->addFunction(new TwigFunction('in_values', function ($needle, $haystack, $strict = false) {
+        $this->twig->addFunction(new TwigFunction('in_values', function ($needle, $haystack, $strict = false): bool {
             return in_array($needle, array_values($haystack), $strict);
         }));
-        $this->twig->addFunction(new TwigFunction('trans', function ($key, $translations) {
+        $this->twig->addFunction(new TwigFunction('trans', function ($key, $translations): string {
             $lang = CONFIG->website->html_lang ?? 'en';
             $lang = substr($lang, 0, 2);
             return $translations[$lang][$key] ?? $key;
@@ -118,8 +121,8 @@ class DisplayHelper
                 return 'Ongeldige weeknotatie';
             }
 
-            $year = (int) $m[1];
-            $week = (int) $m[2];
+            $year = (int)$m[1];
+            $week = (int)$m[2];
 
             $start = new \DateTime();
             $start->setISODate($year, $week);
@@ -140,7 +143,7 @@ class DisplayHelper
         }));
 
         $purifiers = [];
-        $this->twig->addFunction(new TwigFunction('strip_dangerous_tags', function ($text, $profile = 'default') use (&$purifiers) {
+        $this->twig->addFunction(new TwigFunction('strip_dangerous_tags', function ($text, $profile = 'default') use (&$purifiers): string {
             if (!isset($purifiers[$profile])) {
                 $config = HTMLPurifier_Config::createDefault();
                 match ($profile) {
