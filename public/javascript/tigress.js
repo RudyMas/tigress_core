@@ -57,7 +57,7 @@ function initDatatablesTranslations() {
         de: { url: '/node_modules/tinymce-i18n/langs7/de.js', lang: 'de' },
         es: { url: '/node_modules/tinymce-i18n/langs7/es.js', lang: 'es' },
         it: { url: '/node_modules/tinymce-i18n/langs7/it.js', lang: 'it' },
-        sv: { url: '/node_modules/tinymce-i18n/langs7/sv.js', lang: 'sv' },
+        sv: { url: '/node_modules/tinymce-i18n/langs7/sv_SE.js', lang: 'sv_SE' },
         // no entry for English → use default
     }
 
