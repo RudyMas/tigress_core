@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.26.2
+ * @version 2025.06.26.3
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -65,8 +65,8 @@ class DisplayHelper
         if (!file_exists($file)) {
             $file = SYSTEM_ROOT . '/vendor/tigress/core/translations/base_en.json';
         }
-        $translationsFile = json_decode(file_get_contents($file), true);
-        $this->twig->addGlobal('base_trans', $translationsFile);
+        $translations = json_decode(file_get_contents($file), true);
+        $this->twig->addGlobal('base_trans', $translations);
 
         // Register custom filters in Twig
         $this->twig->addFilter(new TwigFilter('bitwise_and', function ($a, $b): int {

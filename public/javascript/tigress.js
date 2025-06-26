@@ -46,6 +46,7 @@ function initDatatablesTranslations() {
         de: '/node_modules/datatables.net-plugins/i18n/de-DE.json',
         es: '/node_modules/datatables.net-plugins/i18n/es-ES.json',
         it: '/node_modules/datatables.net-plugins/i18n/it-IT.json',
+        sv: '/node_modules/datatables.net-plugins/i18n/sv-SE.json',
         // no entry for en-US → use default
         // en: '/node_modules/datatables.net-plugins/i18n/en-GB.json',
     };
@@ -56,6 +57,7 @@ function initDatatablesTranslations() {
         de: { url: '/node_modules/tinymce-i18n/langs7/de.js', lang: 'de' },
         es: { url: '/node_modules/tinymce-i18n/langs7/es.js', lang: 'es' },
         it: { url: '/node_modules/tinymce-i18n/langs7/it.js', lang: 'it' },
+        sv: { url: '/node_modules/tinymce-i18n/langs7/sv.js', lang: 'sv' },
         // no entry for English → use default
     }
 
