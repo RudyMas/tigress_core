@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.26.0
+ * @version 2025.06.26.1
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -157,6 +157,18 @@ class DisplayHelper
 
             return $purifiers[$profile]->purify($text);
         }));
+    }
+
+    /**
+     * Add a global variable to Twig
+     *
+     * @param string $name
+     * @param mixed $value
+     * @return void
+     */
+    public function addGlobal(string $name, mixed $value): void
+    {
+        $this->twig->addGlobal($name, $value);
     }
 
     /**
