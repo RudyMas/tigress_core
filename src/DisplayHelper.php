@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.26.1
+ * @version 2025.06.26.2
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -61,7 +61,11 @@ class DisplayHelper
         if ($debug) $this->twig->addExtension(new DebugExtension());
         $this->twig->addExtension(new IntlExtension());
 
-        $translationsFile = json_decode(file_get_contents(SYSTEM_ROOT . '/vendor/tigress/core/translations/base_' . substr(CONFIG->website->html_lang, 0, 2) . '.json'), true);
+        $file = SYSTEM_ROOT . '/vendor/tigress/core/translations/base_' . substr(CONFIG->website->html_lang, 0, 2) . '.json';
+        if (!file_exists($file)) {
+            $file = SYSTEM_ROOT . '/vendor/tigress/core/translations/base_en.json';
+        }
+        $translationsFile = json_decode(file_get_contents($file), true);
         $this->twig->addGlobal('base_trans', $translationsFile);
 
         // Register custom filters in Twig
@@ -91,7 +95,7 @@ class DisplayHelper
         $this->twig->addFunction(new TwigFunction('trans', function ($key, $translations): string {
             $lang = CONFIG->website->html_lang ?? 'en';
             $lang = substr($lang, 0, 2);
-            return $translations[$lang][$key] ?? $key;
+            return $translations[$lang][$key] ?? $translations['en'][$key] ?? $key;
         }));
         $this->twig->addFunction(new TwigFunction('match', function (string $pattern, string $subject): array {
             if (!preg_match($pattern, $subject, $matches)) {
