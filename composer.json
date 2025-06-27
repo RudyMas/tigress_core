@@ -35,6 +35,9 @@
     "ezyang/htmlpurifier": "^4.18"
   },
   "autoload": {
+    "files": [
+      "src/helpers/functions.php"
+    ],
     "psr-4": {
       "Tigress\\": "src/",
       "Controller\\": "src/controllers/",
