@@ -36,7 +36,8 @@ function initAutoGrow(scope = document) {
 function initDatatablesTranslations() {
     window.tigress = window.tigress || {};
 
-    const htmlLang = document.documentElement.lang.toLowerCase() || navigator.language.toLowerCase() || 'en';;
+    const htmlLang = document.documentElement.lang.toLowerCase() || navigator.language.toLowerCase() || 'en';
+    ;
     const shortLang = htmlLang.substring(0, 2);
     window.tigress.shortLang = shortLang;
 
@@ -52,12 +53,12 @@ function initDatatablesTranslations() {
     };
 
     const languageTinymce = {
-        nl: { url: '/node_modules/tinymce-i18n/langs7/nl_BE.js', lang: 'nl_BE' },
-        fr: { url: '/node_modules/tinymce-i18n/langs7/fr_FR.js', lang: 'fr_FR' },
-        de: { url: '/node_modules/tinymce-i18n/langs7/de.js', lang: 'de' },
-        es: { url: '/node_modules/tinymce-i18n/langs7/es.js', lang: 'es' },
-        it: { url: '/node_modules/tinymce-i18n/langs7/it.js', lang: 'it' },
-        sv: { url: '/node_modules/tinymce-i18n/langs7/sv_SE.js', lang: 'sv_SE' },
+        nl: {url: '/node_modules/tinymce-i18n/langs7/nl_BE.js', lang: 'nl_BE'},
+        fr: {url: '/node_modules/tinymce-i18n/langs7/fr_FR.js', lang: 'fr_FR'},
+        de: {url: '/node_modules/tinymce-i18n/langs7/de.js', lang: 'de'},
+        es: {url: '/node_modules/tinymce-i18n/langs7/es.js', lang: 'es'},
+        it: {url: '/node_modules/tinymce-i18n/langs7/it.js', lang: 'it'},
+        sv: {url: '/node_modules/tinymce-i18n/langs7/sv_SE.js', lang: 'sv_SE'},
         // no entry for English → use default
     }
 
@@ -152,3 +153,59 @@ document.addEventListener('DOMContentLoaded', function () {
 window.initTooltips = initTooltips;
 window.autoResize = autoResize;
 window.initAutoGrow = initAutoGrow;
+
+/**
+ * Universele tigress translation loader and __-functie
+ * Load 1 or more translation files and combine them smartly.
+ * You can use __('Welkom') to get the translation for "Welkom" in the current language.
+ */
+(function () {
+    let TRANSLATIONS = {};
+    let LANG = (document.documentElement.lang || navigator.language || 'en').toLowerCase().substring(0, 2);
+
+    /**
+     * Load 1 or more translation JSON files, in order.
+     * Newer files will overwrite older keys!
+     * @param {Array<string>} files - Array of URLs to translation JSON files.
+     * @returns {Promise<void>}
+     */
+    function loadTranslations(files) {
+        return Promise.all(
+            files.map(file =>
+                fetch(file)
+                    .then(r => {
+                        if (!r.ok) throw new Error(`Can not load translation file: ${file}`);
+                        return r.json();
+                    })
+                    .catch(e => {
+                        console.warn(e);
+                        return {};
+                    })
+            )
+        ).then(jsons => {
+            TRANSLATIONS = {};
+            for (const json of jsons) {
+                for (const [lang, translations] of Object.entries(json)) {
+                    if (!TRANSLATIONS[lang]) TRANSLATIONS[lang] = {};
+                    Object.assign(TRANSLATIONS[lang], translations);
+                }
+            }
+        });
+    }
+
+    /**
+     * Translate a word to the current language.
+     */
+    function __(word) {
+        const lang = (window.LANG || LANG);
+        if (TRANSLATIONS && TRANSLATIONS[lang] && TRANSLATIONS[lang][word]) {
+            return TRANSLATIONS[lang][word];
+        }
+        return word;
+    }
+
+    // Maak beschikbaar op window
+    window.tigress = window.tigress || {};
+    window.tigress.loadTranslations = loadTranslations;
+    window.__ = __;
+})();
