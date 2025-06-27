@@ -73,6 +73,17 @@
       }
     }
   },
+  "email": {
+    "host": "your.smtp.server",
+    "port": 465,
+    "secure": true,
+    "auth": {
+      "user": "account_username",
+      "pass": "account_password"
+    },
+    "from": "e-mail_address",
+    "name": "e-mail_name"
+  },
   "servers": {
     "localhost": "development",
     "localhost2": "development",
@@ -80,5 +91,13 @@
     "test.example2.com": "test",
     "example.com": "production",
     "example2.com": "production"
+  },
+  "smartschool": {
+    "testUser": {
+      "platform": "yourplatform.smartschool.be",
+      "webservicespwd": "yourpassword",
+      "username": "testUser_username",
+      "nrCoAccount": 0
+    }
   }
 }

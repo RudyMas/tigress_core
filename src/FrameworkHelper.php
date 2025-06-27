@@ -9,7 +9,7 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.05.19.0
+ * @version 2025.06.27.0
  * @package Tigress\FrameworkHelper
  */
 class FrameworkHelper
@@ -21,7 +21,7 @@ class FrameworkHelper
      */
     public static function version(): string
     {
-        return '2025.05.19';
+        return '2025.06.27';
     }
 
     /**
@@ -155,6 +155,14 @@ class FrameworkHelper
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.htaccess',
                 SYSTEM_ROOT . '/tests/.htaccess'
+            );
+        }
+
+        if (is_dir(SYSTEM_ROOT . '/translations') === false) {
+            @mkdir(SYSTEM_ROOT . '/translations');
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/translations/translations.json',
+                SYSTEM_ROOT . '/translations/translations.json'
             );
         }
 

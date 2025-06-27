@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.26.3
+ * @version 2025.06.27.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.06.26';
+        return '2025.06.27';
     }
 
     /**
@@ -69,46 +69,37 @@ class DisplayHelper
         $this->twig->addGlobal('base_trans', $translations);
 
         // Register custom filters in Twig
-        $this->twig->addFilter(new TwigFilter('bitwise_and', function ($a, $b): int {
-            return $a & $b;
-        }));
-        $this->twig->addFilter(new TwigFilter('bitwise_or', function ($a, $b): int {
-            return $a | $b;
-        }));
-        $this->twig->addFilter(new TwigFilter('bitwise_xor', function ($a, $b): int {
-            return $a ^ $b;
-        }));
-        $this->twig->addFilter(new TwigFilter('bitwise_not', function ($a): int {
-            return ~$a;
-        }));
         $this->twig->addFilter(new TwigFilter('base64_encode', function ($data): string {
             return base64_encode($data);
         }));
 
+        $this->twig->addFilter(new TwigFilter('bitwise_and', function ($a, $b): int {
+            return $a & $b;
+        }));
+
+        $this->twig->addFilter(new TwigFilter('bitwise_not', function ($a): int {
+            return ~$a;
+        }));
+
+        $this->twig->addFilter(new TwigFilter('bitwise_or', function ($a, $b): int {
+            return $a | $b;
+        }));
+
+        $this->twig->addFilter(new TwigFilter('bitwise_xor', function ($a, $b): int {
+            return $a ^ $b;
+        }));
+
         // Register custom functions in Twig
-        $this->twig->addFunction(new TwigFunction('in_keys', function ($needle, $haystack, $strict = false): bool {
-            return in_array($needle, array_keys($haystack), $strict);
+        $this->twig->addFunction(new TwigFunction('__', function ($word) {
+                return __($word);
+            })
+        );
+
+        $this->twig->addFunction(new TwigFunction('file_exists', function (string $path): bool {
+            $fullPath = SYSTEM_ROOT . $path;
+            return file_exists($fullPath);
         }));
-        $this->twig->addFunction(new TwigFunction('in_values', function ($needle, $haystack, $strict = false): bool {
-            return in_array($needle, array_values($haystack), $strict);
-        }));
-        $this->twig->addFunction(new TwigFunction('trans', function ($key, $translations): string {
-            $lang = CONFIG->website->html_lang ?? 'en';
-            $lang = substr($lang, 0, 2);
-            return $translations[$lang][$key] ?? $translations['en'][$key] ?? $key;
-        }));
-        $this->twig->addFunction(new TwigFunction('match', function (string $pattern, string $subject): array {
-            if (!preg_match($pattern, $subject, $matches)) {
-                return ['no_match' => true];
-            }
-            return $matches;
-        }));
-        $this->twig->addFunction(new TwigFunction('get_attr', function (string $html, string $attr): ?string {
-            if (preg_match('/' . preg_quote($attr, '/') . '\s*=\s*"([^"]+)"/i', $html, $matches)) {
-                return $matches[1];
-            }
-            return null;
-        }));
+
         $this->twig->addFunction(new TwigFunction('get_all_attrs', function (string $input): array {
             $attributes = [];
 
@@ -120,6 +111,51 @@ class DisplayHelper
 
             return $attributes;
         }));
+
+        $this->twig->addFunction(new TwigFunction('get_attr', function (string $html, string $attr): ?string {
+            if (preg_match('/' . preg_quote($attr, '/') . '\s*=\s*"([^"]+)"/i', $html, $matches)) {
+                return $matches[1];
+            }
+            return null;
+        }));
+
+        $this->twig->addFunction(new TwigFunction('in_keys', function ($needle, $haystack, $strict = false): bool {
+            return in_array($needle, array_keys($haystack), $strict);
+        }));
+
+        $this->twig->addFunction(new TwigFunction('in_values', function ($needle, $haystack, $strict = false): bool {
+            return in_array($needle, array_values($haystack), $strict);
+        }));
+
+        $this->twig->addFunction(new TwigFunction('match', function (string $pattern, string $subject): array {
+            if (!preg_match($pattern, $subject, $matches)) {
+                return ['no_match' => true];
+            }
+            return $matches;
+        }));
+
+        $purifiers = [];
+        $this->twig->addFunction(new TwigFunction('strip_dangerous_tags', function ($text, $profile = 'default') use (&$purifiers): string {
+            if (!isset($purifiers[$profile])) {
+                $config = HTMLPurifier_Config::createDefault();
+                match ($profile) {
+                    'links' => $config->set('HTML.Allowed', 'b,i,u,a[href],br'),
+                    'images' => $config->set('HTML.Allowed', 'b,i,u,img[src|alt|width|height],br'),
+                    default => $config->set('HTML.Allowed', 'b,i,u,br'),
+                };
+
+                $purifiers[$profile] = new HTMLPurifier($config);
+            }
+
+            return $purifiers[$profile]->purify($text);
+        }));
+
+        $this->twig->addFunction(new TwigFunction('trans', function ($key, $translations): string {
+            $lang = CONFIG->website->html_lang ?? 'en';
+            $lang = substr($lang, 0, 2);
+            return $translations[$lang][$key] ?? $translations['en'][$key] ?? $key;
+        }));
+
         $this->twig->addFunction(new TwigFunction('week_range', function (string $isoWeek): string {
             if (!preg_match('/^(\d{4})-W(\d{2})$/', $isoWeek, $m)) {
                 return 'Ongeldige weeknotatie';
@@ -140,26 +176,6 @@ class DisplayHelper
                 $start->format('d-m-Y'),
                 $end->format('d-m-Y')
             );
-        }));
-        $this->twig->addFunction(new TwigFunction('file_exists', function (string $path): bool {
-            $fullPath = SYSTEM_ROOT . $path;
-            return file_exists($fullPath);
-        }));
-
-        $purifiers = [];
-        $this->twig->addFunction(new TwigFunction('strip_dangerous_tags', function ($text, $profile = 'default') use (&$purifiers): string {
-            if (!isset($purifiers[$profile])) {
-                $config = HTMLPurifier_Config::createDefault();
-                match ($profile) {
-                    'links' => $config->set('HTML.Allowed', 'b,i,u,a[href],br'),
-                    'images' => $config->set('HTML.Allowed', 'b,i,u,img[src|alt|width|height],br'),
-                    default => $config->set('HTML.Allowed', 'b,i,u,br'),
-                };
-
-                $purifiers[$profile] = new HTMLPurifier($config);
-            }
-
-            return $purifiers[$profile]->purify($text);
         }));
     }
 

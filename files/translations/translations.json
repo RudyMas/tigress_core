@@ -1,0 +1,35 @@
+{
+  "nl": {
+    "word": "woord",
+    "Word": "Woord",
+    "Or a sentence.": "Of een zin."
+  },
+  "fr": {
+    "word": "mot",
+    "Word": "Mot",
+    "Or a sentence.": "Ou une phrase."
+  },
+  "de": {
+    "word": "Wort",
+    "Word": "Wort",
+    "Or a sentence.": "Oder ein Satz."
+  },
+  "es": {
+    "word": "palabra",
+    "Word": "Palabra",
+    "Or a sentence.": "O una frase."
+  },
+  "it": {
+    "word": "parola",
+    "Word": "Parola",
+    "Or a sentence.": "O una frase."
+  },
+  "sv": {
+    "word": "ord",
+    "Word": "Ord",
+    "Or a sentence.": "Eller en mening."
+  },
+  "en": {
+    "Of van een andere taal naar het Engels.": "Or from another language to English."
+  }
+}

@@ -1,10 +1,18 @@
 <?php
 
-function __(string $word, array $translations = []): string
+/**
+ * Translate a word/sentence to the current language
+ *
+ * @param string $word
+ * @return string
+ */
+function __(string $word): string
 {
-    $lang = substr(CONFIG->website->html_lang, 0, 2);
-    if (isset($translations[$lang]) && isset($translations[$lang][$word])) {
-        return $translations[$lang][$word];
+    static $translations = null;
+    if ($translations === null) {
+        $translations = json_decode(file_get_contents(SYSTEM_ROOT . '/translations/translations.json'), true);
     }
-    return $word;
+
+    $lang = substr(CONFIG->website->html_lang, 0, 2);
+    return $translations[$lang][$word] ?? $word;
 }
