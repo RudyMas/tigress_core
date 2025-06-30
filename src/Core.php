@@ -27,23 +27,18 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.27.0
+ * @version 2025.06.30.0
  * @package Tigress\Core
  */
 class Core
 {
-    /**
-     * @var DisplayHelper
-     */
-    public DisplayHelper $Twig;
-
     /**
      * @throws LoaderError
      * @throws Exception
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2025.06.27');
+        define('TIGRESS_CORE_VERSION', '2025.06.30');
 
         // Load the config files
         if (file_exists('config/config.json') === true) {
@@ -71,10 +66,13 @@ class Core
         // Set the timezone
         date_default_timezone_set($system->timezone);
 
-        // Check if the database is enabled & connect to it
+        // Check if the database is enabled and connect to it
         if (CONFIG->packages->tigress_database === true) {
             if (!$this->connectDatabase()) throw new Exception('No database connection possible', 500);
         }
+
+        // Create the translation helper instance
+        define('TRANSLATIONS', new TranslationHelper());
 
         // Create a new Twig instance
         define('TWIG', new DisplayHelper($system->Core->Twig->views, $system->debug));

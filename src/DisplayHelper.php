@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.27.0
+ * @version 2025.06.30.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.06.27';
+        return '2025.06.30';
     }
 
     /**
@@ -65,8 +65,12 @@ class DisplayHelper
         if (!file_exists($file)) {
             $file = SYSTEM_ROOT . '/vendor/tigress/core/translations/base_en.json';
         }
-        $translations = json_decode(file_get_contents($file), true);
-        $this->twig->addGlobal('base_trans', $translations);
+        TRANSLATIONS->load($file);
+
+        $file = SYSTEM_ROOT . '/translations/translations.json';
+        if (file_exists($file)) {
+            TRANSLATIONS->load($file);
+        }
 
         // Register custom filters in Twig
         $this->twig->addFilter(new TwigFilter('base64_encode', function ($data): string {
@@ -578,6 +582,8 @@ class DisplayHelper
                 'delete' => false,
             ];
         }
+
+        TWIG->addGlobal('translations', TRANSLATIONS->get());
 
         return array_merge($data, [
             '_SESSION' => $_SESSION,

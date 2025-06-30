@@ -1,6 +1,7 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
  * Tooltip-init, auto-grow textareas, modals
+ * @version 2025.06.30.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -164,14 +165,23 @@ window.initAutoGrow = initAutoGrow;
     let LANG = (document.documentElement.lang || navigator.language || 'en').toLowerCase().substring(0, 2);
 
     /**
-     * Load 1 or more translation JSON files, in order.
-     * Newer files will overwrite older keys!
-     * @param {Array<string>} files - Array of URLs to translation JSON files.
+     * Load translation data, either from file(s) or a given object.
+     * @param {Array<string>|object} input - Array of URLs to translation JSON files, or an object with translations.
      * @returns {Promise<void>}
      */
-    function loadTranslations(files) {
+    function loadTranslations(input) {
+        // Direct object toevoegen, geen fetch
+        if (typeof input === "object" && !Array.isArray(input)) {
+            for (const [lang, translations] of Object.entries(input)) {
+                if (!TRANSLATIONS[lang]) TRANSLATIONS[lang] = {};
+                Object.assign(TRANSLATIONS[lang], translations);
+            }
+            return Promise.resolve(); // interface consistent houden
+        }
+
+        // Array van bestanden, zoals vroeger
         return Promise.all(
-            files.map(file =>
+            input.map(file =>
                 fetch(file)
                     .then(r => {
                         if (!r.ok) throw new Error(`Can not load translation file: ${file}`);
@@ -193,9 +203,6 @@ window.initAutoGrow = initAutoGrow;
         });
     }
 
-    /**
-     * Translate a word to the current language.
-     */
     function __(word) {
         const lang = (window.LANG || LANG);
         if (TRANSLATIONS && TRANSLATIONS[lang] && TRANSLATIONS[lang][word]) {
@@ -204,7 +211,6 @@ window.initAutoGrow = initAutoGrow;
         return word;
     }
 
-    // Maak beschikbaar op window
     window.tigress = window.tigress || {};
     window.tigress.loadTranslations = loadTranslations;
     window.__ = __;
