@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.30.0
+ * @version 2025.07.01.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.06.30';
+        return '2025.07.01';
     }
 
     /**
@@ -66,11 +66,6 @@ class DisplayHelper
             $file = SYSTEM_ROOT . '/vendor/tigress/core/translations/base_en.json';
         }
         TRANSLATIONS->load($file);
-
-        $file = SYSTEM_ROOT . '/translations/translations.json';
-        if (file_exists($file)) {
-            TRANSLATIONS->load($file);
-        }
 
         // Register custom filters in Twig
         $this->twig->addFilter(new TwigFilter('base64_encode', function ($data): string {
@@ -229,6 +224,11 @@ class DisplayHelper
         array   $config = [],
     ): string
     {
+        $file = SYSTEM_ROOT . '/translations/translations.json';
+        if (file_exists($file)) {
+            TRANSLATIONS->load($file);
+        }
+
         switch (strtoupper($type)) {
             case 'HTML':
                 $this->renderHtml($template);
@@ -478,6 +478,7 @@ class DisplayHelper
             'attachment' => 1,
             'language' => 'nl',
         ], $pdfConfig);
+        $mergedData = $this->prepareTwigOutput($data);
         $html = $this->twig->render($template, $data);
         $html = $this->ImgTagToBase64InHtml($html);
 
