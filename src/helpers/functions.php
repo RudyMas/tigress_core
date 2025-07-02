@@ -8,6 +8,6 @@
  */
 function __(string $text): string
 {
-    $lang = substr($_SESSION['user']['locale'] ?? CONFIG->website->html_lang ?? 'en', 0, 2);
+    $lang = substr(CONFIG->website->html_lang ?? 'en', 0, 2);
     return TRANSLATIONS->get()[$lang][$text] ?? $text;
 }

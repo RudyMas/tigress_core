@@ -27,7 +27,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.30.0
+ * @version 2025.07.02.0
  * @package Tigress\Core
  */
 class Core
@@ -38,12 +38,17 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2025.06.30');
+        define('TIGRESS_CORE_VERSION', '2025.07.02');
 
         // Load the config files
         if (file_exists('config/config.json') === true) {
-            define('CONFIG', json_decode(file_get_contents('config/config.json')));
+            $config = json_decode(file_get_contents('config/config.json'));
+            if (!empty($_SESSION['user']['locale']) === true) {
+                $config->website->html_lang = $_SESSION['user']['locale'];
+            }
+            define('CONFIG', $config);
         }
+
         if (file_exists('system/config.json') === true) {
             $system = json_decode(file_get_contents('system/config.json'));
         }
