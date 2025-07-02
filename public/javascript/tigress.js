@@ -203,12 +203,12 @@ window.initAutoGrow = initAutoGrow;
         });
     }
 
-    function __(word) {
+    function __(text) {
         const lang = (window.LANG || LANG);
-        if (TRANSLATIONS && TRANSLATIONS[lang] && TRANSLATIONS[lang][word]) {
-            return TRANSLATIONS[lang][word];
+        if (TRANSLATIONS && TRANSLATIONS[lang] && TRANSLATIONS[lang][text]) {
+            return TRANSLATIONS[lang][text];
         }
-        return word;
+        return text;
     }
 
     window.tigress = window.tigress || {};
