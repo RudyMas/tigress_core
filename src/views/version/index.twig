@@ -11,14 +11,14 @@
         <div id="version-box">
             <h1 class="text-nowrap">{{ WEBSITE.title }}</h1>
             <h4><i>{{ WEBSITE.description }}</i></h4>
-            <p>Author: {{ WEBSITE.author }}</p>
+            <p>{{ __('Author(s)') }}: {{ WEBSITE.author }}</p>
             <hr>
             <h2 class="text-nowrap">Tigress PHP Framework</h2>
-            <h4><i>Tigress is a PHP MVC-framework for building web applications.</i></h4>
+            <h4><i>{{ __('Tigress is a PHP MVC-framework for building web applications.') }}</i></h4>
             <div class="row">
                 <div class="col-md-12" style="columns: 250px 3">
                     <div style="break-inside: avoid">
-                        <h5><u>Main Packages:</u></h5>
+                        <h5><u>{{ __('Main Packages') }}:</u></h5>
                         <p>
                             Core: {{ tigress_core_version }}<br>
                             Security: {{ tigress_security_version }}<br>
@@ -30,7 +30,7 @@
                         </p>
                     </div>
                     <div style="break-inside: avoid">
-                        <h5><u>Core Helper Classes</u></h5>
+                        <h5><u>{{ __('Core Helper Classes') }}</u></h5>
                         <p>
                             Framework Helper: {{ framework_helper_version }}<br>
                             Display Helper: {{ display_helper_version }}<br>
@@ -39,14 +39,14 @@
                         </p>
                     </div>
                     <div style="break-inside: avoid">
-                        <h5><u>Core Controller Classes</u></h5>
+                        <h5><u>{{ __('Core Controller Classes') }}</u></h5>
                         <p>
                             Google Drive Controller: {{ google_drive_controller_version }}<br>
                             Settings Controller: {{ settings_controller_version }}<br>
                         </p>
                     </div>
                     <div style="break-inside: avoid">
-                        <h5><u>Database Packages</u></h5>
+                        <h5><u>{{ __('Database Packages') }}</u></h5>
                         <p>
                             Database: {{ tigress_database_version }}<br>
                             Repository: {{ tigress_repository_version }}<br>
@@ -54,7 +54,7 @@
                         </p>
                     </div>
                     <div style="break-inside: avoid">
-                        <h5><u>Support Packages</u></h5>
+                        <h5><u>{{ __('Support Packages') }}</u></h5>
                         <p>
                             Data Converter: {{ tigress_data_converter_version }}<br>
                             Data Files: {{ tigress_data_files_version }}<br>
@@ -97,7 +97,7 @@
                         </p>
                     </div>
                     <div style="break-inside: avoid">
-                        <h5><u>Standalone Modules</u></h5>
+                        <h5><u>{{ __('Standalone Modules') }}</u></h5>
                         <p>
                             Form Builder: {{ tigress_form_builder_version }}<br>
                             Kanban Board: {{ tigress_kanban_board_version }}<br>
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <div id="versionBackButton">
-                <button type="button" class="btn btn-dark" onclick="window.history.back()"></button>
+                <button type="button" class="btn btn-dark" onclick="window.history.back()">{{ __('Close') }}</button>
             </div>
         </div>
     </div>

@@ -38,10 +38,6 @@
     box-shadow: 0 0 0 1px black;
 }
 
-#versionBackButton button:before {
-    content: "Close";
-}
-
 #versionBackButton button:hover {
     background-color: lightgray;
     color: black;
