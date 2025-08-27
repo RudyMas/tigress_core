@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.07.01.0
+ * @version 2025.08.27.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.07.01';
+        return '2025.08.27';
     }
 
     /**
@@ -504,11 +504,12 @@ class DisplayHelper
      */
     private function checkHttpResponseCode(int $httpResponseCode, array $data): DataConverter
     {
+        if (!isset($data['error'])) $data['error'] = $httpResponseCode . ' has occurred';
         if ($httpResponseCode >= 200 && $httpResponseCode < 300) {
             $outputData = $data;
         } else {
             $outputData['error']['code'] = $httpResponseCode;
-            $outputData['error']['message'] = 'Error ' . $httpResponseCode . ' has occurred';
+            $outputData['error']['message'] = 'Error: ' . $data['error'];
         }
 
         $convert = new DataConverter();
