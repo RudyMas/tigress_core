@@ -18,12 +18,20 @@ const rrnErrorMsg = {
 const validateId = {
     'BE': (id) => {
         if (!/^[0-9]{2}.[0-9]{2}.[0-9]{2}-[0-9]{3}.[0-9]{2}$/.test(id)) return false;
+
         const pid = id.replace(/\D/g, '');
         const birthNumber = pid.slice(0, 9);
         const controlNumber = parseInt(pid.slice(9, 11));
+
+        // laatste 2 cijfers van het huidige jaar
+        const currentYearTwoDigits = new Date().getFullYear() % 100;
+
         const adjustedBirthNumber =
-            parseInt(pid.slice(0, 2), 10) < 20 ? `2${birthNumber}` : birthNumber;
-        const mod97 = 97 - (parseInt(adjustedBirthNumber) % 97);
+            parseInt(pid.slice(0, 2), 10) <= currentYearTwoDigits
+                ? `2${birthNumber}`
+                : birthNumber;
+
+        const mod97 = 97 - (parseInt(adjustedBirthNumber, 10) % 97);
         return mod97 === controlNumber;
     },
     'NL': (id) => {
