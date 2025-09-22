@@ -34,6 +34,10 @@
     border-top: 1pt solid #000;
 }
 
+.page-break {
+    page-break-before: always;
+}
+
 .page-number {
     text-align: center;
 }
