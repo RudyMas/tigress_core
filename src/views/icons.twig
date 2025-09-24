@@ -26,6 +26,6 @@
     {% if icons[group][name] is defined %}
         {% set svg = icons[group][name]|replace({'<path ': '<path fill="' ~ svgColor ~ '" '}) %}
         {% set svgBase64 = svg|base64_encode %}
-        <img src="data:image/svg+xml;base64,{{ svgBase64 }}" style="width:auto; height:{{ svgSize }}em; vertical-align:middle; transform:rotate({{ svgRotate }}deg);">
+        <img src="data:image/svg+xml;base64,{{ svgBase64 }}" style="width:auto; height:{{ svgSize }}em; transform:rotate({{ svgRotate }}deg);">
     {% endif %}
 {% endmacro %}
