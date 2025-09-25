@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.09.25.0
+ * @version 2025.09.25.1
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -94,13 +94,14 @@ class DisplayHelper
             })
         );
 
-        $this->twig->addFunction(new TwigFunction('add_slider', function ($name, $value, $text, $labelPlacing = 'back', $buttonText = 'none'): string {
+        $this->twig->addFunction(new TwigFunction('add_slider', function ($name, $value, $text, $labelPlacing = 'back', $buttonText = false): string {
             // Set default text if none provided
             if (empty($text)) $text = __('Enable/Disable');
 
             // Processing label placing + button text
-            if ($buttonText != 'none') $sliderText = ' slider-label-text-' . $buttonText; else $sliderText = '';
-            $sliderText = ' slider-label-text-' . $buttonText;
+            $lang = CONFIG->website->html_lang ?? 'en';
+            $lang = substr($lang, 0, 2);
+            if ($buttonText) $sliderText = ' slider-label-text-' . $lang; else $sliderText = '';
 
             if ($labelPlacing == 'front') {
                 $label = $text . ' <span class="slider-label' . $sliderText . '"></span>';
