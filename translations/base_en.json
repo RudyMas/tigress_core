@@ -1,9 +1,9 @@
 {
   "en": {
-    "date_format": "d-m-Y",
-    "date_time_format": "d-m-Y, H:i",
-    "date_time_format_long": "d-m-Y, H:i:s",
-    "time_format": "H:i",
-    "time_format_long": "H:i:s"
+    "date_format": "m/d/Y",
+    "date_time_format": "m/d/Y, h:i A",
+    "date_time_format_long": "m/d/Y, h:i:s A",
+    "time_format": "h:i A",
+    "time_format_long": "h:i:s A"
   }
 }

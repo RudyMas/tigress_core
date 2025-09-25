@@ -1,8 +1,8 @@
 {
   "de": {
-    "date_format": "d-m-Y",
-    "date_time_format": "d-m-Y, H:i",
-    "date_time_format_long": "d-m-Y, H:i:s",
+    "date_format": "d.m.Y",
+    "date_time_format": "d.m.Y, H:i",
+    "date_time_format_long": "d.m.Y, H:i:s",
     "time_format": "H:i",
     "time_format_long": "H:i:s",
 
@@ -113,6 +113,7 @@
     "No start date": "Kein Startdatum",
     "Not started": "Nicht gestartet",
     "On hold": "Wartend",
+    "One more": "Noch ein",
     "Optional": "Optional",
     "Order": "Reihenfolge",
     "Overview": "Übersicht",

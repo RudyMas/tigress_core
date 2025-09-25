@@ -1,8 +1,8 @@
 {
   "sv": {
-    "date_format": "d-m-Y",
-    "date_time_format": "d-m-Y, H:i",
-    "date_time_format_long": "d-m-Y, H:i:s",
+    "date_format": "Y-m-d",
+    "date_time_format": "Y-m-d, H:i",
+    "date_time_format_long": "Y-m-d, H:i:s",
     "time_format": "H:i",
     "time_format_long": "H:i:s",
 
@@ -113,6 +113,7 @@
     "No start date": "Inget startdatum",
     "Not started": "Ej påbörjad",
     "On hold": "Pausad",
+    "One more": "En till",
     "Optional": "Valfritt",
     "Order": "Ordning",
     "Overview": "Översikt",

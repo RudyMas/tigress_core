@@ -1,8 +1,8 @@
 {
   "it": {
-    "date_format": "d-m-Y",
-    "date_time_format": "d-m-Y, H:i",
-    "date_time_format_long": "d-m-Y, H:i:s",
+    "date_format": "d/m/Y",
+    "date_time_format": "d/m/Y, H:i",
+    "date_time_format_long": "d/m/Y, H:i:s",
     "time_format": "H:i",
     "time_format_long": "H:i:s",
 
@@ -113,6 +113,7 @@
     "No start date": "Nessuna data di inizio",
     "Not started": "Non iniziato",
     "On hold": "In attesa",
+    "One more": "Ancora uno",
     "Optional": "Opzionale",
     "Order": "Ordine",
     "Overview": "Panoramica",
