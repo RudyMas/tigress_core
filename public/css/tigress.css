@@ -84,31 +84,16 @@ fieldset legend {
     font-size: 0.6em;
 }
 
-.slider-label-text::after,
-.slider-label-text-en::after {
-    content: 'No';
-    color: black;
-    position: absolute;
-    right: 0.5em;
-    top: 0.05em;
-    font-size: 0.6em;
-}
-
 .slider-checkbox:checked + .slider-label-text-nl::after,
-.slider-checkbox:checked + b + .slider-label-text-nl::after {
+.slider-checkbox:checked + b + .slider-label-text-nl::after,
+.slider-checkbox:checked + .slider-label-text-de::after,
+.slider-checkbox:checked + b + .slider-label-text-de::after,
+.slider-checkbox:checked + .slider-label-text-sv::after,
+.slider-checkbox:checked + b + .slider-label-text-sv::after {
     content: 'Ja';
     color: white;
     position: absolute;
     left: 0.5em;
-    top: 0.05em;
-    font-size: 0.6em;
-}
-
-.slider-label-text-nl::after {
-    content: 'Nee';
-    color: black;
-    position: absolute;
-    right: 0.3em;
     top: 0.05em;
     font-size: 0.6em;
 }
@@ -123,8 +108,59 @@ fieldset legend {
     font-size: 0.6em;
 }
 
+.slider-checkbox:checked + .slider-label-text-es::after,
+.slider-checkbox:checked + b + .slider-label-text-es::after,
+.slider-checkbox:checked + .slider-label-text-it::after,
+.slider-checkbox:checked + b + .slider-label-text-it::after {
+    content: 'Sí';
+    color: white;
+    position: absolute;
+    left: 0.3em;
+    top: 0.05em;
+    font-size: 0.6em;
+}
+
+.slider-label-text::after,
+.slider-label-text-en::after,
+.slider-label-text-es::after,
+.slider-label-text-it::after {
+    content: 'No';
+    color: black;
+    position: absolute;
+    right: 0.5em;
+    top: 0.05em;
+    font-size: 0.6em;
+}
+
+.slider-label-text-nl::after {
+    content: 'Nee';
+    color: black;
+    position: absolute;
+    right: 0.3em;
+    top: 0.05em;
+    font-size: 0.6em;
+}
+
 .slider-label-text-fr::after {
     content: 'Non';
+    color: black;
+    position: absolute;
+    right: 0.3em;
+    top: 0.05em;
+    font-size: 0.6em;
+}
+
+.slider-label-text-de::after {
+    content: 'Nein';
+    color: black;
+    position: absolute;
+    right: 0.3em;
+    top: 0.05em;
+    font-size: 0.6em;
+}
+
+.slider-label-text-sv::after {
+    content: 'Nej';
     color: black;
     position: absolute;
     right: 0.3em;

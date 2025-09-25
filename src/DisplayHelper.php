@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.09.17.0
+ * @version 2025.09.25.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.09.17';
+        return '2025.09.25';
     }
 
     /**
@@ -93,6 +93,31 @@ class DisplayHelper
                 return __($word);
             })
         );
+
+        $this->twig->addFunction(new TwigFunction('add_slider', function ($name, $value, $text, $labelPlacing = 'back', $buttonText = 'none'): string {
+            // Set default text if none provided
+            if (empty($text)) $text = __('Enable/Disable');
+
+            // Processing label placing + button text
+            if ($buttonText != 'none') $sliderText = ' slider-label-text-' . $buttonText; else $sliderText = '';
+            $sliderText = ' slider-label-text-' . $buttonText;
+
+            if ($labelPlacing == 'front') {
+                $label = $text . ' <span class="slider-label' . $sliderText . '"></span>';
+            } else {
+                $label = '<span class="slider-label' . $sliderText . '"></span> ' . $text;
+            }
+
+            // Checked or not
+            $checked = $value ? ' checked' : '';
+
+            $output = '<input type="hidden" name="' . $name . '" value="0">';
+            $output .= '<label for="' . $name . '" class="slider-container">';
+            $output .= '<input type="checkbox" id="' . $name . '" name="' . $name . '" class="slider-checkbox" value="1"' . $checked . '>';
+            $output .= $label;
+            $output .= '</label>';
+            return $output;
+        }));
 
         $this->twig->addFunction(new TwigFunction('file_exists', function (string $path): bool {
             $fullPath = SYSTEM_ROOT . $path;
@@ -278,7 +303,8 @@ class DisplayHelper
      *
      * @param string $page Page to redirect to (Can be a URL or a routing directive)
      */
-    #[NoReturn] public function redirect(string $page): void
+    #[NoReturn]
+    public function redirect(string $page): void
     {
         if (in_array(SERVER_TYPE, ['development', 'test']) && headers_sent($file, $line)) {
             echo "<pre style='color:red; background:#ffecec; padding:10px; border:1px solid #f00'>";
