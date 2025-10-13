@@ -1,4 +1,4 @@
-/* version: 2025.05.20 */
+/* version: 2025.10.13 */
 * {
     font-size: 8.5pt;
     font-family: "DejaVu Sans", Arial, sans-serif;
@@ -40,6 +40,11 @@
 
 .page-number {
     text-align: center;
+}
+
+.no-split {
+    page-break-inside: avoid;
+    break-inside: avoid;
 }
 
 .page-number:before {
