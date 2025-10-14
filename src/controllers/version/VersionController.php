@@ -8,7 +8,6 @@ use Controller\Menu;
 use Exception;
 use Tigress\Communication;
 use Tigress\Controller;
-use Tigress\Core;
 use Tigress\Database;
 use Tigress\DataConverter;
 use Tigress\DataFiles;
@@ -16,6 +15,7 @@ use Tigress\DisplayHelper;
 use Tigress\Encryption;
 use Tigress\FormBuilder;
 use Tigress\FileManager;
+use Tigress\FormViewer;
 use Tigress\FrameworkHelper;
 use Tigress\GoogleApi;
 use Tigress\HttpRequests;
@@ -38,8 +38,8 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.01.17.1
- * @package Controller\version\VersionController
+ * @version 2025.10.14.0
+ * @package Controller\version
  */
 class VersionController
 {
@@ -93,7 +93,7 @@ class VersionController
         // Get the version of the standalone Tigress Modules loaded
         $tigress_kanban_board_version = class_exists('Tigress\KanbanBoard') ? KanbanBoard::version() : 'Not Active';
         $tigress_form_builder_version = class_exists('Tigress\FormBuilder') ? FormBuilder::version() : 'Not Active';
-
+        $tigress_form_viewer_version = class_exists('Tigress\FormViewer') ? FormViewer::version() : 'Not Active';
 
         TWIG->render('version/index.twig', [
             'image' => $image,
@@ -122,6 +122,7 @@ class VersionController
             'tigress_manipulator_version' => $tigress_manipulator_version,
             'tigress_kanban_board_version' => $tigress_kanban_board_version,
             'tigress_form_builder_version' => $tigress_form_builder_version,
+            'tigress_form_viewer_version' => $tigress_form_viewer_version,
         ]);
     }
 }
