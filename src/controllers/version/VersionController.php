@@ -94,6 +94,7 @@ class VersionController
         $tigress_kanban_board_version = class_exists('Tigress\KanbanBoard') ? KanbanBoard::version() : 'Not Active';
         $tigress_form_builder_version = class_exists('Tigress\FormBuilder') ? FormBuilder::version() : 'Not Active';
         $tigress_form_viewer_version = class_exists('Tigress\FormViewer') ? FormViewer::version() : 'Not Active';
+        $tigress_users_version = class_exists('Tigress\Users') ? \Tigress\Users::version() : 'Not Active';
 
         TWIG->render('version/index.twig', [
             'image' => $image,
@@ -123,6 +124,7 @@ class VersionController
             'tigress_kanban_board_version' => $tigress_kanban_board_version,
             'tigress_form_builder_version' => $tigress_form_builder_version,
             'tigress_form_viewer_version' => $tigress_form_viewer_version,
+            'tigress_users_version' => $tigress_users_version,
         ]);
     }
 }
