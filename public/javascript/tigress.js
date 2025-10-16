@@ -63,7 +63,7 @@ function initDatatablesTranslations() {
         // no entry for English → use default
     }
 
-    window.tigress.languageOption = languageFiles[shortLang] ? {url: languageFiles[shortLang]} : {};
+    window.tigress.languageDatatables = languageFiles[shortLang] ? {url: languageFiles[shortLang]} : {};
     window.tigress.languageTinymce = languageTinymce[shortLang] ? languageTinymce[shortLang] : '';
 }
 
@@ -77,7 +77,7 @@ function initGebruikersTable() {
         jQuery(datatableElement).DataTable({
             stateSave: true,
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Alle"]],
-            language: tigress.languageOption,
+            language: tigress.languageDatatables,
         });
     } else {
         console.warn('DataTables requires jQuery – cannot initialize without jQuery.');
