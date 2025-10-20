@@ -1,4 +1,4 @@
-/* version: 2025.06.10 */
+/* version: 2025.10.20 */
 * {
     margin: 0;
     padding: 0;
@@ -219,8 +219,7 @@ fieldset legend {
 }
 
 .red-1 {
-    border: solid 2px;
-    border-color: #bc1c48;
+    border: 2px solid #bc1c48;
 }
 
 .red-1 .label {
@@ -240,8 +239,7 @@ fieldset legend {
 }
 
 .blue-1 {
-    border: solid 2px;
-    border-color: #00a9ec;
+    border: 2px solid #00a9ec;
 }
 
 .blue-1 .label {
@@ -257,8 +255,7 @@ fieldset legend {
 }
 
 .blue-2 {
-    border: solid 2px;
-    border-color: #04CBA2;
+    border: 2px solid #04CBA2;
 }
 
 .blue-2 .label {
@@ -274,8 +271,7 @@ fieldset legend {
 }
 
 .col2 {
-    border: solid 2px;
-    border-color: #cc6633;
+    border: 2px solid #cc6633;
 }
 
 .col2 .label {
@@ -287,8 +283,7 @@ fieldset legend {
 }
 
 .col3 {
-    border: solid 2px;
-    border-color: #D8BB26;
+    border: 2px solid #D8BB26;
 }
 
 .col2-text {
@@ -308,8 +303,7 @@ fieldset legend {
 }
 
 .col4 {
-    border: solid 2px;
-    border-color: #03C532;
+    border: 2px solid #03C532;
 }
 
 .col4 .label {
@@ -329,8 +323,7 @@ fieldset legend {
 }
 
 .orange-1 {
-    border: solid 2px;
-    border-color: #FF520E;
+    border: 2px solid #FF520E;
 }
 
 .orange-1 .label {
@@ -350,8 +343,7 @@ fieldset legend {
 }
 
 .green-1 {
-    border: solid 2px;
-    border-color: #0e5d30;
+    border: 2px solid #0e5d30;
 }
 
 .green-1 .label {
@@ -371,8 +363,7 @@ fieldset legend {
 }
 
 .purple-1 {
-    border: solid 2px;
-    border-color: #663399;
+    border: 2px solid #663399;
 }
 
 .purple-1 .label {
@@ -392,8 +383,7 @@ fieldset legend {
 }
 
 .light-purple-1 {
-    border: solid 2px;
-    border-color: #a885cc;
+    border: 2px solid #a885cc;
 }
 
 .light-purple-1 .label {
@@ -409,8 +399,7 @@ fieldset legend {
 }
 
 .gray, .grey {
-    border: solid 1px;
-    border-color: #4E4E4D;
+    border: 1px solid #4E4E4D;
 }
 
 .gray i, .grey i {
@@ -430,8 +419,7 @@ fieldset legend {
 }
 
 .green-bright-1 {
-    border: solid 2px;
-    border-color: #78d204;
+    border: 2px solid #78d204;
 }
 
 .green-bright-1 .label {
@@ -451,8 +439,7 @@ fieldset legend {
 }
 
 .blue-nav-1 {
-    border: solid 2px;
-    border-color: #25478e;
+    border: 2px solid #25478e;
 }
 
 .blue-nav-1 .label {
@@ -472,8 +459,7 @@ fieldset legend {
 }
 
 .yellow-1 {
-    border: solid 2px;
-    border-color: #FFB400;
+    border: 2px solid #FFB400;
 }
 
 .yellow-1 .label {
@@ -493,8 +479,7 @@ fieldset legend {
 }
 
 .brown-1 {
-    border: solid 2px;
-    border-color: #744021;
+    border: 2px solid #744021;
 }
 
 .brown-1 .label {
@@ -514,8 +499,7 @@ fieldset legend {
 }
 
 .kerst-1 {
-    border: solid 2px;
-    border-color: #B51E31;
+    border: 2px solid #B51E31;
 }
 
 .kerst-1 .label {
@@ -548,6 +532,12 @@ fieldset legend {
     width: 90vw;
     position: relative;
     margin-left: calc(-1 * (90vw - 100%) / 2);
+}
+
+.break-out95 {
+    width: 95vw;
+    position: relative;
+    margin-left: calc(-1 * (95vw - 100%) / 2);
 }
 
 .break-out99 {
