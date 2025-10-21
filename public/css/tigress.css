@@ -338,6 +338,26 @@ fieldset legend {
     color: #FF520E !important;
 }
 
+.orange-red {
+    background: orangered;
+}
+
+.orange-red-1 {
+    border: 2px solid orangered;
+}
+
+.orange-red-1 .label {
+    color: #DBDBDB;
+}
+
+.orange-red-1 i {
+    color: #DBDBDB;
+}
+
+.orange-red-1-text {
+    color: orangered !important;
+}
+
 .green {
     background: #0e5d30;
 }
