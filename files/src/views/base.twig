@@ -1,5 +1,5 @@
 <!-- This is the base template for all pages. It includes the menu, sidebar, header, content, footer, ... -->
-<!-- Version: 2025.06.03 -->
+<!-- Version: 2025.11.12 -->
 <!DOCTYPE html>
 <html lang="{% block html_lang %}{{ WEBSITE.html_lang }}{% endblock %}">
 <head>
@@ -93,6 +93,12 @@
         {% block content %}{% endblock %}
     </div>
     <footer>{% block footer %}{% endblock %}</footer>
+</div>
+<!-- Popup Overlay -->
+<div id="loadingPopup" class="loading-popup hidden">
+    <div class="loading-content">
+        <p>{{  __('Please wait, data is loading.') }}</p>
+    </div>
 </div>
 </body>
 </html>

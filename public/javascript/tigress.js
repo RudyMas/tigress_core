@@ -1,7 +1,7 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
  * Tooltip-init, auto-grow textareas, modals
- * @version 2025.06.30.0
+ * @version 2025.11.12.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -140,6 +140,18 @@ function initPasswordToggles(scope = document) {
             icon.classList.toggle("fa-eye-slash", isPassword);
         });
     });
+}
+
+// Show popup
+function showPopup(popupWindow) {
+    popupWindow.classList.remove('hidden');
+    requestAnimationFrame(() => popupWindow.classList.add('show'));
+}
+
+// Hide popup
+function hidePopup(popupWindow, timeout = 300) {
+    popupWindow.classList.remove('show');
+    setTimeout(() => popupWindow.classList.add('hidden'), timeout);
 }
 
 // Automatically initialize on DOM ready
