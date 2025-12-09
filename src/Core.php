@@ -7,7 +7,7 @@ use Exception;
 use Twig\Error\LoaderError;
 
 /**
- * Class Core (PHP version 8.4)
+ * Class Core (PHP version 8.5)
  *
  * Following constants are defined:
  * - TIGRESS_CORE_VERSION   Contains the version of the Tigress Core
@@ -27,7 +27,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2025, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.10.16.0
+ * @version 2025.12.09.0
  * @package Tigress\Core
  */
 class Core
@@ -38,7 +38,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2025.10.16');
+        define('TIGRESS_CORE_VERSION', '2025.12.09');
 
         // Load the config files
         if (file_exists('config/config.json') === true) {
