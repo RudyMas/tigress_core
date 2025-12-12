@@ -154,6 +154,18 @@ function hidePopup(popupWindow, timeout = 300) {
     setTimeout(() => popupWindow.classList.add('hidden'), timeout);
 }
 
+// Lock a button on form submit to prevent multiple submissions
+function lockOnSubmit(buttonId, text = 'Wordt uitgevoerd...') {
+    const btn = document.getElementById(buttonId);
+    if (!btn) return;
+
+    const form = btn.closest('form');
+    form.addEventListener('submit', () => {
+        btn.disabled = true;
+        btn.innerText = text;
+    });
+}
+
 // Automatically initialize on DOM ready
 document.addEventListener('DOMContentLoaded', function () {
     initAutoGrow();
