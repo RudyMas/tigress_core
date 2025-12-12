@@ -1,7 +1,7 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
  * Tooltip-init, auto-grow textareas, modals
- * @version 2025.11.12.0
+ * @version 2025.12.12.1
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -155,7 +155,7 @@ function hidePopup(popupWindow, timeout = 300) {
 }
 
 // Lock a button on form submit to prevent multiple submissions
-function lockOnSubmit(buttonId, text = 'Wordt uitgevoerd...') {
+function lockOnSubmit(buttonId, text = __('In progress...')) {
     const btn = document.getElementById(buttonId);
     if (!btn) return;
 
