@@ -1,4 +1,4 @@
-/* version: 2025.01.31 */
+/* version: 2025.12.19 */
 :root {
     --color: #000000;
     --background-color: #ffffff;
@@ -7,4 +7,8 @@
 body {
     background-color: var(--background-color);
     color: var(--color);
+}
+
+.Start {
+    text-shadow: rgb(0, 0, 0) 0 0 1px;
 }

@@ -1,4 +1,4 @@
-/* version: 2025.01.31 */
+/* version: 2025.12.19 */
 :root {
     --tigress-color: #ffffff;
     --tigress-background-color: #212529;
@@ -7,4 +7,8 @@
 body {
     background-color: var(--tigress-background-color);
     color: var(--tigress-color);
+}
+
+.Start {
+    text-shadow: rgb(255, 255, 255) 0 0 1px;
 }
