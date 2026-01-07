@@ -22,6 +22,18 @@
       ]
     },
     {
+      "request": "POST",
+      "path": "/system/lock-pages/refresh",
+      "controller": "tigress\\SystemLockPagesController",
+      "method": "refreshLock"
+    },
+    {
+      "request": "POST",
+      "path": "/system/lock-pages/release",
+      "controller": "tigress\\SystemLockPagesController",
+      "method": "releaseLock"
+    },
+    {
       "request": "GET",
       "path": "/version",
       "controller": "version\\VersionController",
