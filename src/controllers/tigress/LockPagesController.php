@@ -4,7 +4,6 @@ namespace Controller\tigress;
 
 use Repository\SystemLockPagesRepo;
 use Repository\UsersRepo;
-use Tigress\Core;
 
 /**
  * Class LockPagesController (PHP version 8.5)
@@ -12,7 +11,7 @@ use Tigress\Core;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.01.08.0
+ * @version 2026.01.08.1
  * @package Controller\tigress\LockPagesController
  */
 class LockPagesController
@@ -80,7 +79,7 @@ class LockPagesController
 
         $infoMessage = sprintf(__('This page is currently being edited by %s since %s. Please try again later.'),
             htmlspecialchars($user->first_name . ' ' . $user->last_name),
-            htmlspecialchars($systemLockPage->locked_at)
+            date('d-m-Y, H:i:s', strtotime($systemLockPage->locked_at))
         );
 
         $_SESSION['message'] = $infoMessage;
@@ -92,24 +91,25 @@ class LockPagesController
      * Refresh a page lock
      *
      * @param array $args
+     * @param string $body
      * @return array
      */
-    public function refreshLock(array $args): array
+    public function refreshLock(array $args, string $body): array
     {
-        Core::dump($args);
+        $bodyData = json_decode($body, true);
 
-        $repo = new SystemLockPagesRepo();
+        $systemLockPagesRepo = new SystemLockPagesRepo();
 
-        $repo->loadByPrimaryKey([
-            'resource' => $resource,
-            'resource_id' => $resourceId
+        $systemLockPagesRepo->loadByPrimaryKey([
+            'resource' => $bodyData['resource'],
+            'resource_id' => $bodyData['resourceId'],
         ]);
 
-        if ($repo->isEmpty()) {
+        if ($systemLockPagesRepo->isEmpty()) {
             return ['ok' => false, 'reason' => 'no_lock'];
         }
 
-        $lock = $repo->current();
+        $lock = $systemLockPagesRepo->current();
         $now = date('Y-m-d H:i:s');
         $expires = date('Y-m-d H:i:s', time() + 300);
         $currentUserId = $_SESSION['user']['id'] ?? null;
@@ -121,9 +121,8 @@ class LockPagesController
 
         // Indien verlopen
         $lock->locked_by_user_id = $currentUserId;
-        $lock->locked_at = $now;
         $lock->expires_at = $expires;
-        $repo->save($lock);
+        $systemLockPagesRepo->save($lock);
 
         return ['ok' => true, 'expires_at' => $expires];
     }
@@ -132,22 +131,25 @@ class LockPagesController
      * Release a page lock
      *
      * @param array $args
+     * @param string $body
      * @return array|true[]
      */
-    public function releaseLock(array $args): array
+    public function releaseLock(array $args, string $body): array
     {
-        $repo = new SystemLockPagesRepo();
+        $bodyData = json_decode($body, true);
 
-        $repo->loadByPrimaryKey([
-            'resource' => $args['resource'],
-            'resource_id' => $args['resource_id']
+        $systemLockPagesRepo = new SystemLockPagesRepo();
+
+        $systemLockPagesRepo->loadByPrimaryKey([
+            'resource' => $bodyData['resource'],
+            'resource_id' => $bodyData['resourceId'],
         ]);
 
-        if ($repo->isEmpty()) {
+        if ($systemLockPagesRepo->isEmpty()) {
             return ['ok' => false, 'reason' => 'no_lock'];
         }
 
-        $lock = $repo->current();
+        $lock = $systemLockPagesRepo->current();
         $currentUserId = $_SESSION['user']['id'] ?? null;
 
         // Als iemand anders de lock heeft
@@ -155,9 +157,9 @@ class LockPagesController
             return ['ok' => false, 'locked' => true, 'locked_by_user_id' => $lock->locked_by_user_id];
         }
 
-        $repo->deleteByPrimaryKey([
-            'resource' => $args['resource'],
-            'resource_id' => $args['resource_id']
+        $systemLockPagesRepo->deleteByPrimaryKey([
+            'resource' => $bodyData['resource'],
+            'resource_id' => $bodyData['resourceId'],
         ]);
 
         return ['ok' => true];

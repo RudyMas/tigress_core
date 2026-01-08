@@ -180,6 +180,7 @@ window.autoResize = autoResize;
 window.initAutoGrow = initAutoGrow;
 
 /**
+ * @version 2026.01.08.0
  * Universele tigress translation loader and __-functie
  * Load 1 or more translation files and combine them smartly.
  * You can use __('Welkom') to get the translation for "Welkom" in the current language.
@@ -242,7 +243,7 @@ window.initAutoGrow = initAutoGrow;
 
 /**
  * Lock-pages heartbeat (resource/resourceId)
- * @version 2026.01.07.0
+ * @version 2026.01.08.0
  *
  * Server contract (JSON):
  *  - success: { ok: true, expires_at?: "YYYY-MM-DD HH:MM:SS" }
@@ -348,14 +349,14 @@ window.initAutoGrow = initAutoGrow;
         if (!cfg || !cfg.releaseOnUnload) return;
 
         try {
-            const payload = JSON.stringify({
-                resource: cfg.resource,
-                resourceId: cfg.resourceId
+            const res = fetch(cfg.releaseUrl, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    resource: cfg.resource,
+                    resourceId: cfg.resourceId
+                })
             });
-
-            // sendBeacon expects a Blob or string; also set type for some backends
-            const blob = new Blob([payload], {type: 'application/json'});
-            navigator.sendBeacon(cfg.releaseUrl, blob);
         } catch (e) {
             // ignore
         }
