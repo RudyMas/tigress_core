@@ -35,6 +35,13 @@
     "ezyang/htmlpurifier": "^4.18"
   },
   "require-dev": {
+    "tigress/communication": "*",
+    "tigress/form-builder": "*",
+    "tigress/form-viewer": "*",
+    "tigress/google_api": "*",
+    "tigress/http_requests": "*",
+    "tigress/kanban-board": "*",
+    "tigress/manipulator": "*",
     "tigress/users": "*"
   },
   "autoload": {

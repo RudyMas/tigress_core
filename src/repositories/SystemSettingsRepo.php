@@ -14,7 +14,7 @@ class SystemSettingsRepo extends Repository
         $this->dbName = 'default';
         $this->table = 'system_settings';
         $this->primaryKey = ['setting'];
-        $this->model = 'systemSetting';
+        $this->model = 'DefaultModel';
         $this->autoload = true;
         parent::__construct();
     }

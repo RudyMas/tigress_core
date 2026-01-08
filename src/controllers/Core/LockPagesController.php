@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller\tigress;
+namespace Controller\Core;
 
 use Repository\SystemLockPagesRepo;
 use Repository\UsersRepo;
@@ -12,7 +12,7 @@ use Repository\UsersRepo;
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
  * @version 2026.01.08.1
- * @package Controller\tigress\LockPagesController
+ * @package Controller\Core\LockPagesController
  */
 class LockPagesController
 {

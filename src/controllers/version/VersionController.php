@@ -3,6 +3,7 @@
 namespace Controller\version;
 
 use Controller\Core\GoogleDriveController;
+use Controller\Core\LockPagesController;
 use Controller\Core\SettingsController;
 use Controller\Menu;
 use Exception;
@@ -33,12 +34,12 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
- * Class VersionController (PHP version 8.4)
+ * Class VersionController (PHP version 8.5)
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2024 Rudy Mas (https://rudymas.be)
+ * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.10.14.0
+ * @version 2026.01.08.0
  * @package Controller\version
  */
 class VersionController
@@ -74,6 +75,7 @@ class VersionController
 
         // Get the version of the Tigress Controller Classes loaded
         $google_drive_controller_version = class_exists('Controller\Core\GoogleDriveController') ? GoogleDriveController::version() : 'Not Active';
+        $lock_pages_controller_version = class_exists('Controller\Core\LockPagesController') ? LockPagesController::version() : 'Not Active';
         $settings_controller_version = class_exists('Controller\Core\SettingsController') ? SettingsController::version() : 'Not Active';
 
         // Get the version of the Tigress Database Classes loaded
@@ -110,6 +112,7 @@ class VersionController
             'pdf_creator_helper_version' => $pdf_creator_helper_version,
             'logger_helper_version' => $logger_helper_version,
             'google_drive_controller_version' => $google_drive_controller_version,
+            'lock_pages_controller_version' => $lock_pages_controller_version,
             'settings_controller_version' => $settings_controller_version,
             'tigress_database_version' => $tigress_database_version,
             'tigress_repository_version' => $tigress_repository_version,

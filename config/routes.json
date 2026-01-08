@@ -24,13 +24,13 @@
     {
       "request": "POST",
       "path": "/lock-pages/refresh",
-      "controller": "tigress\\LockPagesController",
+      "controller": "Core\\LockPagesController",
       "method": "refreshLock"
     },
     {
       "request": "POST",
       "path": "/lock-pages/release",
-      "controller": "tigress\\LockPagesController",
+      "controller": "Core\\LockPagesController",
       "method": "releaseLock"
     },
     {
