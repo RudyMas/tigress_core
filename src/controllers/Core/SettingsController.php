@@ -3,7 +3,7 @@
 namespace Controller\Core;
 
 use Random\RandomException;
-use Repository\systemSettingsRepo;
+use Repository\SystemSettingsRepo;
 use Tigress\EncryptionAES;
 use Tigress\EncryptionRSA;
 use Tigress\Repository;
@@ -53,7 +53,7 @@ class SettingsController
      */
     public function __construct(bool $encryption = false)
     {
-        $this->systemSettings = new systemSettingsRepo();
+        $this->systemSettings = new SystemSettingsRepo();
 
         $this->enableEncryption = $encryption;
         if ($encryption) {

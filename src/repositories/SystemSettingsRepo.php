@@ -7,7 +7,7 @@ use Tigress\Repository;
 /**
  * Repository for system_settings table
  */
-class systemSettingsRepo extends Repository
+class SystemSettingsRepo extends Repository
 {
     public function __construct()
     {

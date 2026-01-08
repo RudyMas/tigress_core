@@ -2,12 +2,6 @@
 
 namespace Controller\Core;
 
-use Random\RandomException;
-use Repository\systemSettingsRepo;
-use Tigress\EncryptionAES;
-use Tigress\EncryptionRSA;
-use Tigress\Repository;
-
 /**
  * Class PhpInfoController (PHP version 8.4)
  *

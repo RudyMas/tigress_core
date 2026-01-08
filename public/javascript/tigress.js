@@ -257,8 +257,8 @@ window.initAutoGrow = initAutoGrow;
 
     const DEFAULTS = {
         intervalMs: 2 * 60 * 1000, // 2 min (expiry=5 min -> safe)
-        refreshUrl: '/system/lock-pages/refresh',
-        releaseUrl: '/system/lock-pages/release',
+        refreshUrl: '/lock-pages/refresh',
+        releaseUrl: '/lock-pages/release',
         refreshOnVisibility: true,
         releaseOnUnload: true,
 

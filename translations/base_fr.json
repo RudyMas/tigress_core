@@ -161,6 +161,7 @@
     "Team Members": "Membres de l'équipe",
     "Team member(s)": "Membre(s) de l'équipe",
     "Team Member(s)": "Membre(s) de l'équipe",
+    "This page is currently being edited by %s since %s. Please try again later.": "Cette page est actuellement en cours de modification par %s depuis %s. Veuillez réessayer plus tard.",
     "This page is currently being edited by someone else. Please try again later.": "Cette page est actuellement en cours de modification par une autre personne. Veuillez réessayer plus tard.",
     "Ticket number": "Numéro de ticket",
     "Tigress is a PHP MVC-framework for building web applications.": "Tigress est un framework PHP MVC pour la création d'applications web.",
