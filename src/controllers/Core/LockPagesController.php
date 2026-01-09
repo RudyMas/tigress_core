@@ -11,7 +11,7 @@ use Repository\UsersRepo;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.01.08.1
+ * @version 2026.01.09.0
  * @package Controller\Core\LockPagesController
  */
 class LockPagesController
@@ -23,17 +23,17 @@ class LockPagesController
      */
     public static function version(): string
     {
-        return '2026.01.08';
+        return '2026.01.09';
     }
 
     /**
      *  Check if a page is locked
      *
      * @param string $resource
-     * @param int $resourceId
+     * @param mixed $resourceId
      * @return bool
      */
-    public function checkIfPageIsLocked(string $resource, int $resourceId): bool
+    public function checkIfPageIsLocked(string $resource, mixed $resourceId): bool
     {
         $systemLockPageRepo = new SystemLockPagesRepo();
 

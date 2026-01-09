@@ -19,7 +19,7 @@ class SystemLockPagesRepo extends Repository
         $this->createTable = [
             "CREATE TABLE `system_lock_pages` (
               `resource` varchar(50) NOT NULL,
-              `resource_id` int(11) NOT NULL,
+              `resource_id` varchar(11) NOT NULL,
               `locked_by_user_id` int(11) NOT NULL,
               `locked_at` timestamp NOT NULL,
               `expires_at` timestamp NOT NULL
