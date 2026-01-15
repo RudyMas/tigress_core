@@ -27,7 +27,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2026, rudymas.be. (http://www.rudymas.be/)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.01.08.0
+ * @version 2026.01.15.0
  * @package Tigress\Core
  */
 class Core
@@ -38,7 +38,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2026.01.08');
+        define('TIGRESS_CORE_VERSION', '2026.01.15');
 
         // Load the config files
         if (file_exists('config/config.json') === true) {
@@ -185,13 +185,13 @@ class Core
     }
 
     /**
-     * @param mixed $array
+     * @param mixed $data
      * @param bool $stop
      */
-    public static function dump(mixed $array, bool $stop = true): void
+    public static function dump(mixed $data, bool $stop = true): void
     {
         print('<pre>');
-        print_r($array);
+        print_r($data);
         print('</pre>');
         if ($stop) exit;
     }

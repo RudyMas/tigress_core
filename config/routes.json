@@ -13,15 +13,6 @@
       "method": "index"
     },
     {
-      "request": "GET",
-      "path": "/phpinfo",
-      "controller": "Core\\PhpInfoController",
-      "method": "index",
-      "level_rights": [
-        100
-      ]
-    },
-    {
       "request": "POST",
       "path": "/lock-pages/refresh",
       "controller": "Core\\LockPagesController",
@@ -32,6 +23,15 @@
       "path": "/lock-pages/release",
       "controller": "Core\\LockPagesController",
       "method": "releaseLock"
+    },
+    {
+      "request": "GET",
+      "path": "/phpinfo",
+      "controller": "Core\\PhpInfoController",
+      "method": "index",
+      "level_rights": [
+        100
+      ]
     },
     {
       "request": "GET",

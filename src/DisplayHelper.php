@@ -19,12 +19,12 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 /**
- * Class DisplayHelper (PHP version 8.4)
+ * Class DisplayHelper (PHP version 8.5)
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
+ * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.09.25.1
+ * @version 2026.01.15.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -510,7 +510,7 @@ class DisplayHelper
             'language' => 'nl',
         ], $pdfConfig);
         $mergedData = $this->prepareTwigOutput($data);
-        $html = $this->twig->render($template, $data);
+        $html = $this->twig->render($template, $mergedData);
         $html = $this->ImgTagToBase64InHtml($html);
 
         $pdf->setLanguage($pdfConfig['language']);
@@ -622,9 +622,10 @@ class DisplayHelper
         TWIG->addGlobal('translations', TRANSLATIONS->get());
 
         return array_merge($data, [
-            '_SESSION' => $_SESSION,
-            '_POST' => $_POST,
+            '_COOKIE' => $_COOKIE,
             '_GET' => $_GET,
+            '_POST' => $_POST,
+            '_SESSION' => $_SESSION,
             'BASE_URL' => BASE_URL,
             'SERVER_TYPE' => SERVER_TYPE,
             'SYSTEM_ROOT' => SYSTEM_ROOT,
