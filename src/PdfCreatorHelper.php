@@ -6,18 +6,18 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 
 /**
- * Class PdfCreatorClass (PHP version 8.4)
+ * Class PdfCreatorClass (PHP version 8.5)
  * - This class is used to create a PDF file from a HTML string.
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
+ * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.05.20.0
+ * @version 2026.01.23.0
  * @package Tigress\PdfCreatorHelper
  */
 class PdfCreatorHelper
 {
-    private Dompdf $Dompdf;
+    private Dompdf $dompdf;
     private string $language = 'nl';
 
     /**
@@ -27,7 +27,7 @@ class PdfCreatorHelper
      */
     public static function version(): string
     {
-        return '2025.05.20';
+        return '2026.01.23';
     }
 
     /**
@@ -35,7 +35,7 @@ class PdfCreatorHelper
      */
     public function __construct(array|Options|null $config = null)
     {
-        $this->Dompdf = new Dompdf($config);
+        $this->dompdf = new Dompdf($config);
     }
 
     /**
@@ -48,6 +48,11 @@ class PdfCreatorHelper
      * @param string $filepath
      * @param bool $pagination
      * @param int $attachment
+     *      - 0: open in browser
+     *      - 1: download
+     *      - 2: save to server
+     * @param string $font
+     * @param int $fontSize
      * @return void
      */
     public function createPdf(
@@ -57,15 +62,17 @@ class PdfCreatorHelper
         string $filename = 'document.pdf',
         string $filepath = '/public/tmp/',
         bool   $pagination = false,
-        int    $attachment = 1
+        int    $attachment = 1,
+        string $font = 'Helvetica',
+        int    $fontSize = 8,
     ): void
     {
-        $this->Dompdf->loadHtml($html);
-        $this->Dompdf->setPaper($format, $orientation);
-        $this->Dompdf->render();
+        $this->dompdf->loadHtml($html);
+        $this->dompdf->setPaper($format, $orientation);
+        $this->dompdf->render();
 
         if ($pagination) {
-            $canvas = $this->Dompdf->getCanvas();
+            $canvas = $this->dompdf->getCanvas();
             $page = [
                 'A3' => [
                     'portrait' => ['x' => 380, 'y' => 1165],
@@ -87,8 +94,8 @@ class PdfCreatorHelper
                 $page[$format][$orientation]['x'],
                 $page[$format][$orientation]['y'],
                 $paginationText,
-                null,
-                8
+                $font,
+                $fontSize,
             );
         }
 
@@ -99,13 +106,13 @@ class PdfCreatorHelper
 
             $workingDir = SYSTEM_ROOT . $filepath;
             if (!is_dir($workingDir)) {
-                mkdir($workingDir, 0777, true);
+                mkdir($workingDir, 0755, true);
             }
-            file_put_contents($workingDir . $filename, $this->Dompdf->output());
+            file_put_contents($workingDir . $filename, $this->dompdf->output());
             return;
         }
 
-        $this->Dompdf->stream($filename, ['Attachment' => $attachment]);
+        $this->dompdf->stream($filename, ['Attachment' => $attachment]);
     }
 
     /**

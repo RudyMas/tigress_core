@@ -8,6 +8,7 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\StreamHandler;
 use Psr\Log\LoggerInterface;
+use RuntimeException;
 
 /**
  * Class LoggerHelper (PHP version 8.5)
@@ -15,7 +16,7 @@ use Psr\Log\LoggerInterface;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.01.15.0
+ * @version 2026.01.23.0
  * @package Tigress\LoggerHelper
  */
 class LoggerHelper
@@ -27,7 +28,7 @@ class LoggerHelper
      */
     public static function version(): string
     {
-        return '2026.01.15';
+        return '2026.01.23';
     }
 
     /**
@@ -39,8 +40,8 @@ class LoggerHelper
      * @param Level $level Logging level (e.g. Level::Error, Level::Debug, etc. - Default: Level::Error)
      * @param int $retentionDays Number of days to keep log files (0 = no rotation, keep everything - Default: 30)
      * @param string|null $dateFormat e.g. 'Y-m-d' for daily logs (null = no date suffix - Default: 'Y-m-d')
-     * @return LoggerInterface
      * @param string|null $logDirectory Path to the log directory (default: SYSTEM_ROOT . '/logs')
+     * @return LoggerInterface
      */
     public static function create(
         string  $channelName,
@@ -51,11 +52,25 @@ class LoggerHelper
     ): LoggerInterface
     {
         if (!$logDirectory) {
+            if (!defined('SYSTEM_ROOT')) {
+                throw new RuntimeException(
+                    'SYSTEM_ROOT constant must be defined before calling LoggerHelper::create(), ' .
+                    'or a log directory must be provided explicitly.'
+                );
+            }
             $logDirectory = SYSTEM_ROOT . '/logs';
         }
 
         if (!is_dir($logDirectory)) {
-            mkdir($logDirectory, 0775, true);
+            if (!mkdir($logDirectory, 0755, true) && !is_dir($logDirectory)) {
+                $error = error_get_last();
+                $message = sprintf(
+                    'Failed to create log directory "%s" %s',
+                    $logDirectory,
+                    $error && isset($error['message']) ? ': ' . $error['message'] : ''
+                );
+                throw new RuntimeException($message);
+            }
         }
 
         $date = $dateFormat ? date($dateFormat) : '';

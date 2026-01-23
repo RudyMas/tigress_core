@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.01.15.0
+ * @version 2026.01.23.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2025.09.25';
+        return '2026.01.23';
     }
 
     /**
@@ -96,14 +96,20 @@ class DisplayHelper
 
         $this->twig->addFunction(new TwigFunction('add_slider', function ($name, $value, $text, $labelPlacing = 'back', $buttonText = false): string {
             // Set default text if none provided
-            if (empty($text)) $text = __('Enable/Disable');
+            if (empty($text)) {
+                $text = __('Enable/Disable');
+            }
 
             // Processing label placing + button text
             $lang = CONFIG->website->html_lang ?? 'en';
             $lang = substr($lang, 0, 2);
-            if ($buttonText) $sliderText = ' slider-label-text-' . $lang; else $sliderText = '';
+            if ($buttonText) {
+                $sliderText = ' slider-label-text-' . $lang;
+            } else {
+                $sliderText = '';
+            }
 
-            if ($labelPlacing == 'front') {
+            if ($labelPlacing === 'front') {
                 $label = $text . ' <span class="slider-label' . $sliderText . '"></span>';
             } else {
                 $label = '<span class="slider-label' . $sliderText . '"></span> ' . $text;
@@ -187,7 +193,7 @@ class DisplayHelper
 
         $this->twig->addFunction(new TwigFunction('week_range', function (string $isoWeek): string {
             if (!preg_match('/^(\d{4})-W(\d{2})$/', $isoWeek, $m)) {
-                return 'Ongeldige weeknotatie';
+                return __('Invalid week notation');
             }
 
             $year = (int)$m[1];
@@ -308,8 +314,8 @@ class DisplayHelper
     public function redirect(string $page): void
     {
         if (in_array(SERVER_TYPE, ['development', 'test']) && headers_sent($file, $line)) {
-            echo "<pre style='color:red; background:#ffecec; padding:10px; border:1px solid #f00'>";
-            echo "⚠️ DEBUG: Redirect naar $page kon niet meer, headers zijn al verzonden in $file op lijn $line";
+            echo "<pre style='color:red; background:#ffecec; padding:10px; border:1px solid #f00'>⚠️ ";
+            printf("DEBUG: Redirect to %s is no longer possible, headers have already been sent in %s on line %s", $page, $file, $line);
             echo "</pre>";
             exit;
         }
@@ -393,7 +399,7 @@ class DisplayHelper
      */
     private function renderPhp(string $template, array $data = []): void
     {
-        extract($data);
+        extract($data, EXTR_SKIP);
         include_once $template;
     }
 
@@ -508,10 +514,12 @@ class DisplayHelper
             'pagination' => false,
             'attachment' => 1,
             'language' => 'nl',
+            'font' => 'Symbol',
+            'fontSize' => 8,
         ], $pdfConfig);
         $mergedData = $this->prepareTwigOutput($data);
         $html = $this->twig->render($template, $mergedData);
-        $html = $this->ImgTagToBase64InHtml($html);
+        $html = $this->imgTagToBase64InHtml($html);
 
         $pdf->setLanguage($pdfConfig['language']);
 
@@ -522,7 +530,9 @@ class DisplayHelper
             $pdfConfig['filename'],
             $pdfConfig['filepath'],
             $pdfConfig['pagination'],
-            $pdfConfig['attachment']
+            $pdfConfig['attachment'],
+            $pdfConfig['font'],
+            $pdfConfig['fontSize'],
         );
     }
 
@@ -557,7 +567,7 @@ class DisplayHelper
      * @param string $html
      * @return string
      */
-    private function ImgTagToBase64InHtml(string $html): string
+    private function imgTagToBase64InHtml(string $html): string
     {
         $dom = new DOMDocument();
         $dom->loadHTML($html, LIBXML_NOERROR);
@@ -586,7 +596,7 @@ class DisplayHelper
                     $image->setAttribute('height', 'auto');
                 } elseif (!$width && $height) {
                     $image->setAttribute('width', 'auto');
-                    $image->setAttribute('height', $width);
+                    $image->setAttribute('height', $height);
                 } else {
                     $image->setAttribute('width', '100%');
                     $image->setAttribute('height', 'auto');

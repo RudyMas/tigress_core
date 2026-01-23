@@ -3,13 +3,13 @@
 namespace Tigress;
 
 /**
- * Class FrameworkHelper (PHP version 8.4)
+ * Class FrameworkHelper (PHP version 8.5)
  * - This class is used to create the necessary directories and files for the framework.
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2024-2025 Rudy Mas (https://rudymas.be)
+ * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.27.0
+ * @version 2026.01.23.0
  * @package Tigress\FrameworkHelper
  */
 class FrameworkHelper
@@ -21,7 +21,7 @@ class FrameworkHelper
      */
     public static function version(): string
     {
-        return '2025.06.27';
+        return '2026.01.23';
     }
 
     /**
@@ -58,11 +58,11 @@ class FrameworkHelper
         }
 
         if (is_dir(SYSTEM_ROOT . '/public') === false) {
-            @mkdir(SYSTEM_ROOT . '/public/css/home', 0777, true);
-            @mkdir(SYSTEM_ROOT . '/public/images', 0777, true);
-            @mkdir(SYSTEM_ROOT . '/public/javascript', 0777, true);
-            @mkdir(SYSTEM_ROOT . '/public/json', 0777, true);
-            @mkdir(SYSTEM_ROOT . '/public/scripts', 0777, true);
+            @mkdir(SYSTEM_ROOT . '/public/css/home', 0755, true);
+            @mkdir(SYSTEM_ROOT . '/public/images', 0755, true);
+            @mkdir(SYSTEM_ROOT . '/public/javascript', 0755, true);
+            @mkdir(SYSTEM_ROOT . '/public/json', 0755, true);
+            @mkdir(SYSTEM_ROOT . '/public/scripts', 0755, true);
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/public/css/home/home.css',
                 SYSTEM_ROOT . '/public/css/home/home.css'
@@ -150,8 +150,8 @@ class FrameworkHelper
             file_put_contents(SYSTEM_ROOT . '/system/initial_version.txt', TIGRESS_CORE_VERSION);
         }
 
-        if (is_dir('tests') === false) {
-            @mkdir('tests');
+        if (is_dir(SYSTEM_ROOT . '/tests') === false) {
+            @mkdir(SYSTEM_ROOT . '/tests');
             @copy(
                 SYSTEM_ROOT . '/vendor/tigress/core/files/.htaccess',
                 SYSTEM_ROOT . '/tests/.htaccess'
@@ -166,7 +166,7 @@ class FrameworkHelper
             );
         }
 
-        if (file_exists('config/config.json') === false || file_exists('config/routes.json') === false) {
+        if (file_exists(SYSTEM_ROOT . '/config/config.json') === false || file_exists(SYSTEM_ROOT . '/config/routes.json') === false) {
             if ($firstInstall) {
                 print('Installation is complete. You can now create the config/config.json & config/routes.json file. Use the sample.json-files as a starting point.');
             } else {
@@ -191,6 +191,6 @@ class FrameworkHelper
             SYSTEM_ROOT . '/vendor/tigress/core/files/system/config.json',
             SYSTEM_ROOT . '/system/config.json'
         );
-        file_put_contents(SYSTEM_ROOT . 'system/update_version.txt', TIGRESS_CORE_VERSION);
+        file_put_contents(SYSTEM_ROOT . '/system/update_version.txt', TIGRESS_CORE_VERSION);
     }
 }
