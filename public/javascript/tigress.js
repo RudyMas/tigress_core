@@ -1,7 +1,7 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
  * Tooltip-init, auto-grow textareas, modals
- * @version 2025.12.12.1
+ * @version 2026.02.11.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -38,7 +38,6 @@ function initDatatablesTranslations() {
     window.tigress = window.tigress || {};
 
     const htmlLang = document.documentElement.lang.toLowerCase() || navigator.language.toLowerCase() || 'en';
-    ;
     const shortLang = htmlLang.substring(0, 2);
     window.tigress.shortLang = shortLang;
 
@@ -166,7 +165,20 @@ function lockOnSubmit(buttonId, text = __('In progress...')) {
     });
 }
 
-// When a form has changed inputs or other fields, warn the user if they try to navigate away without saving
+/**
+ * @version 2026.02.11.0
+ * Warn users about unsaved changes when they attempt to leave the page.
+ * Tracks changes in forms and shows a confirmation dialog if there are unsaved changes.
+ *
+ * @param {string} formSelector - CSS selector to identify forms to track (default: 'form')
+ * @param {string} warningText - Custom warning message for unsaved changes (default: 'You have unsaved changes. Are you sure you want to leave?')
+ * @param {object} options - Additional configuration options:
+ *   - ignoreSelector: CSS selector for fields to ignore when tracking changes (default: '[data-ignore-dirty="1"]')
+ *   - ignoreDisabled: Whether to ignore disabled fields (default: true)
+ *   - enableSelect2: Whether to add special handling for Select2 fields (default: true)
+ *
+ * @returns {object} An object with methods to check dirty state, mark dirty, reset, and destroy the handler.
+ */
 function warnUnsavedChanges(
     formSelector = 'form',
     warningText = __('You have unsaved changes. Are you sure you want to leave?'),
@@ -175,7 +187,6 @@ function warnUnsavedChanges(
     const cfg = {
         ignoreSelector: '[data-ignore-dirty="1"]',
         ignoreDisabled: true,
-        enableTinyMCE: true,
         enableSelect2: true,
         ...options
     };
@@ -189,117 +200,109 @@ function warnUnsavedChanges(
 
     forms.forEach(f => setDirty(f, false));
 
+    const resolveFormFromEl = (el) => el?.closest?.(formSelector) || null;
+
     const isTrackableField = (el) => {
         if (!el || el.nodeType !== 1) return false;
         if (cfg.ignoreSelector && el.closest(cfg.ignoreSelector)) return false;
         if (cfg.ignoreDisabled && (el.disabled || el.closest('fieldset[disabled]'))) return false;
 
-        if (el.matches('button, [type="button"], [type="submit"], [type="reset"], input[type="hidden"]')) {
-            return false;
-        }
+        // ignore buttons and hidden inputs
+        if (el.matches('button, [type="button"], [type="submit"], [type="reset"], input[type="hidden"]')) return false;
 
+        // normal fields
         if (el.matches('input, textarea, select')) return true;
+
+        // contenteditable
         if (el.isContentEditable) return true;
+
         return false;
     };
-
-    const resolveFormFromEl = (el) => el?.closest?.(formSelector) || null;
 
     const markDirtyFromEvent = (e) => {
         const target = e.target;
         if (!isTrackableField(target)) return;
 
         const form = resolveFormFromEl(target);
-        if (!form) return;
-
-        setDirty(form, true);
+        if (form) setDirty(form, true);
     };
 
-    // Generic DOM events (covers: inputs, selects, checkboxes, radios, date pickers, etc.)
+    // Generic DOM events
     const eventTypes = ['input', 'change', 'keyup', 'paste', 'cut'];
     eventTypes.forEach(type => document.addEventListener(type, markDirtyFromEvent, true));
 
-    // Reset dirty on submit (common expectation)
+    // Reset on submit
     const onSubmit = (e) => {
         const form = e.target?.closest?.(formSelector);
         if (form) setDirty(form, false);
     };
     document.addEventListener('submit', onSubmit, true);
 
-    // beforeunload (NOTE: returnValue still used here for broad browser support)
+    // beforeunload
     const onBeforeUnload = (e) => {
         if (!anyDirty()) return;
 
         e.preventDefault();
-        e.returnValue = warningText; // browsers show their own standard text
+        e.returnValue = warningText; // browsers ignore custom text, but this helps trigger the dialog
         return warningText;
     };
     window.addEventListener('beforeunload', onBeforeUnload);
 
-    // ---- TinyMCE integration ----
-    // Marks the form dirty when a TinyMCE editor changes.
-    const tinymceBound = new Set();
+    // ---- Select2 safety net (optional, requires jQuery + Select2) ----
+    let select2HandlerAttached = false;
+    const initSelect2Support = () => {
+        if (!cfg.enableSelect2) return;
 
-    function bindTinyMCEEditor(editor) {
-        if (!editor || tinymceBound.has(editor.id)) return;
-        tinymceBound.add(editor.id);
+        const $ = window.jQuery || window.$;
+        if (!$ || !$.fn || !$.fn.select2) return;
+        if (select2HandlerAttached) return;
+        select2HandlerAttached = true;
 
-        const markDirtyFromEditor = () => {
-            const el = editor.getElement ? editor.getElement() : null; // original textarea
+        $(document).on('select2:select select2:unselect select2:clear select2:close', function (ev) {
+            const el = ev.target; // original <select>
+            if (!el) return;
+            if (cfg.ignoreSelector && el.closest(cfg.ignoreSelector)) return;
+
+            const form = resolveFormFromEl(el);
+            if (form) setDirty(form, true);
+        });
+    };
+    initSelect2Support();
+
+    // ---- TinyMCE hook helper ----
+    // Call controller.bindTinyMCE(editor) from tinymce.init({ setup(editor) { ... }})
+    const bindTinyMCE = (editor) => {
+        if (!editor) return;
+
+        const mark = () => {
+            // original textarea element
+            const el = editor.getElement ? editor.getElement() : null;
+            if (!el) return;
+
+            if (cfg.ignoreSelector && el.closest(cfg.ignoreSelector)) return;
+
             const form = resolveFormFromEl(el);
             if (form) setDirty(form, true);
         };
 
-        // These cover typing, formatting, undo/redo, etc.
-        editor.on('change input undo redo keyup SetContent', markDirtyFromEditor);
+        // Real user edits
+        editor.on('input change undo redo keyup', mark);
 
-        // If editor is removed, untrack it
-        editor.on('remove', () => tinymceBound.delete(editor.id));
-    }
-
-    function initTinyMCESupport() {
-        if (!cfg.enableTinyMCE) return;
-        if (!window.tinymce) return;
-
-        // Existing editors
-        window.tinymce.editors?.forEach(bindTinyMCEEditor);
-
-        // New editors created later
-        window.tinymce.on('AddEditor', (e) => bindTinyMCEEditor(e.editor));
-    }
-
-    initTinyMCESupport();
-
-    // ---- Select2 integration ----
-    // Select2 normally triggers 'change' on the underlying <select>, which we already handle.
-    // This adds extra safety by listening to select2-specific events (requires jQuery).
-    let select2HandlerAttached = false;
-
-    function initSelect2Support() {
-        if (!cfg.enableSelect2) return;
-
-        const $ = window.jQuery || window.$;
-        if (!$ || !$.fn) return;
-        // Only attach if select2 plugin is present
-        if (!$.fn.select2) return;
-        if (select2HandlerAttached) return;
-        select2HandlerAttached = true;
-
-        // Delegated handler catches dynamically created Select2 controls
-        $(document).on('select2:select select2:unselect select2:clear select2:close', function (ev) {
-            const target = ev.target; // usually the original <select>
-            if (!target) return;
-            if (cfg.ignoreSelector && target.closest(cfg.ignoreSelector)) return;
-
-            const form = resolveFormFromEl(target);
-            if (form) setDirty(form, true);
+        // Only treat SetContent as dirty if it's not the initial load
+        editor.on('SetContent', (e) => {
+            // TinyMCE often sets e.initial = true on initial content load
+            // Also ignore programmatic sets (when present)
+            if (e?.initial) return;
+            if (e?.set === true) return;          // some versions use this for programmatic sets
+            if (e?.format === "raw") return;      // optional extra filter, can remove
+            mark();
         });
-    }
+    };
 
-    initSelect2Support();
-
-    // Controller API
     return {
+        // TinyMCE integration point:
+        bindTinyMCE,
+
         isDirty: (formOrSelector) => {
             if (!formOrSelector) return anyDirty();
             const form = resolveForm(formOrSelector);
@@ -321,9 +324,6 @@ function warnUnsavedChanges(
             eventTypes.forEach(type => document.removeEventListener(type, markDirtyFromEvent, true));
             document.removeEventListener('submit', onSubmit, true);
             window.removeEventListener('beforeunload', onBeforeUnload);
-
-            // TinyMCE: we don’t remove editor listeners here because editors may be shared;
-            // if you need hard cleanup, tell me your lifecycle and I’ll wire it.
         }
     };
 
