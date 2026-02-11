@@ -166,6 +166,173 @@ function lockOnSubmit(buttonId, text = __('In progress...')) {
     });
 }
 
+// When a form has changed inputs or other fields, warn the user if they try to navigate away without saving
+function warnUnsavedChanges(
+    formSelector = 'form',
+    warningText = __('You have unsaved changes. Are you sure you want to leave?'),
+    options = {}
+) {
+    const cfg = {
+        ignoreSelector: '[data-ignore-dirty="1"]',
+        ignoreDisabled: true,
+        enableTinyMCE: true,
+        enableSelect2: true,
+        ...options
+    };
+
+    const forms = Array.from(document.querySelectorAll(formSelector));
+    const dirtyMap = new WeakMap();
+
+    const setDirty = (form, value = true) => dirtyMap.set(form, !!value);
+    const isDirtyForm = (form) => dirtyMap.get(form) === true;
+    const anyDirty = () => forms.some(isDirtyForm);
+
+    forms.forEach(f => setDirty(f, false));
+
+    const isTrackableField = (el) => {
+        if (!el || el.nodeType !== 1) return false;
+        if (cfg.ignoreSelector && el.closest(cfg.ignoreSelector)) return false;
+        if (cfg.ignoreDisabled && (el.disabled || el.closest('fieldset[disabled]'))) return false;
+
+        if (el.matches('button, [type="button"], [type="submit"], [type="reset"], input[type="hidden"]')) {
+            return false;
+        }
+
+        if (el.matches('input, textarea, select')) return true;
+        if (el.isContentEditable) return true;
+        return false;
+    };
+
+    const resolveFormFromEl = (el) => el?.closest?.(formSelector) || null;
+
+    const markDirtyFromEvent = (e) => {
+        const target = e.target;
+        if (!isTrackableField(target)) return;
+
+        const form = resolveFormFromEl(target);
+        if (!form) return;
+
+        setDirty(form, true);
+    };
+
+    // Generic DOM events (covers: inputs, selects, checkboxes, radios, date pickers, etc.)
+    const eventTypes = ['input', 'change', 'keyup', 'paste', 'cut'];
+    eventTypes.forEach(type => document.addEventListener(type, markDirtyFromEvent, true));
+
+    // Reset dirty on submit (common expectation)
+    const onSubmit = (e) => {
+        const form = e.target?.closest?.(formSelector);
+        if (form) setDirty(form, false);
+    };
+    document.addEventListener('submit', onSubmit, true);
+
+    // beforeunload (NOTE: returnValue still used here for broad browser support)
+    const onBeforeUnload = (e) => {
+        if (!anyDirty()) return;
+
+        e.preventDefault();
+        e.returnValue = warningText; // browsers show their own standard text
+        return warningText;
+    };
+    window.addEventListener('beforeunload', onBeforeUnload);
+
+    // ---- TinyMCE integration ----
+    // Marks the form dirty when a TinyMCE editor changes.
+    const tinymceBound = new Set();
+
+    function bindTinyMCEEditor(editor) {
+        if (!editor || tinymceBound.has(editor.id)) return;
+        tinymceBound.add(editor.id);
+
+        const markDirtyFromEditor = () => {
+            const el = editor.getElement ? editor.getElement() : null; // original textarea
+            const form = resolveFormFromEl(el);
+            if (form) setDirty(form, true);
+        };
+
+        // These cover typing, formatting, undo/redo, etc.
+        editor.on('change input undo redo keyup SetContent', markDirtyFromEditor);
+
+        // If editor is removed, untrack it
+        editor.on('remove', () => tinymceBound.delete(editor.id));
+    }
+
+    function initTinyMCESupport() {
+        if (!cfg.enableTinyMCE) return;
+        if (!window.tinymce) return;
+
+        // Existing editors
+        window.tinymce.editors?.forEach(bindTinyMCEEditor);
+
+        // New editors created later
+        window.tinymce.on('AddEditor', (e) => bindTinyMCEEditor(e.editor));
+    }
+
+    initTinyMCESupport();
+
+    // ---- Select2 integration ----
+    // Select2 normally triggers 'change' on the underlying <select>, which we already handle.
+    // This adds extra safety by listening to select2-specific events (requires jQuery).
+    let select2HandlerAttached = false;
+
+    function initSelect2Support() {
+        if (!cfg.enableSelect2) return;
+
+        const $ = window.jQuery || window.$;
+        if (!$ || !$.fn) return;
+        // Only attach if select2 plugin is present
+        if (!$.fn.select2) return;
+        if (select2HandlerAttached) return;
+        select2HandlerAttached = true;
+
+        // Delegated handler catches dynamically created Select2 controls
+        $(document).on('select2:select select2:unselect select2:clear select2:close', function (ev) {
+            const target = ev.target; // usually the original <select>
+            if (!target) return;
+            if (cfg.ignoreSelector && target.closest(cfg.ignoreSelector)) return;
+
+            const form = resolveFormFromEl(target);
+            if (form) setDirty(form, true);
+        });
+    }
+
+    initSelect2Support();
+
+    // Controller API
+    return {
+        isDirty: (formOrSelector) => {
+            if (!formOrSelector) return anyDirty();
+            const form = resolveForm(formOrSelector);
+            return form ? isDirtyForm(form) : false;
+        },
+        markDirty: (formOrSelector) => {
+            const form = resolveForm(formOrSelector);
+            if (form) setDirty(form, true);
+        },
+        reset: (formOrSelector) => {
+            if (!formOrSelector) {
+                forms.forEach(f => setDirty(f, false));
+                return;
+            }
+            const form = resolveForm(formOrSelector);
+            if (form) setDirty(form, false);
+        },
+        destroy: () => {
+            eventTypes.forEach(type => document.removeEventListener(type, markDirtyFromEvent, true));
+            document.removeEventListener('submit', onSubmit, true);
+            window.removeEventListener('beforeunload', onBeforeUnload);
+
+            // TinyMCE: we don’t remove editor listeners here because editors may be shared;
+            // if you need hard cleanup, tell me your lifecycle and I’ll wire it.
+        }
+    };
+
+    function resolveForm(formOrSelector) {
+        if (typeof formOrSelector === 'string') return document.querySelector(formOrSelector);
+        return formOrSelector;
+    }
+}
+
 // Automatically initialize on DOM ready
 document.addEventListener('DOMContentLoaded', function () {
     initAutoGrow();
@@ -173,6 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initDatatablesTranslations();
     initGebruikersTable();
     initPasswordToggles();
+    warnUnsavedChanges();
 });
 
 window.initTooltips = initTooltips;

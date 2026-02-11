@@ -196,6 +196,7 @@
     "Write": "Scrivi",
     "Yes": "Sì",
     "You do not have access to the settings.": "Non hai accesso alle impostazioni.",
-    "You do not have the necessary rights to view this page.": "Non hai i diritti necessari per visualizzare questa pagina."
+    "You do not have the necessary rights to view this page.": "Non hai i diritti necessari per visualizzare questa pagina.",
+    "You have unsaved changes. Are you sure you want to leave?": "Hai modifiche non salvate. Sei sicuro di voler lasciare questa pagina?"
   }
 }

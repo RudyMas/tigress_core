@@ -196,6 +196,7 @@
     "Write": "Skriva",
     "Yes": "Ja",
     "You do not have access to the settings.": "Du har inte åtkomst till inställningarna.",
-    "You do not have the necessary rights to view this page.": "Du har inte behörighet att visa denna sida."
+    "You do not have the necessary rights to view this page.": "Du har inte behörighet att visa denna sida.",
+    "You have unsaved changes. Are you sure you want to leave?": "Du har osparade ändringar. Är du säker på att du vill lämna denna sida?"
   }
 }
