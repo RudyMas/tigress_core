@@ -190,6 +190,7 @@ function warnUnsavedChanges(
         enableSelect2: true,
         ...options
     };
+    let bypassOnce = false;
 
     const forms = Array.from(document.querySelectorAll(formSelector));
     const dirtyMap = new WeakMap();
@@ -241,6 +242,7 @@ function warnUnsavedChanges(
     // beforeunload
     const onBeforeUnload = (e) => {
         if (!anyDirty()) return;
+        if (bypassOnce) return;
 
         e.preventDefault();
         e.returnValue = warningText; // browsers ignore custom text, but this helps trigger the dialog
