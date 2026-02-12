@@ -41,7 +41,7 @@ More information about these files can be found in the README.md file located in
 
 - **TRANSLATIONS**: The helper class for configuring and managing translations in the application.
 - **TWIG**: The Twig templating engine instance used for rendering views.
-- **MENUS**: The menu manager instance used for handling navigation menus in the application.
+- **MENU**: The menu manager instance used for handling navigation menus in the application.
 - **SECURITY**: The security manager instance used for handling authentication and authorization.
 - **RIGHTS**: The rights manager instance used for managing user permissions.
 - **ROUTER**: The router instance used for handling HTTP requests and routing them to the appropriate controllers.
