@@ -214,6 +214,26 @@ fieldset legend {
 }
 
 /* Default color for buttons & tiles */
+.white {
+    background: #DBDBDB;
+}
+
+.white-1 {
+    border: 2px solid #DBDBDB;
+}
+
+.white-1 .label {
+    color: #DBDBDB;
+}
+
+.white-1 i {
+    color: #DBDBDB;
+}
+
+.white-1-text {
+    color: #DBDBDB !important;
+}
+
 .red {
     background: #bc1c48;
 }
