@@ -1,0 +1,215 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <a class="navbar-brand" href="{{ BASE_URL }}/">
+        <img src="{{ BASE_URL }}/public/images/Go-Next_logo_dark_trans_nt.png" alt="GO! Next" style="max-height: 80px">
+        <img src="{{ BASE_URL }}/public/images/logo_guna_dark.png" alt="GUNA" style="max-height: 80px">
+    </a>
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#myNavbar"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-warning" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">Links</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="https://{{ _SESSION.gebruiker.platform }}" target='_blank'>Smartschool</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="https://portal.office.com" target='_blank'>Office 365</a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="https://start.informatsoftware.be" target='_blank'>Informat</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="https://onderwijspersoneel.vlaanderen.be/" target='_blank'>Mijn
+                            Onderwijs</a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href='https://u4f.unit4cloud.com/be_u4f_ggo_prod/'
+                           target='_blank'>Coda</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href='https://belfiusweb.belfius.be/' target='_blank'>BelfiusWeb</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href='https://www.twikey.com/nl/login.html' target='_blank'>Twikey</a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href='https://go-next.be' target='_blank'>GO! Next</a>
+                    </li>
+                </ul>
+            </li>
+            {% if _SESSION.SG16 %}
+                <li class="nav-item"><a class="nav-link">|</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://guna.go-next.be/contact/intern.php">Contact</a>
+                </li>
+            {% endif %}
+            {% if _SESSION.gebruiker.rechten_ict == 4 %}
+                <li class="nav-item"><a class="nav-link">|</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">ICT-Apps</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="https://guna.go-next.be/tickets_ict/tickets_ict.php"
+                               target='_blank'>Tickets</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="https://drive.google.com/drive/folders/1BQFOzmaHuWBBM-xvbQhjubYf_oE6gLZQ?usp=sharing"
+                               target='_blank'>Kennis</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="https://guna.go-next.be/planning_ict/planning_ict.php"
+                               target='_blank'>Planning</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">ICT-Links</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="https://go-next.smartschool.be"
+                               target='_blank'>Smartschool</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="https://start.informatsoftware.be"
+                               target='_blank'>Informat</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="https://vo-gebruikersbeheer.vlaanderen.be/" target='_blank'>Mijn
+                                Onderwijs</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="https://unifi.diggit.be:8443" target='_blank'>Unifi</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="http://unifi.diggit.be:82/mysite/check_mk/" target='_blank'>Monitoring</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="https://docs.google.com/spreadsheets/d/1PwjkIlrJS4xRp6oTJWx_JIMlpsMdBt44lNtDuk_HyLs/edit?usp=sharing"
+                               target='_blank'>Uitgeleend</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="https://drive.google.com/drive/folders/1gTLniYHdaaKsWobjUEA1o8itltxRdBt7?usp=sharing"
+                               target='_blank'>Vouchers O365</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            {% if _SESSION.gebruiker.id < 3 or _SESSION.gebruiker.platform == 'vvx.smartschool.be' %}
+                <li class="nav-item"><a class="nav-link">|</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://guna.go-next.be/gedragsrooster/klassen.php">LVS</a>
+                </li>
+            {% endif %}
+            {% if _SESSION.gebruiker.id > 310 and _SESSION.gebruiker.id < 315 %}
+                <li class="nav-item"><a class="nav-link">|</a></li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">{{ _SESSION.gebruiker.naam }}</a>
+                </li>
+            {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if _SESSION.user.avatar != 'null' %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false" style="padding-top: 20px"><i class="fa fa-tv"></i> Hulp op afstand</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="{{ BASE_URL }}/public/files/teamviewer/TeamViewerQS.exe"
+                               style="text-decoration:none;">
+                                <i class="fa-brands fa-windows" style="color:black;"></i> &nbsp;Windows
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ BASE_URL }}/public/files/teamviewer/TeamViewerQS.dmg"
+                               style="text-decoration:none;">
+                                <i class="fa-brands fa-apple" style="color:black;"></i> &nbsp;Mac
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <img src="{{ _SESSION.user.avatar }}" alt="Profile Picture" class="rounded-circle"
+                             style="height: 50px"
+                             onerror="this.style.display='none';
+                                this.closest('a').querySelector('.fa-user').style.display='inline-block';
+                                this.closest('a').querySelector('.fa-user').style.marginTop='1.45rem';"
+                             referrerpolicy="no-referrer"
+                        >
+                        <i class="fa fa-user fa-xl" style="display:none;"></i>
+                        {{ _SESSION.user.first_name }} {{ _SESSION.user.last_name }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ BASE_URL }}/logout" style="padding-top: 20px">
+                        <span class="fa fa-sign-out"></span> Logout
+                    </a>
+                </li>
+            {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false"><i class="fa fa-tv"></i> Hulp op afstand</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="{{ BASE_URL }}/public/files/teamviewer/TeamViewerQS.exe"
+                               style="text-decoration:none;">
+                                <i class="fa-brands fa-windows" style="color:black;"></i> &nbsp;Windows
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ BASE_URL }}/public/files/teamviewer/TeamViewerQS.dmg"
+                               style="text-decoration:none;">
+                                <i class="fa-brands fa-apple" style="color:black;"></i> &nbsp;Mac
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <i class="fa fa-user fa-xl"></i>
+                        {{ _SESSION.user.first_name }} {{ _SESSION.user.last_name }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ BASE_URL }}/logout"><span class="fa fa-sign-out"></span> Logout</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

@@ -24,7 +24,7 @@
     "tigress/data-files": ">=2025",
     "tigress/database": ">=2025",
     "tigress/encryption": ">=2025",
-    "tigress/menu": ">=2025",
+    "tigress/menu": ">=2026",
     "tigress/model": ">=2026",
     "tigress/repository": ">=2026",
     "tigress/rights": ">=2026",
