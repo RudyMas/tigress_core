@@ -39,7 +39,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.01.08.0
+ * @version 2026.03.05.0
  * @package Controller\version
  */
 class VersionController
@@ -55,6 +55,8 @@ class VersionController
 
         if (isset(CONFIG->website->naughty) && CONFIG->website->naughty) {
             $image = file_get_contents(SYSTEM_ROOT . '/vendor/tigress/core/public/images/tigress_naughty.txt');
+        } elseif (isset(CONFIG->website->cute) && CONFIG->website->cute) {
+            $image = BASE_URL . '/vendor/tigress/core/public/images/tigress_cute.png';
         } else {
             $image = BASE_URL . '/vendor/tigress/core/public/images/tigress.jpg';
         }
