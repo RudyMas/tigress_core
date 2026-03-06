@@ -77,7 +77,7 @@ function initGebruikersTable() {
             stateSave: true,
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Alle"]],
             responsive: true,
-            scrollX: true,
+            scrollX: false,
             language: tigress.languageDatatables,
         });
     } else {
