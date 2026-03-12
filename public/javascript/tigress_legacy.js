@@ -7,11 +7,11 @@
  * Mostly because a package like select2 uses jQuery and we don't want to include jQuery in the new JS structure just
  * for select2. Once select2 is migrated to the new JS structure, this file can be removed.
  *
- * @version 2026.02.11.0
+ * @version 2026.03.12.0
  */
 
 function initSelect2(root = document) {
-    $(root).find('select').each(function () {
+    $(root).find('select:not([data-native])').each(function () {
         const $select = $(this);
         if ($select.data('select2')) return; // already initialized
 
