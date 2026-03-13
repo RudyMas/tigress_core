@@ -46,6 +46,66 @@ fieldset legend {
     overflow: hidden;
 }
 
+/* Add a form checkbox with a select behind */
+.form-check-select {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.form-check-select .form-select {
+    width: auto;
+}
+
+/* Create automatic columns layout */
+.layout-columns-2 {
+    column-count: 2;
+}
+
+.layout-columns-3 {
+    column-count: 3;
+}
+
+.layout-columns-4 {
+    column-count: 4;
+}
+
+.layout-columns-5 {
+    column-count: 5;
+}
+
+.layout-columns-6 {
+    column-count: 6;
+}
+
+@media (max-width: 1199.98px) {
+    .layout-columns-2, .layout-columns-3, .layout-columns-4 {
+        column-count: 2;
+    }
+    .layout-columns-5, .layout-columns-6 {
+        column-count: 3;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .layout-columns-2, .layout-columns-3, .layout-columns-4 {
+        column-count: 1;
+    }
+    .layout-columns-5, .layout-columns-6 {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .layout-columns-2, .layout-columns-3, .layout-columns-4, .layout-columns-5, .layout-columns-6 {
+        column-count: 1;
+    }
+}
+
+.layout-columns-2 .lc-block, .layout-columns-3 .lc-block, .layout-columns-4 .lc-block, .layout-columns-5 .lc-block, .layout-columns-6 .lc-block {
+    break-inside: avoid;
+}
+
 /* Transform checkboxes into toggle switches */
 .slider-container {
     display: block; /* or inline-block based on layout */
@@ -704,7 +764,7 @@ table.dataTable {
     border-radius: 10px;
     font-size: 1.1em;
     text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .hidden {
