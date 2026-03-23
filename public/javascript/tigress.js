@@ -1,7 +1,7 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
  * Tooltip-init, auto-grow textareas, modals
- * @version 2026.02.11.0
+ * @version 2026.03.23.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -345,6 +345,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initGebruikersTable();
     initPasswordToggles();
     warnUnsavedChanges();
+    lucide.createIcons();
 });
 
 window.initTooltips = initTooltips;
