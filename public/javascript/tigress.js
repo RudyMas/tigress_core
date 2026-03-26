@@ -1,7 +1,7 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
  * Tooltip-init, auto-grow textareas, modals
- * @version 2026.03.23.0
+ * @version 2026.03.26.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -95,6 +95,33 @@ function initGebruikersTable() {
             }
         });
     }
+}
+
+// Create a reset-button for the saveState
+function resetButtonDatatables(tableName) {
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-sm btn-secondary';
+    btn.innerText = __('Reset table');
+    btn.addEventListener('click', function () {
+        if (confirm(__('Reset this table?'))) {
+            resetDataTables(tableName);
+        }
+    });
+
+    return btn;
+}
+
+// Reset the saveState of a DataTables
+function resetDataTables(tableName) {
+    if (!window.localStorage) {
+        return;
+    }
+
+    const path = window.location.pathname;
+    const key = 'DataTables_' + tableName + '_' + path;
+
+    localStorage.removeItem(key);
+    location.reload();
 }
 
 // Initialise password toggle buttons for password fields
