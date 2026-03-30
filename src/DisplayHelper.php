@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.01.23.0
+ * @version 2026.03.30.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -574,10 +574,11 @@ class DisplayHelper
 
         $images = $dom->getElementsByTagName('img');
         foreach ($images as $image) {
-            $src = $image->getAttribute('src');
-            $src = preg_replace('#https?://[^/]+#', '', $src);
-            $src = preg_replace('/\.\.\//', '/', $src);
-            $src = preg_replace('/%20/', ' ', $src);
+            $src = 'src'
+                    |> $image(...)
+                    |> (fn($x) => preg_replace('#https?://[^/]+#', '', $x))
+                    |> (fn($x) => preg_replace('/\.\.\//', '/', $x))
+                    |> (fn($x) => preg_replace('/%20/', ' ', $x));
             $type = pathinfo($src, PATHINFO_EXTENSION);
             if (is_file(SYSTEM_ROOT . $src)) {
                 $width = $image->getAttribute('width');

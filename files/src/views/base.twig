@@ -70,25 +70,25 @@
         </div>
         {% if _SESSION.error %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ _SESSION.error }}
+                {{ strip_dangerous_tags(_SESSION.error)|raw }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endif %}
         {% if _SESSION.success %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ _SESSION.success }}
+                {{ strip_dangerous_tags(_SESSION.success)|raw }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endif %}
         {% if _SESSION.warning %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ _SESSION.warning }}
+                {{ strip_dangerous_tags(_SESSION.warning)|raw }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endif %}
         {% if _SESSION.message %}
             <div class="alert alert-info alert-dismissible fade show" role="alert">
-                {{ _SESSION.message }}
+                {{ strip_dangerous_tags(_SESSION.message)|raw }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endif %}
