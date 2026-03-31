@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2026.01.23';
+        return '2026.03.30';
     }
 
     /**

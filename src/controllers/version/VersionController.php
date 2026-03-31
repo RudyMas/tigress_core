@@ -29,6 +29,7 @@ use Tigress\Repository;
 use Tigress\Rights;
 use Tigress\Router;
 use Tigress\Security;
+use Tigress\TranslationHelper;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -74,6 +75,7 @@ class VersionController
         $display_helper_version = class_exists('Tigress\DisplayHelper') ? DisplayHelper::version() : 'Not Active';
         $pdf_creator_helper_version = class_exists('Tigress\PdfCreatorHelper') ? PdfCreatorHelper::version() : 'Not Active';
         $logger_helper_version = class_exists('Tigress\LoggerHelper') ? LoggerHelper::version() : 'Not Active';
+        $translation_helper_version = class_exists('Tigress\TranslationHelper') ? TranslationHelper::version() : 'Not Active';
 
         // Get the version of the Tigress Controller Classes loaded
         $google_drive_controller_version = class_exists('Controller\Core\GoogleDriveController') ? GoogleDriveController::version() : 'Not Active';
@@ -113,6 +115,7 @@ class VersionController
             'display_helper_version' => $display_helper_version,
             'pdf_creator_helper_version' => $pdf_creator_helper_version,
             'logger_helper_version' => $logger_helper_version,
+            'translation_helper_version' => $translation_helper_version,
             'google_drive_controller_version' => $google_drive_controller_version,
             'lock_pages_controller_version' => $lock_pages_controller_version,
             'settings_controller_version' => $settings_controller_version,

@@ -19,6 +19,16 @@ class TranslationHelper
     private array $translations = [];
 
     /**
+     * Get the version of the DisplayHelper
+     *
+     * @return string
+     */
+    public static function version(): string
+    {
+        return '2025.06.30';
+    }
+
+    /**
      * Add a translation file to the list
      *
      * @param string $filePath
