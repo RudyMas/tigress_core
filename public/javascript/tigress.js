@@ -568,4 +568,12 @@ window.initAutoGrow = initAutoGrow;
         stop,
         refresh
     };
+
+    // Handle clicks on popup elements
+    document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('popup') || event.target.closest('.popup')) {
+            const popup = document.getElementById('loadingPopup');
+            showPopup(popup);
+        }
+    });
 })();
