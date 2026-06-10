@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.05.07.0
+ * @version 2026.06.10.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2026.05.07';
+        return '2026.06.10';
     }
 
     /**
@@ -167,6 +167,43 @@ class DisplayHelper
                 return ['no_match' => true];
             }
             return $matches;
+        }));
+
+        $this->twig->addFunction(new TwigFunction('split_paragraphs_after', function (string $text, int $minLength = 750): array {
+            if (empty($text)) {
+                return [];
+            }
+
+            // Normalize line endings
+            $text = str_replace(["\r\n", "\r"], "\n", $text);
+
+            $firstChunk = mb_substr($text, 0, $minLength);
+            $remainder  = mb_substr($text, $minLength);
+
+            // Zoek eerste dubbele newline na de minimumlengte
+            $parts = explode("\n\n", $remainder, 2);
+
+            $firstPara = trim($firstChunk . ($parts[0] ?? ''));
+
+            $paras = [];
+
+            if ($firstPara !== '') {
+                $paras[] = $firstPara;
+            }
+
+            if (isset($parts[1])) {
+                $rest = explode("\n\n", $parts[1]);
+
+                foreach ($rest as $para) {
+                    $para = trim($para);
+
+                    if ($para !== '') {
+                        $paras[] = $para;
+                    }
+                }
+            }
+
+            return $paras;
         }));
 
         $purifiers = [];

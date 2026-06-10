@@ -182,6 +182,15 @@ function hidePopup(popupWindow, timeout = 300) {
     setTimeout(() => popupWindow.classList.add('hidden'), timeout);
 }
 
+// Handle clicks on popup elements
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('popup') || event.target.closest('.popup')) {
+        const popup = document.getElementById('loadingPopup');
+        showPopup(popup);
+    }
+});
+
+
 // Lock a button on form submit to prevent multiple submissions
 function lockOnSubmit(buttonId, text = __('In progress...')) {
     const btn = document.getElementById(buttonId);
@@ -193,6 +202,7 @@ function lockOnSubmit(buttonId, text = __('In progress...')) {
         btn.innerText = text;
     });
 }
+
 
 /**
  * @version 2026.02.11.0
@@ -568,12 +578,4 @@ window.initAutoGrow = initAutoGrow;
         stop,
         refresh
     };
-
-    // Handle clicks on popup elements
-    document.addEventListener('click', function (event) {
-        if (event.target.classList.contains('popup') || event.target.closest('.popup')) {
-            const popup = document.getElementById('loadingPopup');
-            showPopup(popup);
-        }
-    });
 })();
