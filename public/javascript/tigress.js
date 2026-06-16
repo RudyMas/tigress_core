@@ -1,7 +1,6 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
- * Tooltip-init, auto-grow textareas, modals
- * @version 2026.03.26.0
+ * @version 2026.06.16.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -579,3 +578,92 @@ window.initAutoGrow = initAutoGrow;
         refresh
     };
 })();
+
+/**
+ * Tigress email validation based on domain rules.
+ * Usage: Add data-email-type="school" or data-email-type="business" to input fields.
+ * Optionally, add data-email-message="Custom message" for a custom validation message.
+ * @type {{school: string[], business: string[]}}
+ */
+const tigressEmailRules = {
+    school: [
+        'gmail.com',
+        'hotmail.com',
+        'outlook.com',
+        'live.com',
+        'msn.com',
+        'yahoo.com',
+        'icloud.com',
+        'proton.me',
+        'protonmail.com'
+    ],
+    business: [
+        'gmail.com',
+        'hotmail.com',
+        'outlook.com',
+        'live.com',
+        'msn.com',
+        'yahoo.com',
+        'icloud.com',
+        'proton.me',
+        'protonmail.com'
+    ]
+};
+
+function validateEmailType(input) {
+
+    const email = input.value.trim().toLowerCase();
+    const type = input.dataset.emailType;
+    const message = input.dataset.emailMessage ||
+        'Dit e-mailadres is niet toegestaan.';
+
+    const blockedDomains = tigressEmailRules[type] || [];
+
+    input.setCustomValidity('');
+
+    if (email === '') {
+        return;
+    }
+
+    if (!email.includes('@')) {
+        return;
+    }
+
+    const domain = email.split('@').pop();
+
+    if (blockedDomains.includes(domain)) {
+        input.setCustomValidity(message);
+    }
+}
+
+// input + blur afhandelen
+document.addEventListener('input', function (event) {
+    if (event.target.matches('input[data-email-type]')) {
+        validateEmailType(event.target);
+    }
+});
+
+document.addEventListener('blur', function (event) {
+    if (event.target.matches('input[data-email-type]')) {
+        validateEmailType(event.target);
+    }
+}, true);
+
+// formulier-validatie
+document.addEventListener('submit', function (event) {
+
+    const form = event.target;
+
+    if (!(form instanceof HTMLFormElement)) {
+        return;
+    }
+
+    form.querySelectorAll('input[data-email-type]')
+        .forEach(validateEmailType);
+
+    if (!form.checkValidity()) {
+        event.preventDefault();
+        form.reportValidity();
+    }
+
+}, true);
