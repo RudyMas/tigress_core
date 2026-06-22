@@ -1,6 +1,6 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
- * @version 2026.06.16.0
+ * @version 2026.06.22.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -595,7 +595,9 @@ const tigressEmailRules = {
         'yahoo.com',
         'icloud.com',
         'proton.me',
-        'protonmail.com'
+        'protonmail.com',
+        'telenet.be',
+        'proximus.be'
     ],
     business: [
         'gmail.com',
