@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.06.10.0
+ * @version 2026.06.24.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2026.06.10';
+        return '2026.06.24';
     }
 
     /**
@@ -94,35 +94,49 @@ class DisplayHelper
             })
         );
 
-        $this->twig->addFunction(new TwigFunction('add_slider', function ($name, $value, $text, $labelPlacing = 'back', $buttonText = false): string {
+        $this->twig->addFunction(new TwigFunction('add_slider', function ($name, $value, $text, $labelPlacing = 'back', $buttonText = false, $checkbox = false, $require = false): string {
             // Set default text if none provided
             if (empty($text)) {
                 $text = __('Enable/Disable');
             }
 
-            // Processing label placing + button text
-            $lang = CONFIG->website->html_lang ?? 'en';
-            $lang = substr($lang, 0, 2);
-            if ($buttonText) {
-                $sliderText = ' slider-label-text-' . $lang;
-            } else {
-                $sliderText = '';
-            }
-
-            if ($labelPlacing === 'front') {
-                $label = $text . ' <span class="slider-label' . $sliderText . '"></span>';
-            } else {
-                $label = '<span class="slider-label' . $sliderText . '"></span> ' . $text;
-            }
-
             // Checked or not
             $checked = $value ? ' checked' : '';
 
-            $output = '<input type="hidden" name="' . $name . '" value="0">';
-            $output .= '<label for="' . $name . '" class="slider-container">';
-            $output .= '<input type="checkbox" id="' . $name . '" name="' . $name . '" class="slider-checkbox" value="1"' . $checked . '>';
-            $output .= $label;
-            $output .= '</label>';
+            // Required or not
+            $required = $require ? ' required' : '';
+
+            $output = '';
+            if ($checkbox) {
+                $output .= '<div class="form-check">';
+                $output .= '<input class="form-check-input" type="checkbox" value="0" id="' . $name . '"' . $checked . $required . '>';
+                $output .= '<label class="form-check-label" for="' . $name . '">';
+                $output .= $text;
+                $output .= '</label>';
+                $output .= '</div>';
+            } else {
+                // Processing label placing + button text
+                $lang = CONFIG->website->html_lang ?? 'en';
+                $lang = substr($lang, 0, 2);
+                if ($buttonText) {
+                    $sliderText = ' slider-label-text-' . $lang;
+                } else {
+                    $sliderText = '';
+                }
+
+                if ($labelPlacing === 'front') {
+                    $label = $text . ' <span class="slider-label' . $sliderText . '"></span>';
+                } else {
+                    $label = '<span class="slider-label' . $sliderText . '"></span> ' . $text;
+                }
+
+                $output .= '<input type="hidden" name="' . $name . '" value="0">';
+                $output .= '<label for="' . $name . '" class="slider-container">';
+                $output .= '<input type="checkbox" id="' . $name . '" name="' . $name . '" class="slider-checkbox" value="1"' . $checked . $required . '>';
+                $output .= $label;
+                $output .= '</label>';
+
+            }
             return $output;
         }));
 

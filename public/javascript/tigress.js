@@ -1,6 +1,6 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
- * @version 2026.06.22.0
+ * @version 2026.06.24.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -169,6 +169,7 @@ function initPasswordToggles(scope = document) {
     });
 }
 
+
 // Show popup
 function showPopup(popupWindow) {
     popupWindow.classList.remove('hidden');
@@ -183,10 +184,23 @@ function hidePopup(popupWindow, timeout = 300) {
 
 // Handle clicks on popup elements
 document.addEventListener('click', function (event) {
-    if (event.target.classList.contains('popup') || event.target.closest('.popup')) {
-        const popup = document.getElementById('loadingPopup');
-        showPopup(popup);
+    const popupElement = event.target.closest('.popup');
+
+    if (!popupElement) {
+        return;
     }
+
+    // Is dit een submit-knop binnen een form?
+    if (
+        popupElement.matches('button[type="submit"], input[type="submit"]') &&
+        popupElement.form &&
+        !popupElement.form.checkValidity()
+    ) {
+        return;
+    }
+
+    const popup = document.getElementById('loadingPopup');
+    showPopup(popup);
 });
 
 
@@ -616,8 +630,9 @@ function validateEmailType(input) {
 
     const email = input.value.trim().toLowerCase();
     const type = input.dataset.emailType;
-    const message = input.dataset.emailMessage ||
-        'Dit e-mailadres is niet toegestaan.';
+    let message = input.dataset.emailMessage ||
+        'This email address is not allowed.';
+    message = __(message);
 
     const blockedDomains = tigressEmailRules[type] || [];
 
