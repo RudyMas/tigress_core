@@ -1,5 +1,5 @@
 <!-- This is the base template for all pages. It includes the menu, sidebar, header, content, footer, ... -->
-<!-- Version: 2025.11.12 -->
+<!-- Version: 2026.06.26 -->
 <!DOCTYPE html>
 <html lang="{% block html_lang %}{{ WEBSITE.html_lang }}{% endblock %}">
 <head>
@@ -100,6 +100,25 @@
 <div id="loadingPopup" class="loading-popup hidden">
     <div class="loading-content">
         <p>{{  __('Please wait, processing...') }}</p>
+    </div>
+</div>
+<!-- Standard modal to be used for downloading files -->
+<div class="modal fade" id="downloadProgressModal" tabindex="-1" aria-labelledby="downloadProgressModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-body p-4 text-center">
+                <div class="d-flex align-items-center justify-content-center gap-3 mb-3">
+                    <div class="spinner-border text-warning" style="width: 1.8rem; height: 1.8rem;" role="status">
+                        <span class="visually-hidden">{{ __('Loading...') }}</span>
+                    </div>
+                    <h5 class="fw-bold mb-0">{{ __('Downloading file...') }}</h5>
+                </div>
+                <div class="progress mb-2" style="height: 16px;">
+                    <div id="downloadProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-warning fw-bold small text-dark" role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+                <p id="downloadProgressText" class="text-muted small mb-0">{{ __('Please wait, preparing your download...') }}</p>
+            </div>
+        </div>
     </div>
 </div>
 </body>
