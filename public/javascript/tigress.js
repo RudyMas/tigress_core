@@ -1,6 +1,6 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
- * @version 2026.06.26.0
+ * @version 2026.06.30.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -216,6 +216,24 @@ function lockOnSubmit(buttonId, text = __('In progress...')) {
     });
 }
 
+// add lock-submit class to buttons that should be locked on submit
+document.addEventListener('submit', function (event) {
+    const button = event.submitter;
+
+    if (!button || !button.classList.contains('lock-submit')) {
+        return;
+    }
+
+    button.disabled = true;
+
+    const text = button.dataset.lockText || __('In progress...');
+
+    if (button.tagName === 'INPUT') {
+        button.value = text;
+    } else {
+        button.innerText = text;
+    }
+});
 
 /**
  * @version 2026.02.11.0
