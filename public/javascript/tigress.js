@@ -1,6 +1,6 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
- * @version 2026.06.30.0
+ * @version 2026.07.03.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -205,14 +205,18 @@ document.addEventListener('click', function (event) {
 
 
 // Lock a button on form submit to prevent multiple submissions
-function lockOnSubmit(buttonId, text = __('In progress...')) {
+function lockOnSubmit(buttonId, text = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' + __('In progress...')) {
     const btn = document.getElementById(buttonId);
     if (!btn) return;
 
     const form = btn.closest('form');
     form.addEventListener('submit', () => {
         btn.disabled = true;
-        btn.innerText = text;
+        if (btn.tagName === 'INPUT') {
+            btn.value = text;
+        } else {
+            btn.innerHTML = text;
+        }
     });
 }
 
@@ -231,7 +235,7 @@ document.addEventListener('submit', function (event) {
     if (button.tagName === 'INPUT') {
         button.value = text;
     } else {
-        button.innerText = text;
+        button.innerHTML = text;
     }
 });
 
