@@ -1,6 +1,6 @@
 /**
  * Tigress.js - Moderne UI-hulpfuncties zonder jQuery
- * @version 2026.07.03.1
+ * @version 2026.09.03.0
  */
 
 // Initialise Bootstrap tooltips for elements with data-bs-toggle="tooltip", data-toggle="tooltip", or data-bs-toggle="modal"
@@ -710,34 +710,78 @@ document.addEventListener('submit', function (event) {
 // Showing download progress on the website
 const TigressDownload = (() => {
     const getFilenameFromDisposition = (disposition, fallback) => {
-        if (!disposition) return fallback;
+        if (!disposition) {
+            return fallback;
+        }
 
         const utf8Match = disposition.match(/filename\*=UTF-8''([^;\n]+)/i);
+
         if (utf8Match?.[1]) {
             return decodeURIComponent(utf8Match[1]);
         }
 
         const match = disposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/i);
+
         return match?.[1]?.replace(/['"]/g, '') || fallback;
     };
 
     const resolveModal = (modal, modalId) => {
-        if (modal) return modal;
+        if (modal) {
+            return modal;
+        }
 
         if (!modalId || typeof bootstrap === 'undefined') {
             return null;
         }
 
         const modalElement = document.getElementById(modalId);
-        return modalElement ? bootstrap.Modal.getOrCreateInstance(modalElement) : null;
+
+        return modalElement
+            ? bootstrap.Modal.getOrCreateInstance(modalElement)
+            : null;
     };
 
     const resolveElement = (element, id) => {
-        if (element) return element;
+        if (element) {
+            return element;
+        }
+
         return id ? document.getElementById(id) : null;
     };
 
-    const updateProgress = (bar, text, percent, loadedBytes, totalBytes) => {
+    const showModal = (modal) => {
+        if (!modal) {
+            return Promise.resolve();
+        }
+
+        const modalElement = modal._element;
+
+        if (!modalElement) {
+            return Promise.resolve();
+        }
+
+        if (modalElement.classList.contains('show')) {
+            return Promise.resolve();
+        }
+
+        return new Promise(resolve => {
+            modalElement.addEventListener(
+                'shown.bs.modal',
+                () => resolve(),
+                { once: true }
+            );
+
+            modal.show();
+        });
+    };
+
+    const updateProgress = (
+        bar,
+        text,
+        percent,
+        loadedBytes,
+        totalBytes
+    ) => {
         if (bar) {
             bar.style.width = `${percent}%`;
             bar.setAttribute('aria-valuenow', String(percent));
@@ -746,7 +790,9 @@ const TigressDownload = (() => {
 
         if (text && totalBytes) {
             text.textContent =
-                `${__('Busy downloading')}: ${(loadedBytes / 1024).toFixed(0)} KB / ${(totalBytes / 1024).toFixed(0)} KB...`;
+                `${__('Busy downloading')}: ` +
+                `${(loadedBytes / 1024).toFixed(0)} KB / ` +
+                `${(totalBytes / 1024).toFixed(0)} KB...`;
         }
     };
 
@@ -788,8 +834,12 @@ const TigressDownload = (() => {
                 progressBar.textContent = '0%';
             }
 
-            if (progressText) progressText.textContent = msg.connecting;
-            if (modal) modal.show();
+            if (progressText) {
+                progressText.textContent = msg.connecting;
+            }
+
+            // Wait until the Bootstrap modal is fully visible.
+            await showModal(modal);
 
             const response = await fetcher(url, {
                 method,
@@ -801,15 +851,26 @@ const TigressDownload = (() => {
                 throw new Error(`HTTP ${response.status}`);
             }
 
-            const disposition = response.headers.get('content-disposition');
-            const finalFilename = getFilenameFromDisposition(disposition, filename);
+            const disposition = response.headers.get(
+                'content-disposition'
+            );
 
-            const contentLength = response.headers.get('content-length');
+            const finalFilename = getFilenameFromDisposition(
+                disposition,
+                filename
+            );
+
+            const contentLength = response.headers.get(
+                'content-length'
+            );
 
             let blob;
 
             if (!contentLength || !response.body) {
-                if (progressText) progressText.textContent = msg.downloading;
+                if (progressText) {
+                    progressText.textContent = msg.downloading;
+                }
+
                 blob = await response.blob();
             } else {
                 const totalBytes = parseInt(contentLength, 10);
@@ -821,7 +882,8 @@ const TigressDownload = (() => {
                     async start(controller) {
                         try {
                             while (true) {
-                                const { done, value } = await reader.read();
+                                const { done, value } =
+                                    await reader.read();
 
                                 if (done) {
                                     controller.close();
@@ -830,8 +892,20 @@ const TigressDownload = (() => {
 
                                 loadedBytes += value.byteLength;
 
-                                const percent = Math.round((loadedBytes / totalBytes) * 100);
-                                updateProgress(progressBar, progressText, percent, loadedBytes, totalBytes);
+                                const percent = Math.min(
+                                    100,
+                                    Math.round(
+                                        (loadedBytes / totalBytes) * 100
+                                    )
+                                );
+
+                                updateProgress(
+                                    progressBar,
+                                    progressText,
+                                    percent,
+                                    loadedBytes,
+                                    totalBytes
+                                );
 
                                 controller.enqueue(value);
                             }
@@ -844,7 +918,15 @@ const TigressDownload = (() => {
                 blob = await new Response(stream).blob();
             }
 
-            if (progressText) progressText.textContent = msg.saving;
+            if (progressBar) {
+                progressBar.style.width = '100%';
+                progressBar.setAttribute('aria-valuenow', '100');
+                progressBar.textContent = '100%';
+            }
+
+            if (progressText) {
+                progressText.textContent = msg.saving;
+            }
 
             const blobUrl = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -854,19 +936,24 @@ const TigressDownload = (() => {
             a.download = finalFilename;
 
             document.body.appendChild(a);
+
             a.click();
 
-            window.URL.revokeObjectURL(blobUrl);
-            document.body.removeChild(a);
+            // Give the browser a moment to start handling the download
+            // before removing the temporary link and Blob URL.
+            setTimeout(() => {
+                window.URL.revokeObjectURL(blobUrl);
+                a.remove();
+            }, 100);
 
             return true;
         } catch (error) {
             alert(msg.error + error.message);
             return false;
         } finally {
-            setTimeout(() => {
-                if (modal) modal.hide();
-            }, 400);
+            if (modal) {
+                modal.hide();
+            }
         }
     };
 
@@ -884,8 +971,11 @@ document.addEventListener('click', function (event) {
 
     event.preventDefault();
 
-    TigressDownload.download(button.dataset.url, {
-        filename: button.dataset.filename || 'download.pdf',
-        modalId: button.dataset.modalId || 'downloadProgressModal'
+    TigressDownload.download(button.dataset.url + '?t=' + Date.now(), {
+        filename:
+            button.dataset.filename || 'download.pdf',
+
+        modalId:
+            button.dataset.modalId || 'downloadProgressModal'
     });
 });
