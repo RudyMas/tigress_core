@@ -1,9 +1,4 @@
 /**
- * Tigress JavaScript module
- * Split from Tigress.js @version 2026.09.03.0
- */
-
-/**
  * @version 2026.01.08.0
  * Universele tigress translation loader and __-functie
  * Load 1 or more translation files and combine them smartly.

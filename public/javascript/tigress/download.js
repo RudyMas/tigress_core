@@ -1,5 +1,5 @@
 /**
- * Tigress JavaScript module
+ * Tigress Download JavaScript module
  * Split from Tigress.js @version 2026.09.03.0
  */
 

@@ -1,5 +1,5 @@
 /**
- * Tigress JavaScript module
+ * Tigress DataTables JavaScript module
  * Split from Tigress.js @version 2026.09.03.0
  */
 
