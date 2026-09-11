@@ -22,7 +22,7 @@
     "tigress/controller": ">=2025",
     "tigress/data-converter": ">=2025",
     "tigress/data-files": ">=2025",
-    "tigress/database": ">=2025",
+    "tigress/database": ">=2026",
     "tigress/encryption": ">=2025",
     "tigress/menu": ">=2026",
     "tigress/model": ">=2026",
