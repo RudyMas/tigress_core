@@ -24,7 +24,7 @@ use Twig\TwigFunction;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.06.24.0
+ * @version 2026.09.14.0
  * @package Tigress\DisplayHelper
  */
 class DisplayHelper
@@ -39,7 +39,7 @@ class DisplayHelper
      */
     public static function version(): string
     {
-        return '2026.06.24';
+        return '2026.09.14';
     }
 
     /**
@@ -287,6 +287,17 @@ class DisplayHelper
     public function addPath(string $path): void
     {
         $this->loader->addPath($path);
+    }
+
+    /**
+     * Convert pixels to points
+     *
+     * @param float $px
+     * @return float
+     */
+    public function pxToPt(float $px): float
+    {
+        return $px * 0.75;
     }
 
     /**
