@@ -10,7 +10,7 @@ use Repository\WebsiteMessagesRepo;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.09.18.1
+ * @version 2026.09.18.2
  * @package Tigress\WebsiteMessagesHelper
  */
 class WebsiteMessagesHelper
@@ -106,7 +106,7 @@ class WebsiteMessagesHelper
         // Check URL path
         $urlPattern = str_replace('*', '__WILDCARD__', $urlPattern);
         $pattern = preg_quote($urlPattern, '/');
-        $pattern = str_replace('__WILDCARD__', '.*', $pattern);
+        $pattern = str_replace('__WILDCARD__', '[^\/]+', $pattern);
 
         if (preg_match('/^' . $pattern . '$/', $currentUrlPath) !== 1) {
             return false;
