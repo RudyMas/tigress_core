@@ -702,6 +702,7 @@ class DisplayHelper
             'SERVER_TYPE' => SERVER_TYPE,
             'SYSTEM_ROOT' => SYSTEM_ROOT,
             'WEBSITE' => WEBSITE,
+            'WEBSITE_MESSAGES' => WebsiteMessagesHelper::getWebsiteMessages(),
             'menu' => MENU,
             'rights' => $rights,
         ]);

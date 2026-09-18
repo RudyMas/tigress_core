@@ -1,6 +1,6 @@
 /**
  * Tigress.js - Main entry point
- * @version 2026.09.11.1
+ * @version 2026.09.18.0
  */
 
 import { initTooltips, initAutoGrow } from './tigress/core.js';
@@ -14,6 +14,8 @@ import {
     initPasswordToggles,
     warnUnsavedChanges
 } from './tigress/forms.js';
+
+import { initCarousel } from './tigress/carousel.js';
 
 import './tigress/translations.js';
 import './tigress/popup.js';
@@ -29,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initGebruikersTable();
     initPasswordToggles();
     warnUnsavedChanges();
+    initCarousel();
 
     if (window.lucide) {
         window.lucide.createIcons();

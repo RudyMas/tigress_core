@@ -1,5 +1,5 @@
 <!-- This is the base template for all pages. It includes the menu, sidebar, header, content, footer, ... -->
-<!-- Version: 2026.06.26 -->
+<!-- Version: 2026.09.18 -->
 <!DOCTYPE html>
 <html lang="{% block html_lang %}{{ WEBSITE.html_lang }}{% endblock %}">
 <head>
@@ -68,6 +68,11 @@
         <div class="container">
             {% block breadcrumb %}{% endblock %}
         </div>
+        {% if WEBSITE_MESSAGES.page_top.message %}
+            <div class="alert alert-{{ WEBSITE_MESSAGES.page_top.type|default('info') }}" role="alert">
+                {{ WEBSITE_MESSAGES.page_top.message|raw }}
+            </div>
+        {% endif %}
         {% if _SESSION.error %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ strip_dangerous_tags(_SESSION.error)|raw }}
@@ -93,6 +98,11 @@
             </div>
         {% endif %}
         {% block content %}{% endblock %}
+        {% if WEBSITE_MESSAGES.page_bottom.message %}
+            <div class="alert alert-{{ WEBSITE_MESSAGES.page_bottom.type|default('info') }}" role="alert">
+                {{ WEBSITE_MESSAGES.page_bottom.message|raw }}
+            </div>
+        {% endif %}
     </div>
     <footer>{% block footer %}{% endblock %}</footer>
 </div>
@@ -102,6 +112,45 @@
         <p>{{  __('Please wait, processing...') }}</p>
     </div>
 </div>
+<!-- Popup for website messages -->
+{% if WEBSITE_MESSAGES.popup %}
+    <div id="carouselContainer">
+        <div id="carouselWebsiteMessages" class="carousel slide" data-bs-ride="carousel" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for popup in WEBSITE_MESSAGES.popup %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <div class="row">
+                            <div class="offset-1 col-10" style="overflow: hidden; overflow-y: auto">
+                                <fieldset>
+                                    {% if popup.title %}
+                                        <h5 class="text-center">{{ popup.title }}</h5>
+                                        <hr>
+                                    {% endif %}
+                                    {{ popup.message|raw }}
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if WEBSITE_MESSAGES.popup|length > 1 %}
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselWebsiteMessages"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">{{ __('Previous') }}</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselWebsiteMessages"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">{{ __('Next') }}</span>
+                </button>
+            {% endif %}
+        </div>
+        <div class="carousel-footer">
+            <button id="closeCarousel">&nbsp;{{ __('Close') }}&nbsp;</button>
+        </div>
+    </div>
+{% endif %}
 <!-- Standard modal to be used for downloading files -->
 <div class="modal fade" id="downloadProgressModal" tabindex="-1" aria-labelledby="downloadProgressModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">

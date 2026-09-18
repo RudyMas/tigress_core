@@ -42,7 +42,8 @@
     "tigress/http_requests": "*",
     "tigress/kanban-board": "*",
     "tigress/manipulator": "*",
-    "tigress/users": "*"
+    "tigress/users": "*",
+    "tigress/website-messages": "*"
   },
   "autoload": {
     "files": [

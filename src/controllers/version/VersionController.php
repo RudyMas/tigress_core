@@ -30,6 +30,9 @@ use Tigress\Rights;
 use Tigress\Router;
 use Tigress\Security;
 use Tigress\TranslationHelper;
+use Tigress\Users;
+use Tigress\WebsiteMessages;
+use Tigress\WebsiteMessagesHelper;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -40,7 +43,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.03.05.0
+ * @version 2026.09.18.0
  * @package Controller\version
  */
 class VersionController
@@ -76,6 +79,7 @@ class VersionController
         $pdf_creator_helper_version = class_exists('Tigress\PdfCreatorHelper') ? PdfCreatorHelper::version() : 'Not Active';
         $logger_helper_version = class_exists('Tigress\LoggerHelper') ? LoggerHelper::version() : 'Not Active';
         $translation_helper_version = class_exists('Tigress\TranslationHelper') ? TranslationHelper::version() : 'Not Active';
+        $website_messages_helper_version = class_exists('Tigress\WebsiteMessagesHelper') ? WebsiteMessagesHelper::version() : 'Not Active';
 
         // Get the version of the Tigress Controller Classes loaded
         $google_drive_controller_version = class_exists('Controller\Core\GoogleDriveController') ? GoogleDriveController::version() : 'Not Active';
@@ -92,6 +96,7 @@ class VersionController
         $tigress_data_files_version = class_exists('Tigress\DataFiles') ? DataFiles::version() : 'Not Active';
         $tigress_file_manager_version = class_exists('Tigress\FileManager') ? FileManager::version() : 'Not Active';
         $tigress_http_requests_version = class_exists('Tigress\HttpRequests') ? HttpRequests::version() : 'Not Active';
+        $tigress_website_messages_version = class_exists('Tigress\WebsiteMessages') ? WebsiteMessages::version() : 'Not Active';
         $tigress_communication_version = class_exists('Tigress\Communication') ? Communication::version() : ['Communication' => 'Not Active'];
         $tigress_google_api_version = class_exists('Tigress\GoogleApi') ? GoogleApi::version() : ['GoogleApi' => 'Not Active'];
         $tigress_manipulator_version = class_exists('Tigress\Manipulator') ? Manipulator::version() : ['Manipulator' => 'Not Active'];
@@ -100,7 +105,7 @@ class VersionController
         $tigress_kanban_board_version = class_exists('Tigress\KanbanBoard') ? KanbanBoard::version() : 'Not Active';
         $tigress_form_builder_version = class_exists('Tigress\FormBuilder') ? FormBuilder::version() : 'Not Active';
         $tigress_form_viewer_version = class_exists('Tigress\FormViewer') ? FormViewer::version() : 'Not Active';
-        $tigress_users_version = class_exists('Tigress\Users') ? \Tigress\Users::version() : 'Not Active';
+        $tigress_users_version = class_exists('Tigress\Users') ? Users::version() : 'Not Active';
 
         TWIG->render('version/index.twig', [
             'image' => $image,
@@ -116,6 +121,7 @@ class VersionController
             'pdf_creator_helper_version' => $pdf_creator_helper_version,
             'logger_helper_version' => $logger_helper_version,
             'translation_helper_version' => $translation_helper_version,
+            'website_messages_helper_version' => $website_messages_helper_version,
             'google_drive_controller_version' => $google_drive_controller_version,
             'lock_pages_controller_version' => $lock_pages_controller_version,
             'settings_controller_version' => $settings_controller_version,
@@ -133,6 +139,7 @@ class VersionController
             'tigress_form_builder_version' => $tigress_form_builder_version,
             'tigress_form_viewer_version' => $tigress_form_viewer_version,
             'tigress_users_version' => $tigress_users_version,
+            'tigress_website_messages_version' => $tigress_website_messages_version,
         ]);
     }
 }

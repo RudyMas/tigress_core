@@ -770,3 +770,54 @@ table.dataTable {
 .hidden {
     display: none;
 }
+
+/* Custom styles for the Website Messages popup carousel */
+#carouselContainer {
+    background-color: #3e444a;
+    color: white;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    overflow: hidden;
+    height: auto;
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5000;
+
+    .carousel-footer {
+        width: 100%;
+        text-align: center;
+        transform: translateY(5px);
+    }
+
+    .carousel-control-prev {
+        background: grey;
+        color: whitesmoke;
+        height: 50px;
+        width: 50px;
+    }
+
+    .carousel-control-next {
+        background: grey;
+        color: whitesmoke;
+        height: 50px;
+        width: 50px;
+    }
+}
+
+@media (max-width: 900px) {
+    #carouselContainer {
+        width: 80%;
+        height: 60%;
+        border-radius: 0;
+        padding: 0;
+
+        .carousel-control-prev, .carousel-control-next {
+            height: 30px;
+            width: 30px;
+        }
+    }
+}
