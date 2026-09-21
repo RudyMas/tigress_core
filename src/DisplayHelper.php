@@ -7,6 +7,7 @@ use DOMDocument;
 use Exception;
 use HTMLPurifier;
 use HTMLPurifier_Config;
+use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\NoReturn;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -287,17 +288,6 @@ class DisplayHelper
     public function addPath(string $path): void
     {
         $this->loader->addPath($path);
-    }
-
-    /**
-     * Convert pixels to points
-     *
-     * @param float $px
-     * @return float
-     */
-    public function pxToPt(float $px): float
-    {
-        return $px * 0.75;
     }
 
     /**
