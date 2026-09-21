@@ -66,6 +66,7 @@ class WebsiteMessagesHelper
                             $popup[] = [
                                 'title' => $tigressWebsiteMessage->title,
                                 'message' => $tigressWebsiteMessage->message,
+                                'type' => $tigressWebsiteMessage->type,
                             ];
                             break;
                     }

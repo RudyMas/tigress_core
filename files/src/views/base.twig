@@ -121,7 +121,7 @@
                     <div class="carousel-item {% if loop.first %}active{% endif %}">
                         <div class="row">
                             <div class="offset-1 col-10" style="overflow: hidden; overflow-y: auto">
-                                <fieldset>
+                                <fieldset class="bg-{{ popup.type|default('light') }}-subtle p-3 rounded">
                                     {% if popup.title %}
                                         <h5 class="text-center">{{ popup.title }}</h5>
                                         <hr>
