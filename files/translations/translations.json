@@ -1,35 +1,47 @@
 {
-  "nl": {
-    "word": "woord",
-    "Word": "Woord",
-    "Or a sentence.": "Of een zin."
-  },
-  "fr": {
-    "word": "mot",
-    "Word": "Mot",
-    "Or a sentence.": "Ou une phrase."
-  },
   "de": {
     "word": "Wort",
     "Word": "Wort",
-    "Or a sentence.": "Oder ein Satz."
+    "Or a sentence.": "Oder ein Satz.",
+    "Or even when you have replacement variables in your sentence, like {{ variable }}.": "Oder sogar, wenn Sie Ersatzvariablen in Ihrem Satz haben, wie {{ variable }}.",
+    "Or even when you use %s for replacement variables in your sentence.": "Oder sogar, wenn Sie %s für Ersatzvariablen in Ihrem Satz verwenden."
+  },
+  "en": {
+    "Of van een andere taal naar het Engels.": "Or from another language to English."
   },
   "es": {
     "word": "palabra",
     "Word": "Palabra",
-    "Or a sentence.": "O una frase."
+    "Or a sentence.": "O una frase.",
+    "Or even when you have replacement variables in your sentence, like {{ variable }}.": "O incluso cuando tenga variables de reemplazo en su oración, como {{ variable }}.",
+    "Or even when you use %s for replacement variables in your sentence.": "O incluso cuando use %s para variables de reemplazo en su oración."
+  },
+  "fr": {
+    "word": "mot",
+    "Word": "Mot",
+    "Or a sentence.": "Ou une phrase.",
+    "Or even when you have replacement variables in your sentence, like {{ variable }}.": "Ou même lorsque vous avez des variables de remplacement dans votre phrase, comme {{ variable }}.",
+    "Or even when you use %s for replacement variables in your sentence.": "Ou même lorsque vous utilisez %s pour des variables de remplacement dans votre phrase."
   },
   "it": {
     "word": "parola",
     "Word": "Parola",
-    "Or a sentence.": "O una frase."
+    "Or a sentence.": "O una frase.",
+    "Or even when you have replacement variables in your sentence, like {{ variable }}.": "O anche quando hai variabili di sostituzione nella tua frase, come {{ variable }}.",
+    "Or even when you use %s for replacement variables in your sentence.": "O anche quando usi %s per le variabili di sostituzione nella tua frase."
+  },
+  "nl": {
+    "word": "woord",
+    "Word": "Woord",
+    "Or a sentence.": "Of een zin.",
+    "Or even when you have replacement variables in your sentence, like {{ variable }}.": "Of zelfs wanneer u vervangingsvariabelen in uw zin heeft, zoals {{ variable }}.",
+    "Or even when you use %s for replacement variables in your sentence.": "Of zelfs wanneer u %s gebruikt voor vervangingsvariabelen in uw zin."
   },
   "sv": {
     "word": "ord",
     "Word": "Ord",
-    "Or a sentence.": "Eller en mening."
-  },
-  "en": {
-    "Of van een andere taal naar het Engels.": "Or from another language to English."
+    "Or a sentence.": "Eller en mening.",
+    "Or even when you have replacement variables in your sentence, like {{ variable }}.": "Eller även när du har ersättningsvariabler i din mening, som {{ variable }}.",
+    "Or even when you use %s for replacement variables in your sentence.": "Eller även när du använder %s för ersättningsvariabler i din mening."
   }
 }

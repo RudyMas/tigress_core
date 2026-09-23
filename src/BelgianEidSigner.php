@@ -33,7 +33,7 @@ use RuntimeException;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2026.09.21.0
+ * @version 2026.09.23.0
  * @package Tigress\BelgianEidSigner
  */
 class BelgianEidSigner
@@ -50,7 +50,7 @@ class BelgianEidSigner
      */
     public static function version(): string
     {
-        return '2026.09.21';
+        return '2026.09.23';
     }
 
     /**
@@ -1180,18 +1180,18 @@ class BelgianEidSigner
     }
 
     private function findPageObject(
-        string     $pdf,
+        string $pdf,
         int|string $page = 'last'
     ): array
     {
         if (!preg_match_all(
-            '/(\d+)\s+(\d+)\s+obj\s*(<<.*?\/Type\s*\/Page\b.*?>>)\s*endobj/s',
+            '/(\d+)\s+(\d+)\s+obj\s*(.*?)\s*endobj/s',
             $pdf,
             $matches,
             PREG_SET_ORDER
         )) {
             throw new RuntimeException(
-                'Unable to locate PDF pages.'
+                'Unable to locate PDF objects.'
             );
         }
 
@@ -1199,28 +1199,33 @@ class BelgianEidSigner
          * A PDF using incremental updates can contain an older
          * and a newer version of the same page object.
          *
-         * Keep the last occurrence of every object number.
+         * Keep the last occurrence of every page object number.
          */
         $pages = [];
 
         foreach ($matches as $match) {
-            $objectNumber =
-                (int)$match[1];
+            $content = $match[3];
+
+            /*
+             * Match /Type /Page, but not /Type /Pages.
+             */
+            if (!preg_match(
+                '/\/Type\s*\/Page\b/',
+                $content
+            )) {
+                continue;
+            }
+
+            $objectNumber = (int)$match[1];
 
             $pages[$objectNumber] = [
-                'number' =>
-                    $objectNumber,
-
-                'generation' =>
-                    (int)$match[2],
-
-                'content' =>
-                    $match[3],
+                'number' => $objectNumber,
+                'generation' => (int)$match[2],
+                'content' => $content,
             ];
         }
 
-        $pages =
-            array_values($pages);
+        $pages = array_values($pages);
 
         if ($pages === []) {
             throw new RuntimeException(
@@ -1229,15 +1234,10 @@ class BelgianEidSigner
         }
 
         if ($page === 'last') {
-            $selected =
-                $pages[count($pages) - 1];
+            $selected = $pages[count($pages) - 1];
         } else {
-            $pageNumber =
-                (int)$page;
+            $pageNumber = (int)$page;
 
-            /*
-             * Public page numbering starts at 1.
-             */
             if (
                 $pageNumber < 1
                 || $pageNumber > count($pages)
@@ -1251,8 +1251,7 @@ class BelgianEidSigner
                 );
             }
 
-            $selected =
-                $pages[$pageNumber - 1];
+            $selected = $pages[$pageNumber - 1];
         }
 
         return [

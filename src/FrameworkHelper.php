@@ -167,6 +167,14 @@ class FrameworkHelper
             );
         }
 
+        if (is_dir(SYSTEM_ROOT . '/tools') === false) {
+            @mkdir(SYSTEM_ROOT . '/tools');
+            @copy(
+                SYSTEM_ROOT . '/vendor/tigress/core/files/tools/copy-web-eid.mjs',
+                SYSTEM_ROOT . '/tools/copy-web-eid.mjs'
+            );
+        }
+
         if (is_dir(SYSTEM_ROOT . '/translations') === false) {
             @mkdir(SYSTEM_ROOT . '/translations');
             @copy(
