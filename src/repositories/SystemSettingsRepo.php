@@ -16,6 +16,18 @@ class SystemSettingsRepo extends Repository
         $this->primaryKey = ['setting'];
         $this->model = 'DefaultModel';
         $this->autoload = true;
+        $this->createTable = [
+            'table' => "
+                CREATE TABLE `{$this->table}` (
+                  `setting` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                  `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+            ",
+            'indexes' => [
+                "ALTER TABLE `{$this->table}` ADD PRIMARY KEY (`setting`);"
+            ],
+            'seed' => []
+        ];
         parent::__construct();
     }
 }

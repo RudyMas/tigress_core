@@ -11,7 +11,7 @@ use Dompdf\Options;
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2026 Rudy Mas (https://rudymas.be)
- * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
+ * @license Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  * @version 2026.01.23.0
  * @package Tigress\PdfCreatorHelper
  */

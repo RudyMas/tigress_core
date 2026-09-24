@@ -11,7 +11,7 @@ use Twig\Error\SyntaxError;
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
- * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
+ * @license https://opensource.org/licenses/Apache-2.0 License Apache-2.0
  * @version 2025.02.28.0
  * @package Controller\HomeController
  */
