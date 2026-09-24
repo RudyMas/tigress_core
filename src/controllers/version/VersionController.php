@@ -86,7 +86,6 @@ class VersionController
         $google_drive_controller_version = class_exists('Controller\Core\GoogleDriveController') ? GoogleDriveController::version() : 'Not Active';
         $lock_pages_controller_version = class_exists('Controller\Core\LockPagesController') ? LockPagesController::version() : 'Not Active';
         $settings_controller_version = class_exists('Controller\Core\SettingsController') ? SettingsController::version() : 'Not Active';
-        $belgian_eid_signer_version = class_exists('Tigress\BelgianEidSigner') ? BelgianEidSigner::version() : 'Not Active';
 
         // Get the version of the Tigress Database Classes loaded
         $tigress_database_version = class_exists('Tigress\Database') && CONFIG->packages->tigress_database ? Database::version() : 'Not Active';
@@ -94,6 +93,7 @@ class VersionController
         $tigress_model_version = class_exists('Tigress\Model') ? Model::version() : 'Not Active';
 
         // Get the version of the Tigress Support Classes loaded
+        $tigress_belgian_eid_signer_version = class_exists('Tigress\BelgianEidSigner') ? BelgianEidSigner::version() : 'Not Active';
         $tigress_data_converter_version = class_exists('Tigress\DataConverter') ? DataConverter::version() : 'Not Active';
         $tigress_data_files_version = class_exists('Tigress\DataFiles') ? DataFiles::version() : 'Not Active';
         $tigress_file_manager_version = class_exists('Tigress\FileManager') ? FileManager::version() : 'Not Active';
@@ -127,10 +127,10 @@ class VersionController
             'google_drive_controller_version' => $google_drive_controller_version,
             'lock_pages_controller_version' => $lock_pages_controller_version,
             'settings_controller_version' => $settings_controller_version,
-            'belgian_eid_signer_version' => $belgian_eid_signer_version,
             'tigress_database_version' => $tigress_database_version,
             'tigress_repository_version' => $tigress_repository_version,
             'tigress_model_version' => $tigress_model_version,
+            'tigress_belgian_eid_signer_version' => $tigress_belgian_eid_signer_version,
             'tigress_data_converter_version' => $tigress_data_converter_version,
             'tigress_data_files_version' => $tigress_data_files_version,
             'tigress_file_manager_version' => $tigress_file_manager_version,
