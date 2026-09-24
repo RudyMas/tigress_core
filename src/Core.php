@@ -27,7 +27,7 @@ use Twig\Error\LoaderError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2024-2026, rudymas.be. (http://www.rudymas.be/)
  * @license Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- * @version 2026.09.21.0
+ * @version 2026.09.24.0
  * @package Tigress\Core
  */
 class Core
@@ -38,7 +38,7 @@ class Core
      */
     public function __construct()
     {
-        define('TIGRESS_CORE_VERSION', '2026.09.21');
+        define('TIGRESS_CORE_VERSION', '2026.09.24');
 
         // Load the config files
         if (file_exists('config/config.json') === true) {
