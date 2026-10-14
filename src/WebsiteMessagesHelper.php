@@ -10,7 +10,7 @@ use Repository\WebsiteMessagesRepo;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2026 Rudy Mas (https://rudymas.be)
  * @license Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- * @version 2026.09.18.2
+ * @version 2026.10.14.0
  * @package Tigress\WebsiteMessagesHelper
  */
 class WebsiteMessagesHelper
@@ -22,7 +22,7 @@ class WebsiteMessagesHelper
      */
     public static function version(): string
     {
-        return '2026.09.18';
+        return '2026.10.14';
     }
 
     public static function getWebsiteMessages(): array
@@ -33,8 +33,8 @@ class WebsiteMessagesHelper
 
             $tigressWebsiteMessagesRepo = new WebsiteMessagesRepo();
             $tigressWebsiteMessagesRepo->loadByWhereQuery("
-                (active_from IS NULL OR active_from <= NOW())
-                AND (active_until IS NULL OR active_until >= NOW())
+                (active_from = '0000-00-00 00:00:00' OR active_from <= NOW())
+                AND (active_until = '0000-00-00 00:00:00' OR active_until >= NOW())
                 AND active = 1
                 ",
                 [],
